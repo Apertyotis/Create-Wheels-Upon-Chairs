@@ -10,7 +10,6 @@ import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
 import net.apertyotis.createwheelsuponchairs.content.belt.BeltBlockEntityEx;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -30,10 +29,6 @@ public abstract class BeltInventoryMixin {
     @Final
     @Shadow
     private List<TransportedItemStack> items;
-
-    @Final
-    @Shadow
-    List<TransportedItemStack> toInsert;
 
     @Final
     @Shadow
