@@ -6,11 +6,10 @@ import com.simibubi.create.AllSpecialTextures;
 import com.simibubi.create.CreateClient;
 import com.simibubi.create.content.contraptions.glue.SuperGlueEntity;
 import com.simibubi.create.foundation.utility.RaycastHelper;
+import com.simibubi.create.foundation.utility.VecHelper;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
 import net.apertyotis.createwheelsuponchairs.AllPackets;
 import net.apertyotis.createwheelsuponchairs.mixin.create.contraption.glue.SuperGlueSelectionHandlerAccessor;
-import net.createmod.catnip.math.VecHelper;
-import net.createmod.catnip.outliner.Outliner;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Direction;
@@ -47,7 +46,7 @@ public class HachimiGlueHandler {
 
         if (((SuperGlueSelectionHandlerAccessor) CreateClient.GLUE_HANDLER).getFirstPos() == null &&
                 AllItems.SUPER_GLUE.isIn(player.getMainHandItem())) {
-            Vec3 traceOrigin = player.getEyePosition();
+            Vec3 traceOrigin = RaycastHelper.getTraceOrigin(player);
             Vec3 traceTarget = RaycastHelper.getTraceTarget(player, 32, traceOrigin);
             Vec3 projectedView = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
 
@@ -111,7 +110,7 @@ public class HachimiGlueHandler {
             inside ? result.getFacing().getOpposite() : result.getFacing();
 
         boolean near = ((SuperGlueSelectionHandlerAccessor) CreateClient.GLUE_HANDLER).getSelected() == selected;
-        Outliner.getInstance().chaseAABB(selected, bb)
+        CreateClient.OUTLINER.chaseAABB(selected, bb)
             .colored(near ? 0xffa166 : 0xffeb85)
             .withFaceTextures(AllSpecialTextures.GLUE, AllSpecialTextures.GLUE)
             .disableLineNormals()

@@ -25,7 +25,7 @@ public abstract class BeltRendererMixin {
     }
 
     @WrapOperation(
-        method = "renderItem",
+        method = "renderItems",
         at = @At(
             value = "INVOKE",
             target = "Lcom/simibubi/create/content/kinetics/belt/BeltBlockEntity;getSpeed()F"

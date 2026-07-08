@@ -8,10 +8,9 @@ import com.simibubi.create.content.fluids.hosePulley.HosePulleyFluidHandler;
 import com.simibubi.create.content.fluids.transfer.FluidDrainingBehaviour;
 import com.simibubi.create.content.fluids.transfer.FluidFillingBehaviour;
 import com.simibubi.create.foundation.item.TooltipHelper;
+import com.simibubi.create.foundation.utility.LangBuilder;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
 import net.apertyotis.createwheelsuponchairs.CreateWheelsUponChairs;
-import net.createmod.catnip.lang.FontHelper;
-import net.createmod.catnip.lang.LangBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -84,7 +83,7 @@ public abstract class HosePulleyBlockEntityMixin {
         } else if (!((FluidManipulationBehaviourAccessor) drainer).invokeCanDrainInfinitely(fluid.getFluid())) {
             Component hint = Component.translatable("cwuc.goggle.hose_pulley.cant_infinite")
                 .withStyle(ChatFormatting.RED);
-            for (Component line: TooltipHelper.cutTextComponent(hint, FontHelper.Palette.RED)) {
+            for (Component line: TooltipHelper.cutTextComponent(hint, TooltipHelper.Palette.RED)) {
                 new LangBuilder(CreateWheelsUponChairs.MOD_ID).add(line).forGoggles(tooltip);
             }
             return false;
@@ -93,7 +92,7 @@ public abstract class HosePulleyBlockEntityMixin {
         } else if (caa$fillerInfinite) {
             Component hint = Component.translatable("cwuc.goggle.hose_pulley.lower_hose")
                 .withStyle(ChatFormatting.GOLD);
-            for (Component line: TooltipHelper.cutTextComponent(hint, FontHelper.Palette.YELLOW)) {
+            for (Component line: TooltipHelper.cutTextComponent(hint, TooltipHelper.Palette.YELLOW)) {
                 new LangBuilder(CreateWheelsUponChairs.MOD_ID).add(line).forGoggles(tooltip);
             }
             return false;

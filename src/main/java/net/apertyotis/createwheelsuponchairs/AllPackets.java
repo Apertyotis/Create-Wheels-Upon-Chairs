@@ -2,6 +2,7 @@ package net.apertyotis.createwheelsuponchairs;
 
 import com.simibubi.create.foundation.networking.SimplePacketBase;
 import net.apertyotis.createwheelsuponchairs.content.hachimiGlue.HachimiGlueModificationPacket;
+import net.apertyotis.createwheelsuponchairs.content.thresholdSwitch.ConfigurePreciseThresholdSwitchPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkDirection;
@@ -17,7 +18,8 @@ import static net.minecraftforge.network.NetworkDirection.PLAY_TO_SERVER;
 
 public enum AllPackets {
 
-    MODIFY_GLUE(HachimiGlueModificationPacket.class, HachimiGlueModificationPacket::new, PLAY_TO_SERVER);
+    MODIFY_GLUE(HachimiGlueModificationPacket.class, HachimiGlueModificationPacket::new, PLAY_TO_SERVER),
+    CONFIGURE_THRESHOLD_SWITCH_EX(ConfigurePreciseThresholdSwitchPacket.class, ConfigurePreciseThresholdSwitchPacket::new, PLAY_TO_SERVER);
 
     @SuppressWarnings("removal")
     public static final ResourceLocation CHANNEL_NAME = new ResourceLocation(CreateWheelsUponChairs.MOD_ID, "main");

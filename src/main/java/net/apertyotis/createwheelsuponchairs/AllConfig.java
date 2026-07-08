@@ -35,24 +35,26 @@ public class AllConfig {
         public final ForgeConfigSpec.BooleanValue EASY_BELT;
         public final ForgeConfigSpec.BooleanValue FAST_CONTRAPTION_STORAGE;
         public final ForgeConfigSpec.BooleanValue FAST_LOGISTICS;
+        public final ForgeConfigSpec.BooleanValue FAST_VAULT;
         public final ForgeConfigSpec.BooleanValue BASIN_FAUCET_VIEW;
+        public final ForgeConfigSpec.BooleanValue BETTER_THRESHOLD_SWITCH;
 
         public final ForgeConfigSpec.BooleanValue PSI_FIX;
+        public final ForgeConfigSpec.BooleanValue BACKTANK_FIX;
         public final ForgeConfigSpec.BooleanValue HOSE_PULLEY_FIX;
         public final ForgeConfigSpec.BooleanValue VAULT_AND_TANK_SCHEMATIC_FIX;
         public final ForgeConfigSpec.BooleanValue FLUID_NETWORK_FIX;
         public final ForgeConfigSpec.BooleanValue BELT_FIX;
+        public final ForgeConfigSpec.BooleanValue FIX_9803;
         public final ForgeConfigSpec.BooleanValue PROCESSING_FIX;
         public final ForgeConfigSpec.BooleanValue TRAIN_FIX;
-        public final ForgeConfigSpec.BooleanValue LOGISTICS_FIX;
-        public final ForgeConfigSpec.BooleanValue FIX_9729;
-        public final ForgeConfigSpec.BooleanValue FIX_9803;
 
         public final ForgeConfigSpec.BooleanValue PLAYER_CAN_BREATH_UNDERWATER;
         public final ForgeConfigSpec.BooleanValue DISABLE_DIG_SPEED_PENALTY;
         public final ForgeConfigSpec.BooleanValue ALWAYS_ALLOW_FLYING;
         public final ForgeConfigSpec.BooleanValue KEEP_FLYING_ON_GROUND;
         public final ForgeConfigSpec.BooleanValue HEURISTIC_ROTATION;
+        public final ForgeConfigSpec.BooleanValue DESIGN_DECOR_FIX;
 
         Common(ForgeConfigSpec.Builder builder) {
             builder.comment("Common").push("common");
@@ -96,15 +98,24 @@ public class AllConfig {
             FAST_LOGISTICS = builder
                 .comment("Optimize the performance of various logistics components.")
                 .define("fast_logistics", true);
+            FAST_VAULT = builder
+                .comment("Optimize the performance of item vault.")
+                .define("fast_vault",true);
             BASIN_FAUCET_VIEW = builder
                 .comment("Show the contents of the basin faucet when wearing Goggles.")
                 .define("basin_faucet_view", true);
+            BETTER_THRESHOLD_SWITCH = builder
+                .comment("Backported the threshold switch from Create 6.0.x. (Need restart)")
+                .define("better_threshold_switch", true);
             builder.pop();
 
             builder.comment("Bugfix").push("bugfix");
             PSI_FIX = builder
-                .comment("Backported the fix from Create PR #9624.")
+                .comment("Backported the fix from Create PR #8542, #9109 and #9624.")
                 .define("psi_fix", true);
+            BACKTANK_FIX = builder
+                .comment("Backported the fix from Create PR #7284.")
+                .define("backtank_fix", true);
             HOSE_PULLEY_FIX = builder
                 .comment("Fix hose pulleys incorrectly showing \"Bottomless Supply\" and stopping fill 2 blocks before reaching the actual threshold;")
                 .comment("Fix fluid input rates above 1000 mB/t to hose pulleys being incorrectly reduced;")
@@ -115,14 +126,17 @@ public class AllConfig {
                 .comment("Fix single-block tanks or vaults placed by schematic incorrectly have zero capacity.")
                 .define("vault_and_tank_schematic_fix", true);
             FLUID_NETWORK_FIX = builder
-                .comment("Backported the fix from Create PR #9974 and #10001;")
+                .comment("Backported the fix from Create PR #7054, #9137, #9974 and #10001;")
                 .comment("Fix open pipes being unable to place fluids when the output rate exceeds 1000 mB/t.")
                 .define("fluid_network_fix", true);
             BELT_FIX = builder
-                .comment("Backported the fix from Create PR #9891, #9967 and #10017;")
+                .comment("Backported the fix from Create PR #8335, #9891, #9967 and #10017;")
                 .comment("Fix the issue where the outputs of belt processing machines will be pushed back to the input side by a blocked belt funnel;")
                 .comment("Fix Create Issue #9682.")
                 .define("belt_fix", true);
+            FIX_9803 = builder
+                .comment("Backported the fix from Create PR #9803")
+                .define("fix_9803", true);
             PROCESSING_FIX = builder
                 .comment("Fix one of the two fluids output of a basin disappearing under certain conditions;")
                 .comment("Fix recipe priority sorting not taking fluid ingredient amounts into account;")
@@ -134,15 +148,6 @@ public class AllConfig {
                 .comment("Attempt to fix the issue where trains sometimes cause crashes;")
                 .comment("Fix an issue where trains never release their reserved signal segment, causing a deadlock.")
                 .define("train_fix", true);
-            LOGISTICS_FIX = builder
-                .comment("Backported the fix from Create PR #9649 and #9793.")
-                .define("logistics_fix", true);
-            FIX_9729 = builder
-                .comment("Backported the fix from Create PR #9729")
-                .define("fix_9729", true);
-            FIX_9803 = builder
-                .comment("Backported the fix from Create PR #9803")
-                .define("fix_9803", true);
             builder.pop();
 
             builder.comment("Misc").push("misc");
@@ -164,6 +169,10 @@ public class AllConfig {
                 .comment("As a result, vanilla structure block placement and Create schematic printing are unable to correctly rotate these blocks.")
                 .comment("Enabling this feature automatically detects common facing properties and applies rotation/mirror.")
                 .define("heuristic_rotation", true);
+            DESIGN_DECOR_FIX = builder
+                .comment("Allow schematic printing rotated large boiler;")
+                .comment("Fix the drops of railing blocks.")
+                .define("design_decor_fix", true);
             builder.pop();
         }
     }
@@ -179,24 +188,25 @@ public class AllConfig {
     public static boolean smart_fluid_pipe;
     public static boolean easy_belt;
     public static boolean fast_logistics;
+    public static boolean fast_vault;
     public static boolean basin_faucet_view;
 
     public static boolean psi_fix;
+    public static boolean backtank_fix;
     public static boolean hose_pulley_fix;
     public static boolean vault_and_tank_schematic_fix;
     public static boolean fluid_network_fix;
     public static boolean belt_fix;
+    public static boolean fix_9803;
     public static boolean processing_fix;
     public static boolean train_fix;
-    public static boolean logistics_fix;
-    public static boolean fix_9729;
-    public static boolean fix_9803;
 
     public static boolean player_can_breath_underwater;
     public static boolean disable_dig_speed_penalty;
     public static boolean always_allow_flying;
     public static boolean keep_flying_on_ground;
     public static boolean heuristic_rotation;
+    public static boolean design_decor_fix;
 
     public static void onLoading() {
         deployer_instant_output = COMMON.DEPLOYER_INSTANT_OUTPUT.get();
@@ -209,24 +219,25 @@ public class AllConfig {
         smart_fluid_pipe = COMMON.SMART_FLUID_PIPE.get();
         easy_belt = COMMON.EASY_BELT.get();
         fast_logistics = COMMON.FAST_LOGISTICS.get();
+        fast_vault = COMMON.FAST_VAULT.get();
         basin_faucet_view = COMMON.BASIN_FAUCET_VIEW.get();
 
         psi_fix = COMMON.PSI_FIX.get();
+        backtank_fix = COMMON.BACKTANK_FIX.get();
         hose_pulley_fix = COMMON.HOSE_PULLEY_FIX.get();
         vault_and_tank_schematic_fix = COMMON.VAULT_AND_TANK_SCHEMATIC_FIX.get();
         fluid_network_fix = COMMON.FLUID_NETWORK_FIX.get();
         belt_fix = COMMON.BELT_FIX.get();
+        fix_9803 = COMMON.FIX_9803.get();
         processing_fix = COMMON.PROCESSING_FIX.get();
         train_fix = COMMON.TRAIN_FIX.get();
-        logistics_fix = COMMON.LOGISTICS_FIX.get();
-        fix_9729 = COMMON.FIX_9729.get();
-        fix_9803 = COMMON.FIX_9803.get();
 
         player_can_breath_underwater = COMMON.PLAYER_CAN_BREATH_UNDERWATER.get();
         disable_dig_speed_penalty = COMMON.DISABLE_DIG_SPEED_PENALTY.get();
         always_allow_flying = COMMON.ALWAYS_ALLOW_FLYING.get();
         keep_flying_on_ground = COMMON.KEEP_FLYING_ON_GROUND.get();
         heuristic_rotation = COMMON.HEURISTIC_ROTATION.get();
+        design_decor_fix = COMMON.DESIGN_DECOR_FIX.get();
     }
 
     // 重载配置时，更新缓存

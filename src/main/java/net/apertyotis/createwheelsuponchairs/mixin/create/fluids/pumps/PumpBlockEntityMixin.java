@@ -9,10 +9,10 @@ import com.simibubi.create.content.fluids.FluidTransportBehaviour;
 import com.simibubi.create.content.fluids.pipes.SmartFluidPipeBlockEntity;
 import com.simibubi.create.content.fluids.pipes.valve.FluidValveBlockEntity;
 import com.simibubi.create.content.fluids.pump.PumpBlockEntity;
+import com.simibubi.create.foundation.utility.BlockFace;
+import com.simibubi.create.foundation.utility.Pair;
 import net.apertyotis.createwheelsuponchairs.foundation.BlockFaceEx;
 import net.apertyotis.createwheelsuponchairs.foundation.FluidTransportBehaviourEx;
-import net.createmod.catnip.data.Pair;
-import net.createmod.catnip.math.BlockFace;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
@@ -67,7 +67,7 @@ public abstract class PumpBlockEntityMixin {
         method = "searchForEndpointRecursively",
         at = @At(
             value = "NEW",
-            target = "(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)Lnet/createmod/catnip/math/BlockFace;",
+            target = "(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)Lcom/simibubi/create/foundation/utility/BlockFace;",
             ordinal = 1
         )
     )

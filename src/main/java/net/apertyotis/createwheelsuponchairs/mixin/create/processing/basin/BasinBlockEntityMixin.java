@@ -4,11 +4,12 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.simibubi.create.content.processing.basin.BasinBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
-import com.simibubi.create.foundation.utility.CreateLang;
+import com.simibubi.create.foundation.utility.Components;
+import com.simibubi.create.foundation.utility.Iterate;
+import com.simibubi.create.foundation.utility.Lang;
+import com.simibubi.create.foundation.utility.LangBuilder;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
 import net.apertyotis.createwheelsuponchairs.mixin.create.foundation.fluid.CombinedTankWrapperAccessor;
-import net.createmod.catnip.data.Iterate;
-import net.createmod.catnip.lang.LangBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -121,23 +122,23 @@ public abstract class BasinBlockEntityMixin {
         for (ItemStack item: spoutputBuffer) {
             if (item.isEmpty())
                 continue;
-            CreateLang.text("")
-                .add(Component.translatable(item.getDescriptionId())
+            Lang.text("")
+                .add(Components.translatable(item.getDescriptionId())
                     .withStyle(ChatFormatting.GRAY))
-                .add(CreateLang.text(" x" + item.getCount())
+                .add(Lang.text(" x" + item.getCount())
                     .style(ChatFormatting.GREEN))
                 .forGoggles(tooltip, 1);
         }
 
-        LangBuilder mb = CreateLang.translate("generic.unit.millibuckets");
+        LangBuilder mb = Lang.translate("generic.unit.millibuckets");
         for (FluidStack fluid: spoutputFluidBuffer) {
             if (fluid.isEmpty())
                 continue;
-            CreateLang.text("")
-                .add(CreateLang.fluidName(fluid)
-                    .add(CreateLang.text(" "))
+            Lang.text("")
+                .add(Lang.fluidName(fluid)
+                    .add(Lang.text(" "))
                     .style(ChatFormatting.GRAY)
-                    .add(CreateLang.number(fluid.getAmount())
+                    .add(Lang.number(fluid.getAmount())
                         .add(mb)
                         .style(ChatFormatting.BLUE)))
                 .forGoggles(tooltip, 1);

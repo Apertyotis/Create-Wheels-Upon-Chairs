@@ -8,9 +8,9 @@ import com.simibubi.create.content.trains.graph.DiscoveredPath;
 import com.simibubi.create.content.trains.graph.TrackEdge;
 import com.simibubi.create.content.trains.graph.TrackNode;
 import com.simibubi.create.content.trains.station.GlobalStation;
+import com.simibubi.create.foundation.utility.Couple;
+import com.simibubi.create.foundation.utility.Pair;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
-import net.createmod.catnip.data.Couple;
-import net.createmod.catnip.data.Pair;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -56,7 +56,7 @@ public abstract class NavigationMixin {
         method = "search(DDZLjava/util/ArrayList;Lcom/simibubi/create/content/trains/entity/Navigation$StationTest;)V",
         at = @At(
             value = "INVOKE",
-            target = "Lcom/simibubi/create/content/trains/entity/Navigation$StationTest;test(DDLjava/util/Map;Lnet/createmod/catnip/data/Pair;Lcom/simibubi/create/content/trains/station/GlobalStation;)Z",
+            target = "Lcom/simibubi/create/content/trains/entity/Navigation$StationTest;test(DDLjava/util/Map;Lcom/simibubi/create/foundation/utility/Pair;Lcom/simibubi/create/content/trains/station/GlobalStation;)Z",
             ordinal = 1
         )
     )

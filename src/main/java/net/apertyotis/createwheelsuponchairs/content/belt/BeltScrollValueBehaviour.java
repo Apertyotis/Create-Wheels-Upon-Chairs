@@ -9,7 +9,8 @@ import com.simibubi.create.foundation.blockEntity.behaviour.ValueSettingsBoard;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueSettingsFormatter;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.BulkScrollValueBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollValueBehaviour;
-import com.simibubi.create.foundation.utility.CreateLang;
+import com.simibubi.create.foundation.utility.Components;
+import com.simibubi.create.foundation.utility.Lang;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -40,8 +41,8 @@ public class BeltScrollValueBehaviour extends BulkScrollValueBehaviour {
     @Override
     public ValueSettingsBoard createBoard(Player player, BlockHitResult hitResult) {
         ImmutableList<Component> rows = ImmutableList.of(
-            Component.literal("⟳").withStyle(ChatFormatting.BOLD),
-            Component.literal("⟲").withStyle(ChatFormatting.BOLD));
+            Components.literal("⟳").withStyle(ChatFormatting.BOLD),
+            Components.literal("⟲").withStyle(ChatFormatting.BOLD));
         ValueSettingsFormatter formatter = new ValueSettingsFormatter(this::formatSettings);
         return new ValueSettingsBoard(label, 256, 32, rows, formatter);
     }
@@ -56,10 +57,10 @@ public class BeltScrollValueBehaviour extends BulkScrollValueBehaviour {
 
     public MutableComponent formatSettings(ValueSettings vs) {
         if (vs.value() == 0){
-            return CreateLang.text("*").component();
+            return Lang.text("*").component();
         } else {
-            return CreateLang.number(Math.abs(vs.value()))
-                .add(CreateLang.text(vs.row() == 0 ? "⟳" : "⟲").style(ChatFormatting.BOLD))
+            return Lang.number(Math.abs(vs.value()))
+                .add(Lang.text(vs.row() == 0 ? "⟳" : "⟲").style(ChatFormatting.BOLD))
                 .component();
         }
     }

@@ -33,7 +33,13 @@ public class CWUCMixinPlugin implements IMixinConfigPlugin {
             try (FileConfig config = FileConfig.of(path)) {
                 config.load();
                 if (!config.getOrElse("common.fast_contraption_storage", true))
-                    blacklist.add("%s.%s.%s".formatted(PATH, "create", "api.MountedItemStorageWrapperMixin"));
+                    blacklist.add("%s.%s.%s".formatted(PATH, "create", "contraption.ContraptionInvWrapperMixin"));
+                if (!config.getOrElse("common.better_threshold_switch", true)) {
+                    blacklist.add("%s.%s.%s".formatted(PATH, "create", "redstone.thresholdSwitch.ConfigureThresholdSwitchPacketMixin"));
+                    blacklist.add("%s.%s.%s".formatted(PATH, "create", "redstone.thresholdSwitch.SophisticatedStorageMixin"));
+                    blacklist.add("%s.%s.%s".formatted(PATH, "create", "redstone.thresholdSwitch.ThresholdSwitchBlockEntityMixin"));
+                    blacklist.add("%s.%s.%s".formatted(PATH, "create", "redstone.thresholdSwitch.ThresholdSwitchScreenMixin"));
+                }
             }
         }
     }
@@ -50,6 +56,8 @@ public class CWUCMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+        if (Mods.CreateAndesiteAbound.isLoaded())
+            return false;
         init();
         return !blacklist.contains(mixinClassName);
     }

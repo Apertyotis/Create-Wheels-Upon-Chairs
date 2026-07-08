@@ -1,19 +1,17 @@
 package net.apertyotis.createwheelsuponchairs.content.belt;
 
-import dev.engine_room.flywheel.lib.transform.TransformStack;
+import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.content.kinetics.belt.BeltBlock;
 import com.simibubi.create.content.kinetics.belt.BeltPart;
 import com.simibubi.create.content.kinetics.belt.BeltSlope;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
-import net.createmod.catnip.math.AngleHelper;
-import net.createmod.catnip.math.VecHelper;
+import com.simibubi.create.foundation.utility.AngleHelper;
+import com.simibubi.create.foundation.utility.VecHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Direction.AxisDirection;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
@@ -22,7 +20,7 @@ import net.minecraft.world.phys.Vec3;
 public class BeltValueBoxTransform extends ValueBoxTransform.Sided {
 
     @Override
-    public Vec3 getLocalOffset(LevelAccessor level, BlockPos pos, BlockState state) {
+    public Vec3 getLocalOffset(BlockState state) {
         try {
             BeltSlope slope = state.getValue(BeltBlock.SLOPE);
             BeltPart part = state.getValue(BeltBlock.PART);
@@ -61,13 +59,13 @@ public class BeltValueBoxTransform extends ValueBoxTransform.Sided {
     }
 
     @Override
-    public void rotate(LevelAccessor level, BlockPos pos, BlockState state, PoseStack ms) {
+    public void rotate(BlockState state, PoseStack ms) {
         try {
             BeltSlope slope = state.getValue(BeltBlock.SLOPE);
             BeltPart part = state.getValue(BeltBlock.PART);
             Direction facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
             switch (slope) {
-                case HORIZONTAL -> TransformStack.of(ms).rotateYDegrees(180).rotateXDegrees(90);
+                case HORIZONTAL -> TransformStack.cast(ms).rotateY(180).rotateX(90);
                 case VERTICAL, SIDEWAYS -> {
                     float yRot = switch (getSide()) {
                         case SOUTH -> 180;
@@ -75,17 +73,17 @@ public class BeltValueBoxTransform extends ValueBoxTransform.Sided {
                         case EAST -> 270;
                         default -> 0;
                     };
-                    TransformStack.of(ms).rotateYDegrees(yRot);
+                    TransformStack.cast(ms).rotateY(yRot);
                 }
                 case UPWARD, DOWNWARD -> {
                     boolean magic = facing.getAxisDirection() == AxisDirection.POSITIVE ^ slope == BeltSlope.UPWARD;
                     boolean top = (part == BeltPart.START && slope == BeltSlope.DOWNWARD) ||
                         (part == BeltPart.END && slope == BeltSlope.UPWARD);
                     if (facing.getAxis() == Axis.Z)
-                        TransformStack.of(ms).rotateYDegrees(magic ? 180 : 0);
+                        TransformStack.cast(ms).rotateY(magic ? 180 : 0);
                     else
-                        TransformStack.of(ms).rotateYDegrees(magic ? 270 : 90);
-                    TransformStack.of(ms).rotateXDegrees(top ? 90 : 45);
+                        TransformStack.cast(ms).rotateY(magic ? 270 : 90);
+                    TransformStack.cast(ms).rotateX(top ? 90 : 45);
                 }
             }
         } catch (IllegalArgumentException ignored) {}

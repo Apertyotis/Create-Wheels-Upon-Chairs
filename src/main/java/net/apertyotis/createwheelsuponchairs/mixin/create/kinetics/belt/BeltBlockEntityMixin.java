@@ -2,14 +2,19 @@ package net.apertyotis.createwheelsuponchairs.mixin.create.kinetics.belt;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.belt.BeltBlockEntity;
+import com.simibubi.create.content.kinetics.belt.transport.BeltInventory;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollValueBehaviour;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
 import net.apertyotis.createwheelsuponchairs.content.belt.BeltBlockEntityEx;
 import net.apertyotis.createwheelsuponchairs.content.belt.BeltScrollValueBehaviour;
 import net.apertyotis.createwheelsuponchairs.content.belt.BeltValueBoxTransform;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,16 +24,48 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 @Mixin(value = BeltBlockEntity.class, remap = false)
-public class BeltBlockEntityMixin implements BeltBlockEntityEx {
+public class BeltBlockEntityMixin extends KineticBlockEntity implements BeltBlockEntityEx {
+    @Unique
+    public boolean caa$markDirty;
+
     @Unique
     public ScrollValueBehaviour caa$targetSpeed;
+
+    // 创建空构造函数来通过编译器语法检查，没有实际作用
+    public BeltBlockEntityMixin(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
+        super(typeIn, pos, state);
+    }
+
+    @Override
+    public void sendData() {
+        super.sendData();
+        caa$markDirty = true;
+    }
+
+    /**
+     * 部分修复传送带刷物品问题，详见 Create PR <a href="https://github.com/Creators-of-Create/Create/pull/8335">#8335</a>
+     */
+    @WrapOperation(
+        method = "tick",
+        at = @At(
+            value = "INVOKE",
+            target = "Lcom/simibubi/create/content/kinetics/belt/transport/BeltInventory;tick()V"
+        )
+    )
+    private void beltInventoryTickWrapper(BeltInventory instance, Operation<Void> original) {
+        caa$markDirty = false;
+        original.call(instance);
+        if (caa$markDirty && AllConfig.belt_fix) {
+            setChanged();
+        }
+    }
 
     // 添加轮椅选项
     @Inject(method = "addBehaviours", at = @At("TAIL"))
     private void speedControlBehaviour(List<BlockEntityBehaviour> behaviours, CallbackInfo ci) {
         caa$targetSpeed = new BeltScrollValueBehaviour(
             Component.translatable("create.kinetics.speed_controller.rotation_speed"),
-            (BeltBlockEntity)(Object) this, new BeltValueBoxTransform());
+            this, new BeltValueBoxTransform());
         caa$targetSpeed.between(-256, 256);
         caa$targetSpeed.requiresWrench();
         caa$targetSpeed.onlyActiveWhen(() -> AllConfig.easy_belt);
@@ -38,7 +75,7 @@ public class BeltBlockEntityMixin implements BeltBlockEntityEx {
     @Override
     public float caa$getTargetSpeed() {
         int value = caa$targetSpeed == null ? 0 : caa$targetSpeed.getValue();
-        return value == 0 ? ((BeltBlockEntity)(Object) this).getSpeed() : value;
+        return value == 0 ? getSpeed() : value;
     }
 
     @Override

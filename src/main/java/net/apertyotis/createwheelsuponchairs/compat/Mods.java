@@ -10,7 +10,9 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public enum Mods {
-    CreateAddition( );
+    CreateAndesiteAbound(),
+    CreateAddition( "ModularAccumulatorBlockEntityMixin"),
+    Design_Decor("LargeBoilerMixin", "RailingBlockMixin");
 
     private final String id;
     private final String[] mixins;

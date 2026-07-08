@@ -1,9 +1,11 @@
 package net.apertyotis.createwheelsuponchairs;
 
+
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import me.shedaniel.clothconfig2.gui.entries.BooleanListEntry;
+import net.apertyotis.createwheelsuponchairs.compat.Mods;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
@@ -33,19 +35,20 @@ public class ConfigScreen {
         qol.addEntry(booleanEntry(entryBuilder, COMMON.EASY_BELT));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.FAST_CONTRAPTION_STORAGE));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.FAST_LOGISTICS));
+        qol.addEntry(booleanEntry(entryBuilder, COMMON.FAST_VAULT));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.BASIN_FAUCET_VIEW));
+        qol.addEntry(booleanEntry(entryBuilder, COMMON.BETTER_THRESHOLD_SWITCH));
 
         ConfigCategory bugfix = builder.getOrCreateCategory(Component.translatable("cwuc.config.common.bugfix.title"));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.PSI_FIX));
+        bugfix.addEntry(booleanEntry(entryBuilder, COMMON.BACKTANK_FIX));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.HOSE_PULLEY_FIX));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.VAULT_AND_TANK_SCHEMATIC_FIX));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.FLUID_NETWORK_FIX));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.BELT_FIX));
+        bugfix.addEntry(booleanEntry(entryBuilder, COMMON.FIX_9803));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.PROCESSING_FIX));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.TRAIN_FIX));
-        bugfix.addEntry(booleanEntry(entryBuilder, COMMON.LOGISTICS_FIX));
-        bugfix.addEntry(booleanEntry(entryBuilder, COMMON.FIX_9729));
-        bugfix.addEntry(booleanEntry(entryBuilder, COMMON.FIX_9803));
 
         ConfigCategory misc = builder.getOrCreateCategory(Component.translatable("cwuc.config.common.misc.title"));
         misc.addEntry(booleanEntry(entryBuilder, COMMON.PLAYER_CAN_BREATH_UNDERWATER));
@@ -53,6 +56,8 @@ public class ConfigScreen {
         misc.addEntry(booleanEntry(entryBuilder, COMMON.ALWAYS_ALLOW_FLYING));
         misc.addEntry(booleanEntry(entryBuilder, COMMON.KEEP_FLYING_ON_GROUND));
         misc.addEntry(booleanEntry(entryBuilder, COMMON.HEURISTIC_ROTATION));
+        if (Mods.Design_Decor.isLoaded())
+            misc.addEntry(booleanEntry(entryBuilder, COMMON.DESIGN_DECOR_FIX));
 
         builder.setSavingRunnable(() -> {
             AllConfig.modConfig.save();

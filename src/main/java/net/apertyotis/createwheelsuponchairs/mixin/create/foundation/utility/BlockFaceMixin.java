@@ -1,6 +1,6 @@
 package net.apertyotis.createwheelsuponchairs.mixin.create.foundation.utility;
 
-import net.createmod.catnip.math.BlockFace;
+import com.simibubi.create.foundation.utility.BlockFace;
 import net.apertyotis.createwheelsuponchairs.foundation.BlockFaceEx;
 import net.minecraft.core.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
