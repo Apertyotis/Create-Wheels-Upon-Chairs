@@ -7,10 +7,10 @@ import com.simibubi.create.CreateClient;
 import com.simibubi.create.content.contraptions.glue.SuperGlueEntity;
 import com.simibubi.create.foundation.utility.RaycastHelper;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
-import net.apertyotis.createwheelsuponchairs.AllPackets;
 import net.apertyotis.createwheelsuponchairs.mixin.create.contraption.glue.SuperGlueSelectionHandlerAccessor;
 import net.createmod.catnip.math.VecHelper;
 import net.createmod.catnip.outliner.Outliner;
+import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Direction;
@@ -155,7 +155,7 @@ public class HachimiGlueHandler {
     private void sync(SuperGlueEntity glue, AABB bb) {
         if (glue != null && bb != null) {
             glue.setBoundingBox(bb);
-            AllPackets.getChannel().sendToServer(new HachimiGlueModificationPacket(glue.getId(), bb));
+            CatnipServices.NETWORK.sendToServer(new HachimiGlueModificationPacket(glue.getId(), bb));
         }
     }
 

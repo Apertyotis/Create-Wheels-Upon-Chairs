@@ -7,7 +7,7 @@ import me.shedaniel.clothconfig2.gui.entries.BooleanListEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -24,7 +24,6 @@ public class ConfigScreen {
         ConfigCategory qol = builder.getOrCreateCategory(Component.translatable("cwuc.config.common.qol.title"));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.DEPLOYER_INSTANT_OUTPUT));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.BELT_FUNNEL_DETECTION_TWEAK));
-        qol.addEntry(booleanEntry(entryBuilder, COMMON.NO_CHUTE_LEAKING));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.NO_DEPOT_OVERFLOW_DROP));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.REPLACE_ANY_FLOWING_FLUID));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.BETTER_PSI_ON_CARRIAGE));
@@ -36,16 +35,12 @@ public class ConfigScreen {
         qol.addEntry(booleanEntry(entryBuilder, COMMON.BASIN_FAUCET_VIEW));
 
         ConfigCategory bugfix = builder.getOrCreateCategory(Component.translatable("cwuc.config.common.bugfix.title"));
-        bugfix.addEntry(booleanEntry(entryBuilder, COMMON.PSI_FIX));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.HOSE_PULLEY_FIX));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.VAULT_AND_TANK_SCHEMATIC_FIX));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.FLUID_NETWORK_FIX));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.BELT_FIX));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.PROCESSING_FIX));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.TRAIN_FIX));
-        bugfix.addEntry(booleanEntry(entryBuilder, COMMON.LOGISTICS_FIX));
-        bugfix.addEntry(booleanEntry(entryBuilder, COMMON.FIX_9729));
-        bugfix.addEntry(booleanEntry(entryBuilder, COMMON.FIX_9803));
 
         ConfigCategory misc = builder.getOrCreateCategory(Component.translatable("cwuc.config.common.misc.title"));
         misc.addEntry(booleanEntry(entryBuilder, COMMON.PLAYER_CAN_BREATH_UNDERWATER));
@@ -55,13 +50,13 @@ public class ConfigScreen {
         misc.addEntry(booleanEntry(entryBuilder, COMMON.HEURISTIC_ROTATION));
 
         builder.setSavingRunnable(() -> {
-            AllConfig.modConfig.save();
+            AllConfig.COMMON_SPEC.save();
             AllConfig.onLoading();
         });
         return builder.build();
     }
 
-    private static BooleanListEntry booleanEntry(ConfigEntryBuilder entryBuilder, ForgeConfigSpec.BooleanValue entry) {
+    private static BooleanListEntry booleanEntry(ConfigEntryBuilder entryBuilder, ModConfigSpec.BooleanValue entry) {
         StringBuilder sb = new StringBuilder("cwuc.config");
         for (String path: entry.getPath()) {
             sb.append('.');

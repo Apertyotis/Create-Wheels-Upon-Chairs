@@ -1,14 +1,10 @@
 package net.apertyotis.createwheelsuponchairs.mixin;
 
-import com.electronwill.nightconfig.core.file.FileConfig;
 import net.apertyotis.createwheelsuponchairs.compat.Mods;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,14 +22,6 @@ public class CWUCMixinPlugin implements IMixinConfigPlugin {
                         blacklist.add(String.format("%s.%s.%s", PATH, mod.getPath(), mixin));
                     }
                 }
-            }
-            Path path = Paths.get("config/createwhaleuponclouds-common.toml");
-            if (!Files.exists(path))
-                return;
-            try (FileConfig config = FileConfig.of(path)) {
-                config.load();
-                if (!config.getOrElse("common.fast_contraption_storage", true))
-                    blacklist.add("%s.%s.%s".formatted(PATH, "create", "api.MountedItemStorageWrapperMixin"));
             }
         }
     }

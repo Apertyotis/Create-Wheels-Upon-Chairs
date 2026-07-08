@@ -1,13 +1,10 @@
 package net.apertyotis.createwheelsuponchairs.foundation;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
-
 public class VisitedItemStackTracker {
     Map<AbstractItemStack, SlotAmountRecord> itemStackMap = new HashMap<>();
 
@@ -18,27 +15,20 @@ public class VisitedItemStackTracker {
     }
 
     public static class AbstractItemStack {
-        private final Item item;
-        private final CompoundTag nbt;
-
+        private final ItemStack stack;
         private boolean initialized = false;
         private int hashCode;
-        AbstractItemStack(ItemStack itemStack) {
-            item = itemStack.getItem();
-            if (itemStack.hasTag())
-                nbt = itemStack.getTag();
-            else
-                nbt = null;
+
+        AbstractItemStack(ItemStack stack) {
+            this.stack = stack;
         }
 
         @Override
         public int hashCode() {
             if (!initialized) {
                 initialized = true;
-                hashCode = item.hashCode();
-                if (nbt != null) {
-                    hashCode = hashCode * 31 + nbt.hashCode();
-                }
+                hashCode = stack.getItem().hashCode();
+                hashCode = hashCode * 31 + stack.getComponents().hashCode();
             }
             return hashCode;
         }
@@ -47,11 +37,7 @@ public class VisitedItemStackTracker {
         public boolean equals(Object other) {
             if (!(other instanceof AbstractItemStack otherStack))
                 return false;
-            if (item != otherStack.item)
-                return false;
-            if (nbt == null ^ otherStack.nbt == null)
-                return false;
-            return nbt == null || nbt.equals(otherStack.nbt);
+            return ItemStack.isSameItemSameComponents(stack, otherStack.stack);
         }
     }
 

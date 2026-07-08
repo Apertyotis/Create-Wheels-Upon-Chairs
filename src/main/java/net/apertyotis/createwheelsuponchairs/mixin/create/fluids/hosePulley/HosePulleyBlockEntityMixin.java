@@ -13,9 +13,10 @@ import net.apertyotis.createwheelsuponchairs.CreateWheelsUponChairs;
 import net.createmod.catnip.lang.FontHelper;
 import net.createmod.catnip.lang.LangBuilder;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -49,7 +50,7 @@ public abstract class HosePulleyBlockEntityMixin {
 
     // 向客户端发送更详细的 infinite 信息，以便于显示准确的护目镜提示
     @Inject(method = "write", at = @At("TAIL"))
-    private void writeInfinite(CompoundTag compound, boolean clientPacket, CallbackInfo ci) {
+    private void writeInfinite(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket, CallbackInfo ci) {
         if (clientPacket && AllConfig.hose_pulley_fix) {
             compound.putBoolean("FillerInfinite", caa$fillerInfinite);
             compound.putBoolean("DrainerInfinite", caa$drainerInfinite);
@@ -57,7 +58,7 @@ public abstract class HosePulleyBlockEntityMixin {
     }
 
     @Inject(method = "read", at = @At("TAIL"))
-    private void readInfinite(CompoundTag compound, boolean clientPacket, CallbackInfo ci) {
+    private void readInfinite(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket, CallbackInfo ci) {
         if (clientPacket && AllConfig.hose_pulley_fix) {
             caa$fillerInfinite = compound.getBoolean("FillerInfinite");
             caa$drainerInfinite = compound.getBoolean("DrainerInfinite");

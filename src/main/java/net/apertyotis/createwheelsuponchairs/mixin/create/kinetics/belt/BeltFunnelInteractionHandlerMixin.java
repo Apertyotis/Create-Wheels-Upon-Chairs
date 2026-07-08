@@ -22,9 +22,7 @@ public abstract class BeltFunnelInteractionHandlerMixin {
         at = @At(
             value = "INVOKE",
             target = "Lcom/simibubi/create/foundation/blockEntity/behaviour/inventory/VersionedInventoryTrackerBehaviour;stillWaiting(Lcom/simibubi/create/foundation/blockEntity/behaviour/inventory/InvManipulationBehaviour;)Z"
-        ),
-        // 0.5.1e 及之前没有这个 bug，也没有对应的注入点
-        require = 0
+        )
     )
     private static boolean correctlyBlockItem(
         boolean original,

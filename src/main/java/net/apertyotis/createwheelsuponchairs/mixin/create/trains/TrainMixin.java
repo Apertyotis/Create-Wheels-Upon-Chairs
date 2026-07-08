@@ -37,10 +37,7 @@ public abstract class TrainMixin {
     @Unique
     private int caa$msgType;
 
-    @Inject(
-        method = "lambda$frontSignalListener$6",
-        at = @At("HEAD")
-    )
+    @Inject(method = "lambda$frontSignalListener$14", at = @At("HEAD"))
     private void onFrontSignal(Double distance, Pair<TrackEdgePoint, Couple<TrackNode>> couple, CallbackInfoReturnable<Boolean> cir) {
         if (!AllConfig.train_fix)
             return;
@@ -92,8 +89,8 @@ public abstract class TrainMixin {
             default -> "";
         };
 
-        CarriageBogey bogey = train.carriages.get(0).leadingBogey();
-        Vec3 pos = train.carriages.get(0).leadingBogey().getAnchorPosition();
+        CarriageBogey bogey = train.carriages.getFirst().leadingBogey();
+        Vec3 pos = train.carriages.getFirst().leadingBogey().getAnchorPosition();
         ResourceKey<Level> dimension = bogey.getDimension();
         Component position = Component.literal((pos == null ? "???" :
             "(%.1f, %.1f, %.1f)".formatted(pos.x, pos.y, pos.z)) +

@@ -8,12 +8,13 @@ import net.apertyotis.createwheelsuponchairs.AllConfig;
 import net.apertyotis.createwheelsuponchairs.foundation.FluidTransportBehaviourEx;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -67,14 +68,14 @@ public abstract class FluidTransportBehaviourMixin implements FluidTransportBeha
     }
 
     @Inject(method = "read", at = @At("TAIL"))
-    private void readFilterPos(CompoundTag nbt, boolean clientPacket, CallbackInfo ci) {
+    private void readFilterPos(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket, CallbackInfo ci) {
         if (nbt.contains("FilterPos")) {
-            caa$filterPos = NbtUtils.readBlockPos(nbt.getCompound("FilterPos"));
+            caa$filterPos = NbtUtils.readBlockPos(nbt, "FilterPos").orElse(null);
         }
     }
 
     @Inject(method = "write", at = @At("TAIL"))
-    private void writeFilterPos(CompoundTag nbt, boolean clientPacket, CallbackInfo ci) {
+    private void writeFilterPos(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket, CallbackInfo ci) {
         if (caa$filterPos != null) {
             nbt.put("FilterPos", NbtUtils.writeBlockPos(caa$filterPos));
         }

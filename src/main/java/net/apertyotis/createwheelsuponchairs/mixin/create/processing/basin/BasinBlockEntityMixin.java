@@ -12,8 +12,8 @@ import net.createmod.catnip.lang.LangBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -34,10 +34,7 @@ public abstract class BasinBlockEntityMixin {
     // 修复工作盆对 1 个空流体输出槽分别判断是否接受两种输出而导致吞流体的问题
     @Inject(method = "acceptFluidOutputsIntoBasin", at = @At("HEAD"), cancellable = true)
     private void redirectAcceptFluidOutputsIntoBasin(
-        List<FluidStack> outputFluids,
-        boolean simulate,
-        IFluidHandler targetTank,
-        CallbackInfoReturnable<Boolean> cir
+        List<FluidStack> outputFluids, boolean simulate, IFluidHandler targetTank, CallbackInfoReturnable<Boolean> cir
     ) {
         if (targetTank instanceof SmartFluidTankBehaviour.InternalFluidHandler internalFluidHandler) {
             if (!AllConfig.processing_fix)
@@ -67,7 +64,7 @@ public abstract class BasinBlockEntityMixin {
 
                         if (searchPass) {
                             for (int j = 0; j < iFluidHandler.getTanks(); j++)
-                                if (iFluidHandler.getFluidInTank(j).isFluidEqual(resource))
+                                if (FluidStack.isSameFluidSameComponents(iFluidHandler.getFluidInTank(j), resource))
                                     fittingHandlerFound = true;
 
                             if (!fittingHandlerFound)

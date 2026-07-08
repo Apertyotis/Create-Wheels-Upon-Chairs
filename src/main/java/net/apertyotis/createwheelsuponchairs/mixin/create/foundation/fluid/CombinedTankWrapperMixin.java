@@ -19,9 +19,7 @@ public abstract class CombinedTankWrapperMixin {
         method = "fill",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraftforge/fluids/capability/IFluidHandler;fill(" +
-                        "Lnet/minecraftforge/fluids/FluidStack;" +
-                        "Lnet/minecraftforge/fluids/capability/IFluidHandler$FluidAction;)I"
+            target = "Lnet/neoforged/neoforge/fluids/capability/IFluidHandler;fill(Lnet/neoforged/neoforge/fluids/FluidStack;Lnet/neoforged/neoforge/fluids/capability/IFluidHandler$FluidAction;)I"
         )
     )
     private int localSaveFilledIntoCurrent(int value, @Share("filledIntoCurrent") LocalIntRef localIntRef) {
@@ -39,9 +37,7 @@ public abstract class CombinedTankWrapperMixin {
         name = "fittingHandlerFound",
         slice = @Slice(from = @At(
             value = "INVOKE",
-            target = "Lnet/minecraftforge/fluids/capability/IFluidHandler;fill(" +
-                        "Lnet/minecraftforge/fluids/FluidStack;" +
-                        "Lnet/minecraftforge/fluids/capability/IFluidHandler$FluidAction;)I"
+            target = "Lnet/neoforged/neoforge/fluids/capability/IFluidHandler;fill(Lnet/neoforged/neoforge/fluids/FluidStack;Lnet/neoforged/neoforge/fluids/capability/IFluidHandler$FluidAction;)I"
         ))
     )
     private boolean correctVariety(

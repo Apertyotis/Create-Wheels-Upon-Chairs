@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(value = GameType.class)
 public abstract class GameTypeMixin {
     // 任何模式玩家可飞行，切换生存不打断飞行
+    @SuppressWarnings("deprecation")
     @WrapOperation(
         method = "updatePlayerAbilities",
         at = @At(
@@ -26,6 +27,7 @@ public abstract class GameTypeMixin {
             original.call(instance, value);
             return;
         }
+        // TODO: 考虑使用 CREATIVE_FLIGHT 以避免冲突
         instance.mayfly = true;
     }
 }

@@ -3,8 +3,8 @@ package net.apertyotis.createwheelsuponchairs.mixin.create.fluids.hosePulley;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.simibubi.create.content.fluids.hosePulley.HosePulleyFluidHandler;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,7 +18,7 @@ public abstract class HosePulleyFluidHandlerMixin {
         method = "fill",
         at = @At(
             value = "INVOKE",
-            target = "Lcom/simibubi/create/foundation/fluid/SmartFluidTank;fill(Lnet/minecraftforge/fluids/FluidStack;Lnet/minecraftforge/fluids/capability/IFluidHandler$FluidAction;)I",
+            target = "Lcom/simibubi/create/foundation/fluid/SmartFluidTank;fill(Lnet/neoforged/neoforge/fluids/FluidStack;Lnet/neoforged/neoforge/fluids/capability/IFluidHandler$FluidAction;)I",
             ordinal = 0
         ),
         index = 0

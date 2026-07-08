@@ -14,7 +14,4 @@ public interface BeltInventoryAccessor {
 
     @Accessor("belt")
     BeltBlockEntity getBelt();
-
-    @Invoker("insert")
-    void invokeInsert(TransportedItemStack newStack);
 }

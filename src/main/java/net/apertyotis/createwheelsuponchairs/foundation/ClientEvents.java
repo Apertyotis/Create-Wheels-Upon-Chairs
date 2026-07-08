@@ -4,19 +4,17 @@ import net.apertyotis.createwheelsuponchairs.content.hachimiGlue.HachimiGlueHand
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.InputEvent;
 
-@Mod.EventBusSubscriber(Dist.CLIENT)
+@EventBusSubscriber(Dist.CLIENT)
 public class ClientEvents {
 
     @SubscribeEvent
-    public static void onTick(TickEvent.ClientTickEvent event) {
-        if (event.phase == TickEvent.Phase.START)
-            return;
+    public static void onTick(ClientTickEvent.Post event) {
         Level world = Minecraft.getInstance().level;
         Player player = Minecraft.getInstance().player;
         if (world == null || player == null)
@@ -30,7 +28,7 @@ public class ClientEvents {
         if (Minecraft.getInstance().screen != null)
             return;
 
-        double delta = event.getScrollDelta();
+        double delta = event.getScrollDeltaY();
 
         if (HachimiGlueHandler.HACHIMI_GLUE_HANDLER.mouseScrolled(delta)) {
             event.setCanceled(true);

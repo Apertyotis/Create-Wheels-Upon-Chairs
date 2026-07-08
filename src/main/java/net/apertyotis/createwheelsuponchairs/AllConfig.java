@@ -1,60 +1,54 @@
 package net.apertyotis.createwheelsuponchairs;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
-@Mod.EventBusSubscriber(modid = CreateWheelsUponChairs.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = CreateWheelsUponChairs.MOD_ID, value = Dist.CLIENT)
 public class AllConfig {
-    private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
     public static final Common COMMON;
-    public static final ForgeConfigSpec COMMON_SPEC;
-    public static ModConfig modConfig;
+    public static final ModConfigSpec COMMON_SPEC;
 
     static {
         // 构造配置
-        Pair<Common, ForgeConfigSpec> pair = BUILDER.configure(Common::new);
+        Pair<Common, ModConfigSpec> pair = BUILDER.configure(Common::new);
         COMMON = pair.getLeft();
         COMMON_SPEC = pair.getRight();
     }
 
     // common 配置定义
     public static class Common {
-        public final ForgeConfigSpec.BooleanValue DEPLOYER_INSTANT_OUTPUT;
-        public final ForgeConfigSpec.BooleanValue BELT_FUNNEL_DETECTION_TWEAK;
-        public final ForgeConfigSpec.BooleanValue NO_CHUTE_LEAKING;
-        public final ForgeConfigSpec.BooleanValue NO_DEPOT_OVERFLOW_DROP;
-        public final ForgeConfigSpec.BooleanValue REPLACE_ANY_FLOWING_FLUID;
-        public final ForgeConfigSpec.BooleanValue BETTER_PSI_ON_CARRIAGE;
-        public final ForgeConfigSpec.BooleanValue HACHIMI_GLUE;
-        public final ForgeConfigSpec.BooleanValue SMART_FLUID_PIPE;
-        public final ForgeConfigSpec.BooleanValue EASY_BELT;
-        public final ForgeConfigSpec.BooleanValue FAST_CONTRAPTION_STORAGE;
-        public final ForgeConfigSpec.BooleanValue FAST_LOGISTICS;
-        public final ForgeConfigSpec.BooleanValue BASIN_FAUCET_VIEW;
+        public final ModConfigSpec.BooleanValue DEPLOYER_INSTANT_OUTPUT;
+        public final ModConfigSpec.BooleanValue BELT_FUNNEL_DETECTION_TWEAK;
+        public final ModConfigSpec.BooleanValue NO_DEPOT_OVERFLOW_DROP;
+        public final ModConfigSpec.BooleanValue REPLACE_ANY_FLOWING_FLUID;
+        public final ModConfigSpec.BooleanValue BETTER_PSI_ON_CARRIAGE;
+        public final ModConfigSpec.BooleanValue HACHIMI_GLUE;
+        public final ModConfigSpec.BooleanValue SMART_FLUID_PIPE;
+        public final ModConfigSpec.BooleanValue EASY_BELT;
+        public final ModConfigSpec.BooleanValue FAST_CONTRAPTION_STORAGE;
+        public final ModConfigSpec.BooleanValue FAST_LOGISTICS;
+        public final ModConfigSpec.BooleanValue BASIN_FAUCET_VIEW;
 
-        public final ForgeConfigSpec.BooleanValue PSI_FIX;
-        public final ForgeConfigSpec.BooleanValue HOSE_PULLEY_FIX;
-        public final ForgeConfigSpec.BooleanValue VAULT_AND_TANK_SCHEMATIC_FIX;
-        public final ForgeConfigSpec.BooleanValue FLUID_NETWORK_FIX;
-        public final ForgeConfigSpec.BooleanValue BELT_FIX;
-        public final ForgeConfigSpec.BooleanValue PROCESSING_FIX;
-        public final ForgeConfigSpec.BooleanValue TRAIN_FIX;
-        public final ForgeConfigSpec.BooleanValue LOGISTICS_FIX;
-        public final ForgeConfigSpec.BooleanValue FIX_9729;
-        public final ForgeConfigSpec.BooleanValue FIX_9803;
+        public final ModConfigSpec.BooleanValue HOSE_PULLEY_FIX;
+        public final ModConfigSpec.BooleanValue VAULT_AND_TANK_SCHEMATIC_FIX;
+        public final ModConfigSpec.BooleanValue FLUID_NETWORK_FIX;
+        public final ModConfigSpec.BooleanValue BELT_FIX;
+        public final ModConfigSpec.BooleanValue PROCESSING_FIX;
+        public final ModConfigSpec.BooleanValue TRAIN_FIX;
 
-        public final ForgeConfigSpec.BooleanValue PLAYER_CAN_BREATH_UNDERWATER;
-        public final ForgeConfigSpec.BooleanValue DISABLE_DIG_SPEED_PENALTY;
-        public final ForgeConfigSpec.BooleanValue ALWAYS_ALLOW_FLYING;
-        public final ForgeConfigSpec.BooleanValue KEEP_FLYING_ON_GROUND;
-        public final ForgeConfigSpec.BooleanValue HEURISTIC_ROTATION;
+        public final ModConfigSpec.BooleanValue PLAYER_CAN_BREATH_UNDERWATER;
+        public final ModConfigSpec.BooleanValue DISABLE_DIG_SPEED_PENALTY;
+        public final ModConfigSpec.BooleanValue ALWAYS_ALLOW_FLYING;
+        public final ModConfigSpec.BooleanValue KEEP_FLYING_ON_GROUND;
+        public final ModConfigSpec.BooleanValue HEURISTIC_ROTATION;
 
-        Common(ForgeConfigSpec.Builder builder) {
+        Common(ModConfigSpec.Builder builder) {
             builder.comment("Common").push("common");
             DEPLOYER_INSTANT_OUTPUT = builder
                 .comment("Fix deployers unnecessarily entering their 10-tick cooldown when milking, emptying buckets, slaughtering, etc.")
@@ -65,10 +59,6 @@ public class AllConfig {
                 .comment("Previously, funnels could only extract items past the center.")
                 .comment("When a opposing funnel blocks items at the center, all side-facing belt funnels stop extracting, which is unintuitive.")
                 .define("belt_funnel_detection_tweak", true);
-            NO_CHUTE_LEAKING = builder
-                .comment("Prevent Diagonal Chutes from interacting with containers below.")
-                .comment("Because visually, Diagonal Chutes have no opening at the bottom.")
-                .define("no_chute_leaking", true);
             NO_DEPOT_OVERFLOW_DROP = builder
                 .comment("Prevent the depot from dropping overflow items.")
                 .comment("For example when it accumulates too many processing outputs.")
@@ -102,11 +92,8 @@ public class AllConfig {
             builder.pop();
 
             builder.comment("Bugfix").push("bugfix");
-            PSI_FIX = builder
-                .comment("Backported the fix from Create PR #9624.")
-                .define("psi_fix", true);
             HOSE_PULLEY_FIX = builder
-                .comment("Fix hose pulleys incorrectly showing \"Bottomless Supply\" and stopping fill 2 blocks before reaching the actual threshold;")
+                .comment("Fix hose pulleys incorrectly showing \"Bottomless Supply\" and stopping fill the last block before reaching the actual threshold;")
                 .comment("Fix fluid input rates above 1000 mB/t to hose pulleys being incorrectly reduced;")
                 .comment("Fix mechanical pumps with a full output deleting fluid when extracting from a hose pulley;")
                 .comment("Add extra tooltip when wearing Goggles.")
@@ -119,7 +106,7 @@ public class AllConfig {
                 .comment("Fix open pipes being unable to place fluids when the output rate exceeds 1000 mB/t.")
                 .define("fluid_network_fix", true);
             BELT_FIX = builder
-                .comment("Backported the fix from Create PR #9891, #9967 and #10017;")
+                .comment("Backported the fix from Create PR #9891 and #9967;")
                 .comment("Fix the issue where the outputs of belt processing machines will be pushed back to the input side by a blocked belt funnel;")
                 .comment("Fix Create Issue #9682.")
                 .define("belt_fix", true);
@@ -131,18 +118,8 @@ public class AllConfig {
                 .define("processing_fix", true);
             TRAIN_FIX = builder
                 .comment("Backported the fix from Create PR #9875 and #10362;")
-                .comment("Attempt to fix the issue where trains sometimes cause crashes;")
                 .comment("Fix an issue where trains never release their reserved signal segment, causing a deadlock.")
                 .define("train_fix", true);
-            LOGISTICS_FIX = builder
-                .comment("Backported the fix from Create PR #9649 and #9793.")
-                .define("logistics_fix", true);
-            FIX_9729 = builder
-                .comment("Backported the fix from Create PR #9729")
-                .define("fix_9729", true);
-            FIX_9803 = builder
-                .comment("Backported the fix from Create PR #9803")
-                .define("fix_9803", true);
             builder.pop();
 
             builder.comment("Misc").push("misc");
@@ -171,7 +148,6 @@ public class AllConfig {
     // 缓存配置值
     public static boolean deployer_instant_output;
     public static boolean belt_funnel_detection_tweak;
-    public static boolean no_chute_leaking;
     public static boolean no_depot_overflow_drop;
     public static boolean replace_any_flowing_fluid;
     public static boolean better_psi_on_carriage;
@@ -181,16 +157,12 @@ public class AllConfig {
     public static boolean fast_logistics;
     public static boolean basin_faucet_view;
 
-    public static boolean psi_fix;
     public static boolean hose_pulley_fix;
     public static boolean vault_and_tank_schematic_fix;
     public static boolean fluid_network_fix;
     public static boolean belt_fix;
     public static boolean processing_fix;
     public static boolean train_fix;
-    public static boolean logistics_fix;
-    public static boolean fix_9729;
-    public static boolean fix_9803;
 
     public static boolean player_can_breath_underwater;
     public static boolean disable_dig_speed_penalty;
@@ -201,7 +173,6 @@ public class AllConfig {
     public static void onLoading() {
         deployer_instant_output = COMMON.DEPLOYER_INSTANT_OUTPUT.get();
         belt_funnel_detection_tweak = COMMON.BELT_FUNNEL_DETECTION_TWEAK.get();
-        no_chute_leaking = COMMON.NO_CHUTE_LEAKING.get();
         no_depot_overflow_drop = COMMON.NO_DEPOT_OVERFLOW_DROP.get();
         replace_any_flowing_fluid = COMMON.REPLACE_ANY_FLOWING_FLUID.get();
         better_psi_on_carriage = COMMON.BETTER_PSI_ON_CARRIAGE.get();
@@ -211,16 +182,12 @@ public class AllConfig {
         fast_logistics = COMMON.FAST_LOGISTICS.get();
         basin_faucet_view = COMMON.BASIN_FAUCET_VIEW.get();
 
-        psi_fix = COMMON.PSI_FIX.get();
         hose_pulley_fix = COMMON.HOSE_PULLEY_FIX.get();
         vault_and_tank_schematic_fix = COMMON.VAULT_AND_TANK_SCHEMATIC_FIX.get();
         fluid_network_fix = COMMON.FLUID_NETWORK_FIX.get();
         belt_fix = COMMON.BELT_FIX.get();
         processing_fix = COMMON.PROCESSING_FIX.get();
         train_fix = COMMON.TRAIN_FIX.get();
-        logistics_fix = COMMON.LOGISTICS_FIX.get();
-        fix_9729 = COMMON.FIX_9729.get();
-        fix_9803 = COMMON.FIX_9803.get();
 
         player_can_breath_underwater = COMMON.PLAYER_CAN_BREATH_UNDERWATER.get();
         disable_dig_speed_penalty = COMMON.DISABLE_DIG_SPEED_PENALTY.get();
@@ -234,7 +201,6 @@ public class AllConfig {
     static void onLoad(final ModConfigEvent.Loading event) {
         if (event.getConfig().getSpec() != COMMON_SPEC)
             return;
-        modConfig = event.getConfig();
         onLoading();
     }
 
@@ -242,7 +208,6 @@ public class AllConfig {
     static void onReload(final ModConfigEvent.Reloading event) {
         if (event.getConfig().getSpec() != COMMON_SPEC)
             return;
-        modConfig = event.getConfig();
         onLoading();
     }
 }

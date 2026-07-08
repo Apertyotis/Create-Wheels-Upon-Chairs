@@ -1,11 +1,7 @@
 package net.apertyotis.createwheelsuponchairs.mixin.create.fluids.hosePulley;
 
-import com.llamalad7.mixinextras.expression.Definition;
-import com.llamalad7.mixinextras.expression.Expression;
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
 import com.simibubi.create.content.fluids.transfer.FluidFillingBehaviour;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,17 +11,7 @@ import java.util.Set;
 
 @Mixin(value = FluidFillingBehaviour.class, remap = false)
 public abstract class FluidFillingBehaviourMixin {
-    // 无限阈值实际为设定值 + 1，因此修改判定，使得软管滑轮可以多放置一格液体
-    @Definition(id = "size", method = "Ljava/util/Set;size()I")
-    @Expression("?.size() >= ?")
-    @ModifyExpressionValue(method = "tryDeposit", at = @At("MIXINEXTRAS:EXPRESSION"))
-    private boolean preventNotFillingLastTwoFluidState(boolean original, @Local(name = "maxBlocks") int maxBlocks) {
-        if (!AllConfig.hose_pulley_fix)
-            return original;
-        return ((FluidManipulationBehaviourAccessor) this).getVisited().size() > maxBlocks;
-    }
-
-    // 取消第一次visited::add，使得软管滑轮可以放置最后一格液体
+    // 取消第一次 visited::add，使得软管滑轮可以放置最后一格液体
     @WrapOperation(
         method = "tryDeposit",
         at = @At(value = "INVOKE", target = "Ljava/util/Set;add(Ljava/lang/Object;)Z", ordinal = 0)

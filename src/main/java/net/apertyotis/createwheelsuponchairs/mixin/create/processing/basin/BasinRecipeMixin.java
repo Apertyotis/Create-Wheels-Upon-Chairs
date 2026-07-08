@@ -1,5 +1,6 @@
 package net.apertyotis.createwheelsuponchairs.mixin.create.processing.basin;
 
+import com.simibubi.create.content.logistics.filter.AttributeFilterWhitelistMode;
 import com.simibubi.create.content.logistics.filter.FilterItemStack;
 import com.simibubi.create.content.processing.basin.BasinBlockEntity;
 import com.simibubi.create.content.processing.basin.BasinRecipe;
@@ -8,7 +9,7 @@ import com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringB
 import net.apertyotis.createwheelsuponchairs.AllConfig;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -29,7 +30,7 @@ public abstract class BasinRecipeMixin {
         if (!AllConfig.processing_fix)
             return;
         // 非机械动力加工配方不做修改
-        if (recipe instanceof ProcessingRecipe<?> processingRecipe) {
+        if (recipe instanceof ProcessingRecipe<?, ?> processingRecipe) {
             // 单产物配方不做修改
             if (processingRecipe.getRollableResults().size() + processingRecipe.getFluidResults().size() <= 1) {
                 return;
@@ -52,7 +53,7 @@ public abstract class BasinRecipeMixin {
                     isWhitelist = false;
             } else if (filterItem instanceof FilterItemStack.AttributeFilterItemStack attributeFilter) {
                 isAttributeFilter = true;
-                if (attributeFilter.whitelistMode == FilterItemStack.AttributeFilterItemStack.WhitelistMode.BLACKLIST)
+                if (attributeFilter.whitelistMode == AttributeFilterWhitelistMode.BLACKLIST)
                     isWhitelist = false;
             }
 

@@ -1,7 +1,7 @@
 package net.apertyotis.createwheelsuponchairs.mixin.create.foundation.fluid;
 
 import com.simibubi.create.foundation.fluid.CombinedTankWrapper;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 

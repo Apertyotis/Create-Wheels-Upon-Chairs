@@ -18,9 +18,9 @@ public abstract class BasinOperatingBlockEntityMixin {
             return;
         int size1 = r1.getIngredients().size();
         int size2 = r2.getIngredients().size();
-        if (r1 instanceof ProcessingRecipe<?> pr1)
+        if (r1 instanceof ProcessingRecipe<?, ?> pr1)
             size1 += pr1.getFluidIngredients().size();
-        if (r2 instanceof ProcessingRecipe<?> pr2)
+        if (r2 instanceof ProcessingRecipe<?, ?> pr2)
             size2 += pr2.getFluidIngredients().size();
         cir.setReturnValue(size2 - size1);
     }

@@ -5,8 +5,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.simibubi.create.content.fluids.FlowSource;
 import com.simibubi.create.content.fluids.PipeConnection;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,7 +23,7 @@ public abstract class PipeConnectionMixin {
         method = "manageFlows",
         at = @At(
             value = "INVOKE",
-            target = "Lcom/simibubi/create/content/fluids/FlowSource;provideFluid(Ljava/util/function/Predicate;)Lnet/minecraftforge/fluids/FluidStack;",
+            target = "Lcom/simibubi/create/content/fluids/FlowSource;provideFluid(Ljava/util/function/Predicate;)Lnet/neoforged/neoforge/fluids/FluidStack;",
             ordinal = 1
         )
     )
@@ -31,8 +31,7 @@ public abstract class PipeConnectionMixin {
         if (!AllConfig.smart_fluid_pipe || flowSource instanceof FlowSource.OtherPipe)
             return original.call(flowSource, filter);
         // noinspection DataFlowIssue
-        IFluidHandler handler = flowSource.provideHandler().orElse(null);
-        // noinspection ConstantValue
+        IFluidHandler handler = flowSource.provideHandler().getCapability();
         if (handler == null || flow.isEmpty())
             return FluidStack.EMPTY;
         FluidStack fluid = handler.drain(flow.get().fluid, IFluidHandler.FluidAction.SIMULATE);

@@ -150,23 +150,6 @@ public abstract class BeltInventoryMixin {
         cir.setReturnValue(null);
     }
 
-    /**
-     * <s>部分修复传送带吞物品和刷物品问题，详见 Create PR <a href="https://github.com/Creators-of-Create/Create/pull/9954">#9882</a></s><br>
-     * 以上修复并不合适，改用另一方式，详见 Create PR <a = href="https://github.com/Creators-of-Create/Create/pull/10017">#10017</a><br>
-     * 剩余部分见 {@link BeltBlockEntityMixin}
-     */
-    @Inject(method = "write", at = @At("HEAD"))
-    private void handleInsertAndRemoveBeforeWrite(CallbackInfoReturnable<CompoundTag> cir) {
-        if (!AllConfig.belt_fix)
-            return;
-        if (!toInsert.isEmpty() || !toRemove.isEmpty()) {
-            toInsert.forEach(((BeltInventoryAccessor) this)::invokeInsert);
-            toInsert.clear();
-            items.removeAll(toRemove);
-            toRemove.clear();
-        }
-    }
-
     // 轮椅传送带
     @WrapOperation(
         method = "tick",

@@ -20,7 +20,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.items.ItemHandlerHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -94,7 +93,7 @@ public abstract class BeltTunnelInteractionHandlerMixin {
                 if (behaviour == null || !behaviour.canInsertFromSide(d))
                     continue;
 
-                ItemStack toInsert = ItemHandlerHelper.copyStackWithSize(current.stack, 1);
+                ItemStack toInsert = current.stack.copyWithCount(1);
                 if (!behaviour.handleInsertion(toInsert, d, true).isEmpty()) {
                     cir.setReturnValue(true);
                     return false;
@@ -108,7 +107,7 @@ public abstract class BeltTunnelInteractionHandlerMixin {
 
             // 再统一输出
             for (var entry: outputs.entrySet()) {
-                ItemStack toInsert = ItemHandlerHelper.copyStackWithSize(current.stack, 1);
+                ItemStack toInsert = current.stack.copyWithCount(1);
                 if (!entry.getValue().handleInsertion(toInsert, entry.getKey(), false).isEmpty()) {
                     cir.setReturnValue(true);
                     return false;

@@ -3,6 +3,7 @@ package net.apertyotis.createwheelsuponchairs.mixin.create.logistics;
 import com.simibubi.create.api.schematic.nbt.PartialSafeNBT;
 import com.simibubi.create.content.logistics.vault.ItemVaultBlockEntity;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -14,7 +15,7 @@ public abstract class ItemVaultBlockEntityMixin implements PartialSafeNBT {
      * 另见 Create PR <a href="https://github.com/Creators-of-Create/Create/pull/10525">#10525</a>
      */
     @Override
-    public void writeSafe(CompoundTag compound) {
+    public void writeSafe(CompoundTag compound, HolderLookup.Provider registries) {
         if (!AllConfig.vault_and_tank_schematic_fix)
             return;
         ItemVaultBlockEntity vault = (ItemVaultBlockEntity)(Object) this;

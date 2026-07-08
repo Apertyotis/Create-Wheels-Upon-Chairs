@@ -4,6 +4,7 @@ import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,7 +28,7 @@ public abstract class FluidTankBlockEntityMixin extends SmartBlockEntity {
      * 另见 Create PR <a href="https://github.com/Creators-of-Create/Create/pull/10525">#10525</a>
      */
     @Override
-    public void writeSafe(CompoundTag tag) {
+    public void writeSafe(CompoundTag tag, HolderLookup.Provider registries) {
         if (!AllConfig.vault_and_tank_schematic_fix)
             return;
         if (((FluidTankBlockEntity)(Object) this).isController()) {

@@ -1,7 +1,7 @@
 package net.apertyotis.createwheelsuponchairs.compat;
 
-import net.minecraftforge.fml.loading.FMLLoader;
-import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
+import net.neoforged.fml.loading.FMLLoader;
+import net.neoforged.fml.loading.moddiscovery.ModInfo;
 
 import java.util.HashMap;
 import java.util.Locale;

@@ -4,8 +4,7 @@ import com.simibubi.create.foundation.item.ItemHelper;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
 import net.apertyotis.createwheelsuponchairs.foundation.VisitedItemStackTracker;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.IItemHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,7 +17,7 @@ public abstract class ItemHelperMixin {
 
     // 重写漏斗取物逻辑 (尤其是黄铜漏斗)
     @Inject(
-        method = "extract(Lnet/minecraftforge/items/IItemHandler;Ljava/util/function/Predicate;Lcom/simibubi/create/foundation/item/ItemHelper$ExtractionCountMode;IZ)Lnet/minecraft/world/item/ItemStack;",
+        method = "extract(Lnet/neoforged/neoforge/items/IItemHandler;Ljava/util/function/Predicate;Lcom/simibubi/create/foundation/item/ItemHelper$ExtractionCountMode;IZ)Lnet/minecraft/world/item/ItemStack;",
         at = @At("HEAD"),
         cancellable = true
     )
@@ -56,7 +55,7 @@ public abstract class ItemHelperMixin {
             int maxExtractAmount = amount;
             for (int i = 0; i < inv.getSlots(); i++) {
                 ItemStack stackIn = inv.getStackInSlot(i);
-                if (stackIn.isEmpty() || (!result.isEmpty() && !ItemHandlerHelper.canItemStacksStack(result, stackIn)))
+                if (stackIn.isEmpty() || (!result.isEmpty() && !ItemStack.isSameItemSameComponents(result, stackIn)))
                     continue;
 
                 ItemStack extracted = inv.extractItem(i, Math.min(stackIn.getCount(), maxExtractAmount), true);
