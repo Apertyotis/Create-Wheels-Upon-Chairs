@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.UUID;
 
 
-@Mixin(value = Train.class, remap = false)
+@Mixin(Train.class)
 public abstract class TrainMixin {
     @Unique
     private boolean caa$isError = false;

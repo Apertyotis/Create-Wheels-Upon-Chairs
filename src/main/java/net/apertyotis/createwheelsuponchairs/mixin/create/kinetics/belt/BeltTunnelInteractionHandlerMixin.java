@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.EnumMap;
 
-@Mixin(value = BeltTunnelInteractionHandler.class, remap = false)
+@Mixin(BeltTunnelInteractionHandler.class)
 public abstract class BeltTunnelInteractionHandlerMixin {
     /**
      * 解决正向传送带上第一个安山隧道失效的问题<br>

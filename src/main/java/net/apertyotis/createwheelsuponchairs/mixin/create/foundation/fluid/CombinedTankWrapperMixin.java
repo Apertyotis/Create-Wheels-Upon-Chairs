@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = CombinedTankWrapper.class, remap = false)
+@Mixin(CombinedTankWrapper.class)
 public abstract class CombinedTankWrapperMixin {
     // 目标函数极难获取准确的 int 局部变量，因此改用 share 在变量值产生时存储
     @ModifyExpressionValue(

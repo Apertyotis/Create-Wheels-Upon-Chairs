@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
-@Mixin(value = HosePulleyBlockEntity.class, remap = false)
+@Mixin(HosePulleyBlockEntity.class)
 public abstract class HosePulleyBlockEntityMixin {
 
     @Shadow

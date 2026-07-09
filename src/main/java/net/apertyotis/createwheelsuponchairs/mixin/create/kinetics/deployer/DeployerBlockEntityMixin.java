@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
-@Mixin(value = DeployerBlockEntity.class, remap = false)
+@Mixin(DeployerBlockEntity.class)
 public abstract class DeployerBlockEntityMixin {
 
     @Shadow
@@ -55,8 +55,7 @@ public abstract class DeployerBlockEntityMixin {
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/world/entity/player/Inventory;getContainerSize()I"
-        ),
-        remap = true
+        )
     )
     private int cancelOldOverflowItemsHandle(Inventory instance, Operation<Integer> original) {
         if (AllConfig.deployer_instant_output)

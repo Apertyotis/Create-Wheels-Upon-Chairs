@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.function.Predicate;
 
-@Mixin(value = InvManipulationBehaviour.class, remap = false)
+@Mixin(InvManipulationBehaviour.class)
 public abstract class InvManipulationBehaviourMixin {
     // 调整筛选条件的判断顺序，先考虑是否满足过滤器，再考虑是否能插入目标存储
     @WrapOperation(

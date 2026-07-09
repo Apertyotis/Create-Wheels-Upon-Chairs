@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
-@Mixin(value = FluidTankBlockEntity.class, remap = false)
+@Mixin(FluidTankBlockEntity.class)
 public abstract class FluidTankBlockEntityMixin extends SmartBlockEntity {
 
     @Shadow

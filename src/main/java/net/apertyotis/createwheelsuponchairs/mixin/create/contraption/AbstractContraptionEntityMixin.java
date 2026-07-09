@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = AbstractContraptionEntity.class, remap = false)
+@Mixin(AbstractContraptionEntity.class)
 public abstract class AbstractContraptionEntityMixin {
     // 使列车结构上的接口仅在进出站时 tick
     @Inject(method = "shouldActorTrigger", at = @At("HEAD"), cancellable = true)

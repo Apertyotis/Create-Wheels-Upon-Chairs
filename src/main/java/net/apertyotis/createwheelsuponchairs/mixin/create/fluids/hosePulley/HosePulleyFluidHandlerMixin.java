@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = HosePulleyFluidHandler.class, remap = false)
+@Mixin(HosePulleyFluidHandler.class)
 public abstract class HosePulleyFluidHandlerMixin {
     // 修复软管滑轮一次注入大于 1000mB 时的奇怪行为
     @ModifyArg(

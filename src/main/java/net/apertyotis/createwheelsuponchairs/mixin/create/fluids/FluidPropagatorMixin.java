@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = FluidPropagator.class, remap = false)
+@Mixin(FluidPropagator.class)
 public abstract class FluidPropagatorMixin {
     /**
      * 修复阀门和智能流体管道不正确更新流体网络的问题<br>

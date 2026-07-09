@@ -9,8 +9,7 @@ import net.minecraft.world.level.material.Fluid;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@SuppressWarnings("DefaultAnnotationParam")
-@Mixin(value = Player.class, remap = true)
+@Mixin(Player.class)
 public abstract class PlayerMixin {
     // 禁用水中挖掘速度惩罚
     @WrapOperation(

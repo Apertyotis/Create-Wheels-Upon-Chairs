@@ -8,7 +8,7 @@ import net.apertyotis.createwheelsuponchairs.AllConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(value = OpenEndedPipe.class, remap = false)
+@Mixin(OpenEndedPipe.class)
 public abstract class OpenEndedPipeMixin {
     @Definition(id = "convertToStill", method = "Lcom/simibubi/create/foundation/fluid/FluidHelper;convertToStill(Lnet/minecraft/world/level/material/Fluid;)Lnet/minecraft/world/level/material/Fluid;")
     @Expression("convertToStill(?) != ?")

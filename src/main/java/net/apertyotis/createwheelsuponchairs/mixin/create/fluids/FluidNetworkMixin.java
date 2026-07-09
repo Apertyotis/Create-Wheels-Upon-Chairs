@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = FluidNetwork.class, remap = false)
+@Mixin(FluidNetwork.class)
 public abstract class FluidNetworkMixin {
     /**
      * 阻止管道抽取 0mB 液体<br>

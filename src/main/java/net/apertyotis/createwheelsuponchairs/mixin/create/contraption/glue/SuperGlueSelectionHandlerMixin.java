@@ -14,7 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-@Mixin(value = SuperGlueSelectionHandler.class, remap = false)
+@Mixin(SuperGlueSelectionHandler.class)
 public abstract class SuperGlueSelectionHandlerMixin {
     // 允许强力胶设置选区时无视方块是否相连，不影响实际连接逻辑
     @WrapOperation(

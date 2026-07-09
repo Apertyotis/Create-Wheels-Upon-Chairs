@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Set;
 
-@Mixin(value = SuperGlueSelectionPacket.class, remap = false)
+@Mixin(SuperGlueSelectionPacket.class)
 public abstract class SuperGlueSelectionPacketMixin {
 
     @Final

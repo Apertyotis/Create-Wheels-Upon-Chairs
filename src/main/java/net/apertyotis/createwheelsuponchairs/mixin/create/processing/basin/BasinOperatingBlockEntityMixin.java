@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = BasinOperatingBlockEntity.class, remap = false)
+@Mixin(BasinOperatingBlockEntity.class)
 public abstract class BasinOperatingBlockEntityMixin {
     // 修复盆加工类机器按原料数量比较配方优先级时未考虑流体原料的问题
     @Inject(method = "lambda$getMatchingRecipes$0", at = @At("HEAD"), cancellable = true)

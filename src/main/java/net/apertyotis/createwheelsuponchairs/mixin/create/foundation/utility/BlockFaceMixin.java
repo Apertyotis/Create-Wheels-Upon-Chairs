@@ -6,7 +6,7 @@ import net.minecraft.core.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(value = BlockFace.class, remap = false)
+@Mixin(BlockFace.class)
 public abstract class BlockFaceMixin implements BlockFaceEx {
     @Unique
     private BlockPos caa$filterPos = null;

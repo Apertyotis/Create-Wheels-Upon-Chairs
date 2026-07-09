@@ -23,7 +23,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-@Mixin(value = PipeConnection.class, remap = false)
+@Mixin(PipeConnection.class)
 public abstract class PipeConnectionMixin {
     @Shadow
     Optional<PipeConnection.Flow> flow;

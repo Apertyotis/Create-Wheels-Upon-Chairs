@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Map;
 
-@Mixin(value = Navigation.class, remap = false)
+@Mixin(Navigation.class)
 public abstract class NavigationMixin {
     @Shadow
     public GlobalStation destination;

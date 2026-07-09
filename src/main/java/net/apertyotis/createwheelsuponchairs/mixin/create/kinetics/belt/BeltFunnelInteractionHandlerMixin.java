@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = BeltFunnelInteractionHandler.class, remap = false)
+@Mixin(BeltFunnelInteractionHandler.class)
 public abstract class BeltFunnelInteractionHandlerMixin {
     // 修复传送带上对向漏斗向已满保险库输入物品时不会阻挡传送带的 bug
     @ModifyExpressionValue(

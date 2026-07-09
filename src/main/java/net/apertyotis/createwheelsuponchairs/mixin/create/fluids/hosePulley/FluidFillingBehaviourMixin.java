@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Set;
 
-@Mixin(value = FluidFillingBehaviour.class, remap = false)
+@Mixin(FluidFillingBehaviour.class)
 public abstract class FluidFillingBehaviourMixin {
     // 取消第一次 visited::add，使得软管滑轮可以放置最后一格液体
     @WrapOperation(

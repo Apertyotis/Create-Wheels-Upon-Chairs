@@ -10,7 +10,7 @@ import net.apertyotis.createwheelsuponchairs.content.belt.BeltScrollValueBehavio
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(value = ScrollValueRenderer.class, remap = false)
+@Mixin(ScrollValueRenderer.class)
 public abstract class ScrollValueRendererMixin {
     @Definition(id = "ctrlDown", method = "Lcom/simibubi/create/AllKeys;ctrlDown()Z")
     @Expression("ctrlDown()")

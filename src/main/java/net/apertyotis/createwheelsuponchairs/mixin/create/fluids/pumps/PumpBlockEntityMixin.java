@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Map;
 import java.util.Set;
 
-@Mixin(value = PumpBlockEntity.class, remap = false)
+@Mixin(PumpBlockEntity.class)
 public abstract class PumpBlockEntityMixin {
     @WrapOperation(
         method = "distributePressureTo",

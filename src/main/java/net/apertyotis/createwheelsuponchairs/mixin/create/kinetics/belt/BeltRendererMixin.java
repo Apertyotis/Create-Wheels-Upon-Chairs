@@ -9,7 +9,7 @@ import net.apertyotis.createwheelsuponchairs.content.belt.BeltBlockEntityEx;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(value = BeltRenderer.class, remap = false)
+@Mixin(BeltRenderer.class)
 public abstract class BeltRendererMixin {
     @WrapOperation(
         method = "renderSafe(Lcom/simibubi/create/content/kinetics/belt/BeltBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V",

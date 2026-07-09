@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Optional;
 
-@Mixin(value = BeltSlicer.class, remap = false)
+@Mixin(BeltSlicer.class)
 public abstract class BeltSlicerMixin {
     @WrapOperation(
         method = "useConnector",

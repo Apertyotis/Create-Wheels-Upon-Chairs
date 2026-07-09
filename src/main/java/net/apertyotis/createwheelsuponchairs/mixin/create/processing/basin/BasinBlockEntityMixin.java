@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-@Mixin(value = BasinBlockEntity.class, remap = false)
+@Mixin(BasinBlockEntity.class)
 public abstract class BasinBlockEntityMixin {
 
     @Shadow

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Unique;
 import java.util.Set;
 import java.util.function.Consumer;
 
-@Mixin(value = SignalEdgeGroup.class, remap = false)
+@Mixin(SignalEdgeGroup.class)
 public abstract class SignalEdgeGroupMixin implements SignalEdgeGroupEx {
     @Shadow
     public Set<SignalEdgeGroup> intersectingResolved;

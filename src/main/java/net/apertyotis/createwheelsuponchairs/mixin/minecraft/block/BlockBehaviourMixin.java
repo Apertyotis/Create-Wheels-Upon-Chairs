@@ -15,8 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Collection;
 import java.util.List;
 
-@SuppressWarnings("DefaultAnnotationParam")
-@Mixin(value = BlockBehaviour.class, remap = true)
+@Mixin(BlockBehaviour.class)
 public abstract class BlockBehaviourMixin {
     // 对未实现旋转方法的方块应用启发式旋转
     // 自动检查常见方向属性并旋转

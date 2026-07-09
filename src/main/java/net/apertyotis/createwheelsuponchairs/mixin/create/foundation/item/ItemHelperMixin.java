@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Predicate;
 
-@Mixin(value = ItemHelper.class, remap = false)
+@Mixin(ItemHelper.class)
 public abstract class ItemHelperMixin {
 
     // 重写漏斗取物逻辑 (尤其是黄铜漏斗)

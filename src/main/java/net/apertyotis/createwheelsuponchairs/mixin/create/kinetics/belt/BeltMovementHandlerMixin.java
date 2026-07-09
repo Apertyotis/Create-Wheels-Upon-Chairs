@@ -9,7 +9,7 @@ import net.apertyotis.createwheelsuponchairs.content.belt.BeltBlockEntityEx;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(value = BeltMovementHandler.class, remap = false)
+@Mixin(BeltMovementHandler.class)
 public abstract class BeltMovementHandlerMixin {
     @WrapOperation(
         method = "transportEntity",

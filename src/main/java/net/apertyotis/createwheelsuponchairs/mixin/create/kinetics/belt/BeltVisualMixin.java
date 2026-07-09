@@ -9,7 +9,7 @@ import net.apertyotis.createwheelsuponchairs.content.belt.BeltBlockEntityEx;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(value = BeltVisual.class, remap = false)
+@Mixin(BeltVisual.class)
 public abstract class BeltVisualMixin {
     @WrapOperation(
         method = "setup",

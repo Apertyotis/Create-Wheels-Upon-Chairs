@@ -7,7 +7,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(value = ItemVaultBlockEntity.class, remap = false)
+@Mixin(ItemVaultBlockEntity.class)
 public abstract class ItemVaultBlockEntityMixin implements PartialSafeNBT {
     /**
      * 修复蓝图打印单格保险库容量为 0 的问题<br>

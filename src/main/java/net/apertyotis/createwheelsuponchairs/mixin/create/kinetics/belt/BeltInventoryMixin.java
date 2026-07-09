@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-@Mixin(value = BeltInventory.class, remap = false)
+@Mixin(BeltInventory.class)
 public abstract class BeltInventoryMixin {
 
     @Final

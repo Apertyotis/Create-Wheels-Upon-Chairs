@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-@Mixin(value = DepotBehaviour.class, remap = false)
+@Mixin(DepotBehaviour.class)
 public abstract class DepotBehaviourMixin {
 
     @Shadow
@@ -89,8 +89,7 @@ public abstract class DepotBehaviourMixin {
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/world/Containers;dropItemStack(Lnet/minecraft/world/level/Level;DDDLnet/minecraft/world/item/ItemStack;)V"
-        ),
-        remap = true
+        )
     )
     private void moveOverflowItemsToIncoming(Level p_18993_, double p_18994_, double p_18995_, double p_18996_, ItemStack p_18997_, Operation<Void> original) {
         if (!AllConfig.no_depot_overflow_drop) {

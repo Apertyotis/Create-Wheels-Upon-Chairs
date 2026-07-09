@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.List;
 
-@Mixin(value = BeltConnectorItem.class, remap = false)
+@Mixin(BeltConnectorItem.class)
 public abstract class BeltConnectorItemMixin {
     @Definition(id = "failed", local = @Local(type = boolean.class, name = "failed"))
     @Expression("failed")

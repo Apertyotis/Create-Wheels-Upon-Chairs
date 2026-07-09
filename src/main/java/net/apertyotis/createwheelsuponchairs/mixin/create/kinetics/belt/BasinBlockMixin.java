@@ -9,7 +9,7 @@ import net.apertyotis.createwheelsuponchairs.content.belt.BeltBlockEntityEx;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(value = BasinBlock.class, remap = false)
+@Mixin(BasinBlock.class)
 public abstract class BasinBlockMixin {
     @WrapOperation(
         method = "canOutputTo",

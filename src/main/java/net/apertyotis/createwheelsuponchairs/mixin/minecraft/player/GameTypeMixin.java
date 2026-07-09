@@ -9,7 +9,7 @@ import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(value = GameType.class)
+@Mixin(GameType.class)
 public abstract class GameTypeMixin {
     // 任何模式玩家可飞行，切换生存不打断飞行
     @SuppressWarnings("deprecation")

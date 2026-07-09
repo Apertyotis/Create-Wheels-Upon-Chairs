@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = FluidTransportBehaviour.class, remap = false)
+@Mixin(FluidTransportBehaviour.class)
 public abstract class FluidTransportBehaviourMixin implements FluidTransportBehaviourEx {
     @Unique
     private BlockPos caa$filterPos;

@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = GlobalStation.class, remap = false)
+@Mixin(GlobalStation.class)
 public abstract class GlobalStationMixin {
     /**
      * 修复某种情况下列车永久预定车站而不释放的问题<br>

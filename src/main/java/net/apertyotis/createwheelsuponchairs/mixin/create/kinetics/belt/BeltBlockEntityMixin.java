@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
-@Mixin(value = BeltBlockEntity.class, remap = false)
+@Mixin(BeltBlockEntity.class)
 public class BeltBlockEntityMixin implements BeltBlockEntityEx {
     @Unique
     public ScrollValueBehaviour caa$targetSpeed;
