@@ -1,7 +1,11 @@
 package net.apertyotis.createwheelsuponchairs.mixin.create.fluids.pumps;
 
+import com.llamalad7.mixinextras.expression.Definition;
+import com.llamalad7.mixinextras.expression.Expression;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import com.simibubi.create.content.fluids.FluidPropagator;
@@ -9,6 +13,8 @@ import com.simibubi.create.content.fluids.FluidTransportBehaviour;
 import com.simibubi.create.content.fluids.pipes.SmartFluidPipeBlockEntity;
 import com.simibubi.create.content.fluids.pipes.valve.FluidValveBlockEntity;
 import com.simibubi.create.content.fluids.pump.PumpBlockEntity;
+import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
+import net.apertyotis.createwheelsuponchairs.AllConfig;
 import net.apertyotis.createwheelsuponchairs.foundation.BlockFaceEx;
 import net.apertyotis.createwheelsuponchairs.foundation.FluidTransportBehaviourEx;
 import net.createmod.catnip.data.Pair;
@@ -21,6 +27,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Map;
@@ -100,5 +107,35 @@ public abstract class PumpBlockEntityMixin {
                 ex.caa$attachFilterPos(filterPos.get());
         }
         return result;
+    }
+
+    @Inject(method = "distributePressureTo", at = @At(value = "NEW", target = "()Ljava/util/HashMap;", ordinal = 0))
+    private void initBorderNodes(Direction side, CallbackInfo ci, @Share("borderNodes") LocalRef<LongOpenHashSet> borderNodes) {
+        if (AllConfig.fluid_network_fix)
+            borderNodes.set(new LongOpenHashSet());
+    }
+
+    @Definition(id = "isLoaded", method = "Lnet/minecraft/world/level/Level;isLoaded(Lnet/minecraft/core/BlockPos;)Z")
+    @Expression("?.isLoaded(?)")
+    @ModifyExpressionValue(method = "distributePressureTo", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 1))
+    private boolean collectBorderNodes(
+        boolean original, @Share("borderNodes") LocalRef<LongOpenHashSet> borderNodes,
+        @Local(name = "currentPos") BlockPos currentPos
+    ) {
+        if (!original && AllConfig.fluid_network_fix)
+            borderNodes.get().add(currentPos.asLong());
+        return original;
+    }
+
+    @Inject(method = "distributePressureTo", at = @At(value = "INVOKE", target = "Ljava/util/HashMap;<init>()V", ordinal = 1))
+    private void markNeedsUpdate(Direction side, CallbackInfo ci, @Share("borderNodes") LocalRef<LongOpenHashSet> borderNodes) {
+        Level level = ((PumpBlockEntity)(Object) this).getLevel();
+        if (level == null || !AllConfig.fluid_network_fix)
+            return;
+        for (long packed: borderNodes.get()) {
+            if (FluidPropagator.getPipe(level, BlockPos.of(packed)) instanceof FluidTransportBehaviourEx ex) {
+                ex.caa$scheduleUpdate();
+            }
+        }
     }
 }

@@ -103,7 +103,9 @@ public class AllConfig {
                 .define("vault_and_tank_schematic_fix", true);
             FLUID_NETWORK_FIX = builder
                 .comment("Backported the fix from Create PR #9974 and #10001;")
-                .comment("Fix open pipes being unable to place fluids when the output rate exceeds 1000 mB/t.")
+                .comment("Fix open pipes being unable to place fluids when the output rate exceeds 1000 mB/t;")
+                .comment("Fix open pipes not validating their connections;")
+                .comment("Fix an issue where, when \"mechanicalPumpRange\" >= 16, long pipes may occasionally fail to rebuild their fluid network correctly after chunks are reloaded.")
                 .define("fluid_network_fix", true);
             BELT_FIX = builder
                 .comment("Backported the fix from Create PR #9891 and #9967;")
