@@ -6,7 +6,10 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Cancellable;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.simibubi.create.content.fluids.FluidNetwork;
+import com.simibubi.create.foundation.ICapabilityProvider;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -24,5 +27,16 @@ public abstract class FluidNetworkMixin {
         if (AllConfig.hose_pulley_fix && original <= 0)
             ci.cancel();
         return original;
+    }
+
+    @Definition(id = "source", field = "Lcom/simibubi/create/content/fluids/FluidNetwork;source:Lcom/simibubi/create/foundation/ICapabilityProvider;")
+    @Expression("?.source")
+    @ModifyExpressionValue(method = "tick", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 0))
+    private @Nullable ICapabilityProvider<IFluidHandler> validateSource(@Nullable ICapabilityProvider<IFluidHandler> original) {
+        if (!AllConfig.fluid_network_fix)
+            return original;
+        if (original != null && original.getCapability() != null)
+            return original;
+        return null;
     }
 }
