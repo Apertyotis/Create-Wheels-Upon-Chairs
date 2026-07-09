@@ -30,7 +30,6 @@ public class ConfigScreen {
         qol.addEntry(booleanEntry(entryBuilder, COMMON.HACHIMI_GLUE));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.SMART_FLUID_PIPE));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.EASY_BELT));
-        qol.addEntry(booleanEntry(entryBuilder, COMMON.FAST_CONTRAPTION_STORAGE));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.FAST_LOGISTICS));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.BASIN_FAUCET_VIEW));
 

@@ -31,7 +31,6 @@ public class AllConfig {
         public final ModConfigSpec.BooleanValue HACHIMI_GLUE;
         public final ModConfigSpec.BooleanValue SMART_FLUID_PIPE;
         public final ModConfigSpec.BooleanValue EASY_BELT;
-        public final ModConfigSpec.BooleanValue FAST_CONTRAPTION_STORAGE;
         public final ModConfigSpec.BooleanValue FAST_LOGISTICS;
         public final ModConfigSpec.BooleanValue BASIN_FAUCET_VIEW;
 
@@ -80,9 +79,6 @@ public class AllConfig {
             EASY_BELT = builder
                 .comment("Allow belts to operate without requiring a power source.")
                 .define("easy_belt", true);
-            FAST_CONTRAPTION_STORAGE = builder
-                .comment("Backported the optimization from Create PR #9706. (Needs restart)")
-                .define("fast_contraption_storage", true);
             FAST_LOGISTICS = builder
                 .comment("Optimize the performance of various logistics components.")
                 .define("fast_logistics", true);
