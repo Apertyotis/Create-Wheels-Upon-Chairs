@@ -2,11 +2,10 @@ package net.apertyotis.createwheelsuponchairs.mixin.create.fluids;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.simibubi.create.content.fluids.FlowSource;
-import com.simibubi.create.content.fluids.FluidPropagator;
-import com.simibubi.create.content.fluids.OpenEndedPipe;
-import com.simibubi.create.content.fluids.PipeConnection;
+import com.simibubi.create.content.fluids.*;
+import com.simibubi.create.foundation.ICapabilityProvider;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
+import net.createmod.catnip.math.BlockFace;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -22,6 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 @Mixin(value = PipeConnection.class, remap = false)
 public abstract class PipeConnectionMixin {
@@ -74,10 +74,29 @@ public abstract class PipeConnectionMixin {
                 }
             } else if (flowSource instanceof FlowSource.FluidHandler) {
                 if (!FluidPropagator.hasFluidCapability(world, relative, side.getOpposite())) {
-                    previousSource = source;
                     source = Optional.empty();
+                } else {
+                    ICapabilityProvider<IFluidHandler> handler = flowSource.provideHandler();
+                    if (handler == null || handler.getCapability() == null)
+                        source = Optional.empty();
                 }
             }
         }
+    }
+
+    @WrapOperation(
+        method = "manageFlows",
+        at = @At(
+            value = "NEW",
+            target = "(Lnet/minecraft/world/level/Level;Lnet/createmod/catnip/math/BlockFace;Ljava/util/function/Supplier;)Lcom/simibubi/create/content/fluids/FluidNetwork;"
+        )
+    )
+    private FluidNetwork betterSourceProvider(
+        Level world, BlockFace location, Supplier<ICapabilityProvider<IFluidHandler>> sourceSupplier, Operation<FluidNetwork> original
+    ) {
+        if (AllConfig.fluid_network_fix) {
+            sourceSupplier = () -> source.map(FlowSource::provideHandler).orElse(null);
+        }
+        return original.call(world, location, sourceSupplier);
     }
 }
