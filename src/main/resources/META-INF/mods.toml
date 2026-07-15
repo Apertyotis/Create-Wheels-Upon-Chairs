@@ -41,4 +41,4 @@ description='''${mod_description}'''
     side="CLIENT"
 
 [[mixins]]
-    config = "createwhaleuponclouds.mixins.json"
+    config = "createwheelsuponchairs.mixins.json"
