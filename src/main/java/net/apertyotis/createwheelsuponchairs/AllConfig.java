@@ -26,7 +26,6 @@ public class AllConfig {
         public final ModConfigSpec.BooleanValue DEPLOYER_INSTANT_OUTPUT;
         public final ModConfigSpec.BooleanValue BELT_FUNNEL_DETECTION_TWEAK;
         public final ModConfigSpec.BooleanValue NO_DEPOT_OVERFLOW_DROP;
-        public final ModConfigSpec.BooleanValue REPLACE_ANY_FLOWING_FLUID;
         public final ModConfigSpec.BooleanValue BETTER_PSI_ON_CARRIAGE;
         public final ModConfigSpec.BooleanValue HACHIMI_GLUE;
         public final ModConfigSpec.BooleanValue SMART_FLUID_PIPE;
@@ -63,9 +62,6 @@ public class AllConfig {
                 .comment("For example when it accumulates too many processing outputs.")
                 .comment("Or when an Ejector cannot merge received item stacks.")
                 .define("no_depot_overflow_drop", true);
-            REPLACE_ANY_FLOWING_FLUID = builder
-                .comment("Allow pumps to replace any flowing fluid, ignoring the fluid type.")
-                .define("replace_any_flowing_fluid", true);
             BETTER_PSI_ON_CARRIAGE = builder
                 .comment("PSIs on trains are now only activated when the train arrives at a station.")
                 .define("better_psi_on_carriage", true);
@@ -147,7 +143,6 @@ public class AllConfig {
     public static boolean deployer_instant_output;
     public static boolean belt_funnel_detection_tweak;
     public static boolean no_depot_overflow_drop;
-    public static boolean replace_any_flowing_fluid;
     public static boolean better_psi_on_carriage;
     public static boolean hachimi_glue;
     public static boolean smart_fluid_pipe;
@@ -172,7 +167,6 @@ public class AllConfig {
         deployer_instant_output = COMMON.DEPLOYER_INSTANT_OUTPUT.get();
         belt_funnel_detection_tweak = COMMON.BELT_FUNNEL_DETECTION_TWEAK.get();
         no_depot_overflow_drop = COMMON.NO_DEPOT_OVERFLOW_DROP.get();
-        replace_any_flowing_fluid = COMMON.REPLACE_ANY_FLOWING_FLUID.get();
         better_psi_on_carriage = COMMON.BETTER_PSI_ON_CARRIAGE.get();
         hachimi_glue = COMMON.HACHIMI_GLUE.get();
         smart_fluid_pipe = COMMON.SMART_FLUID_PIPE.get();
