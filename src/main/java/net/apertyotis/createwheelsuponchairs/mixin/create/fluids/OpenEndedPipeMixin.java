@@ -27,8 +27,6 @@ public abstract class OpenEndedPipeMixin {
         @Local(argsOnly = true) FluidStack fluid,
         @Local(name = "fluidState") FluidState fluidState
     ) {
-        if (AllConfig.replace_any_flowing_fluid)
-            return false;
         if (!AllConfig.fluid_network_fix)
             return original;
         return fluid.getFluid().getFluidType() != fluidState.getFluidType();

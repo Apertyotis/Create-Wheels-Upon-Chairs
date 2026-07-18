@@ -28,7 +28,6 @@ public class ConfigScreen {
         qol.addEntry(booleanEntry(entryBuilder, COMMON.BELT_FUNNEL_DETECTION_TWEAK));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.NO_CHUTE_LEAKING));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.NO_DEPOT_OVERFLOW_DROP));
-        qol.addEntry(booleanEntry(entryBuilder, COMMON.REPLACE_ANY_FLOWING_FLUID));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.BETTER_PSI_ON_CARRIAGE));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.HACHIMI_GLUE));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.SMART_FLUID_PIPE));
