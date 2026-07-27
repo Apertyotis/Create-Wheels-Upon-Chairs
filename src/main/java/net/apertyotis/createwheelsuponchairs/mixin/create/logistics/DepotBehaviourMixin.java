@@ -8,6 +8,7 @@ import com.simibubi.create.content.logistics.depot.DepotBehaviour;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.item.ItemHelper;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -141,5 +142,31 @@ public abstract class DepotBehaviourMixin {
     )
     private boolean readIncoming(boolean original) {
         return true;
+    }
+
+    @WrapOperation(
+        method = "lambda$new$0",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/item/ItemStack;getMaxStackSize()I"
+        )
+    )
+    private int getOrDefaultMaxStackSize1(ItemStack instance, Operation<Integer> original) {
+        if (!AllConfig.depot_fix)
+            return original.call(instance);
+        return instance.getOrDefault(DataComponents.MAX_STACK_SIZE, 64);
+    }
+
+    @WrapOperation(
+        method = "getRemainingSpace",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/item/ItemStack;getMaxStackSize()I"
+        )
+    )
+    private int getOrDefaultMaxStackSize2(ItemStack instance, Operation<Integer> original) {
+        if (!AllConfig.depot_fix)
+            return original.call(instance);
+        return instance.getOrDefault(DataComponents.MAX_STACK_SIZE, 64);
     }
 }
