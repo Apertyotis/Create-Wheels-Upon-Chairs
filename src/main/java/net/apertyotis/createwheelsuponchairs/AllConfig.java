@@ -37,6 +37,7 @@ public class AllConfig {
         public final ForgeConfigSpec.BooleanValue FAST_VAULT;
         public final ForgeConfigSpec.BooleanValue BASIN_FAUCET_VIEW;
         public final ForgeConfigSpec.BooleanValue BETTER_THRESHOLD_SWITCH;
+        public final ForgeConfigSpec.BooleanValue BELT_PROCESSING_TWEAK;
 
         public final ForgeConfigSpec.BooleanValue PSI_FIX;
         public final ForgeConfigSpec.BooleanValue BACKTANK_FIX;
@@ -103,6 +104,11 @@ public class AllConfig {
             BETTER_THRESHOLD_SWITCH = builder
                 .comment("Backported the threshold switch from Create 6.0.x. (Need restart)")
                 .define("better_threshold_switch", true);
+            BELT_PROCESSING_TWEAK = builder
+                .comment("Fix deployers and presses skipping the remaining input stack after a belt processing operation produces no output;")
+                .comment("Slightly reduce logistics latency and performance cost for belt processing in certain cases;")
+                .comment("Allow presses to output immediately after processing, speeding up pressing recipes by 1 tick.")
+                .define("belt_processing_tweak", true);
             builder.pop();
 
             builder.comment("Bugfix").push("bugfix");
@@ -187,6 +193,7 @@ public class AllConfig {
     public static boolean fast_logistics;
     public static boolean fast_vault;
     public static boolean basin_faucet_view;
+    public static boolean belt_processing_tweak;
 
     public static boolean psi_fix;
     public static boolean backtank_fix;
@@ -217,6 +224,7 @@ public class AllConfig {
         fast_logistics = COMMON.FAST_LOGISTICS.get();
         fast_vault = COMMON.FAST_VAULT.get();
         basin_faucet_view = COMMON.BASIN_FAUCET_VIEW.get();
+        belt_processing_tweak = COMMON.BELT_PROCESSING_TWEAK.get();
 
         psi_fix = COMMON.PSI_FIX.get();
         backtank_fix = COMMON.BACKTANK_FIX.get();

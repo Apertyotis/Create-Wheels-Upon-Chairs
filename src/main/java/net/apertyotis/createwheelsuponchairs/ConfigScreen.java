@@ -37,6 +37,7 @@ public class ConfigScreen {
         qol.addEntry(booleanEntry(entryBuilder, COMMON.FAST_VAULT));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.BASIN_FAUCET_VIEW));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.BETTER_THRESHOLD_SWITCH));
+        qol.addEntry(booleanEntry(entryBuilder, COMMON.BELT_PROCESSING_TWEAK));
 
         ConfigCategory bugfix = builder.getOrCreateCategory(Component.translatable("cwuc.config.common.bugfix.title"));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.PSI_FIX));

@@ -56,6 +56,10 @@
   "cwuc.config.common.basin_faucet_view.1": "Show the contents of the basin faucet when wearing Goggles.",
   "cwuc.config.common.better_threshold_switch": "Better Threshold Switch",
   "cwuc.config.common.better_threshold_switch.1": "Backported the threshold switch from Create 6.0.x. (Need restart)",
+  "cwuc.config.common.belt_processing_tweak": "Belt Processing Tweak",
+  "cwuc.config.common.belt_processing_tweak.1": "Fix deployers and presses skipping the remaining input stack after a belt processing operation produces no output;",
+  "cwuc.config.common.belt_processing_tweak.2": "Slightly reduce logistics latency and performance cost for belt processing in certain cases;",
+  "cwuc.config.common.belt_processing_tweak.3": "Allow presses to output immediately after processing, speeding up pressing recipes by 1 tick.",
 
   "cwuc.config.common.bugfix.title": "Bugfix",
   "cwuc.config.bugfix.psi_fix": "PSI Fix",
