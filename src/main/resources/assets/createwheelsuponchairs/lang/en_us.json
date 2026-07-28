@@ -66,6 +66,8 @@
   "cwuc.config.bugfix.train_fix": "Train Fix",
   "cwuc.config.bugfix.train_fix.1": "Backported the fix from Create PR #9875 and #10362;",
   "cwuc.config.bugfix.train_fix.2": "Fix an issue where trains never release their reserved signal segment, causing a deadlock.",
+  "cwuc.config.bugfix.logistics_fix": "Logistics Fix",
+  "cwuc.config.bugfix.logistics_fix.1": "Fix Create Issue #8600.",
 
   "cwuc.config.common.misc.title": "Misc",
   "cwuc.config.misc.player_can_breath_underwater": "Player Can Breath Underwater",

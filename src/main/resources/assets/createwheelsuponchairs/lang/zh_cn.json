@@ -66,6 +66,8 @@
   "cwuc.config.bugfix.train_fix": "列车修复",
   "cwuc.config.bugfix.train_fix.1": "移植来自Create PR #9875和#10362的修复；",
   "cwuc.config.bugfix.train_fix.2": "修复列车会永久持有预留信号区间，导致异常死锁的问题。",
+  "cwuc.config.bugfix.logistics_fix": "物流修复",
+  "cwuc.config.bugfix.logistics_fix.1": "修复Create Issue #8600。",
 
   "cwuc.config.common.misc.title": "杂项",
   "cwuc.config.misc.player_can_breath_underwater": "玩家水下呼吸",

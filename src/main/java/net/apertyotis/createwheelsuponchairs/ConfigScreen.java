@@ -42,6 +42,7 @@ public class ConfigScreen {
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.BELT_FIX));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.PROCESSING_FIX));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.TRAIN_FIX));
+        bugfix.addEntry(booleanEntry(entryBuilder, COMMON.LOGISTICS_FIX));
 
         ConfigCategory misc = builder.getOrCreateCategory(Component.translatable("cwuc.config.common.misc.title"));
         misc.addEntry(booleanEntry(entryBuilder, COMMON.PLAYER_CAN_BREATH_UNDERWATER));

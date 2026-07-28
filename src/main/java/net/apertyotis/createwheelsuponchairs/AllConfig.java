@@ -42,6 +42,7 @@ public class AllConfig {
         public final ModConfigSpec.BooleanValue BELT_FIX;
         public final ModConfigSpec.BooleanValue PROCESSING_FIX;
         public final ModConfigSpec.BooleanValue TRAIN_FIX;
+        public final ModConfigSpec.BooleanValue LOGISTICS_FIX;
 
         public final ModConfigSpec.BooleanValue PLAYER_CAN_BREATH_UNDERWATER;
         public final ModConfigSpec.BooleanValue DISABLE_DIG_SPEED_PENALTY;
@@ -129,6 +130,9 @@ public class AllConfig {
                 .comment("Backported the fix from Create PR #9875 and #10362;")
                 .comment("Fix an issue where trains never release their reserved signal segment, causing a deadlock.")
                 .define("train_fix", true);
+            LOGISTICS_FIX = builder
+                .comment("Fix Create Issue #8600.")
+                .define("logistics_fix", true);
             builder.pop();
 
             builder.comment("Misc").push("misc");
@@ -174,6 +178,7 @@ public class AllConfig {
     public static boolean belt_fix;
     public static boolean processing_fix;
     public static boolean train_fix;
+    public static boolean logistics_fix;
 
     public static boolean player_can_breath_underwater;
     public static boolean disable_dig_speed_penalty;
@@ -201,6 +206,7 @@ public class AllConfig {
         belt_fix = COMMON.BELT_FIX.get();
         processing_fix = COMMON.PROCESSING_FIX.get();
         train_fix = COMMON.TRAIN_FIX.get();
+        logistics_fix = COMMON.LOGISTICS_FIX.get();
 
         player_can_breath_underwater = COMMON.PLAYER_CAN_BREATH_UNDERWATER.get();
         disable_dig_speed_penalty = COMMON.DISABLE_DIG_SPEED_PENALTY.get();
