@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-@Mixin(BeltPressingCallbacks.class)
+@Mixin(value = BeltPressingCallbacks.class, remap = false)
 public abstract class BeltPressingCallbacksMixin {
     @WrapOperation(
         method = "whenItemHeld",
