@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 public class CWUCMixinPlugin implements IMixinConfigPlugin {
-    private static final String PATH = "net.apertyotis.createwhaleuponclouds.mixin";
+    private static final String PATH = "net.apertyotis.createwheelsuponchairs.mixin";
     private static Set<String> blacklist;
 
     private void init() {
@@ -27,7 +27,7 @@ public class CWUCMixinPlugin implements IMixinConfigPlugin {
                     }
                 }
             }
-            Path path = Paths.get("config/createwhaleuponclouds-common.toml");
+            Path path = Paths.get("config/createwheelsuponchairs-common.toml");
             if (!Files.exists(path))
                 return;
             try (FileConfig config = FileConfig.of(path)) {
