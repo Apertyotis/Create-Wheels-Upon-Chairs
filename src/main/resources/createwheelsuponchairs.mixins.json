@@ -66,7 +66,6 @@
     "create.trains.SignalEdgeGroupMixin",
     "create.trains.TrainMixin",
     "createaddition.ModularAccumulatorBlockEntityMixin",
-    "createjustenoughtime.PressingCategoryMixin",
     "design_decor.LargeBoilerMixin",
     "design_decor.RailingBlockMixin",
     "minecraft.block.BlockBehaviourMixin",
@@ -80,6 +79,7 @@
     "create.kinetics.belt.BeltInstanceMixin",
     "create.kinetics.belt.BeltRendererMixin",
     "create.redstone.thresholdSwitch.ThresholdSwitchScreenMixin",
+    "createjustenoughtime.PressingCategoryMixin",
     "minecraft.player.LocalPlayerMixin",
     "renderer.FluidRendererMixin"
   ],
