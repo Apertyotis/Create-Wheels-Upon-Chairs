@@ -5,6 +5,7 @@
   "cwuc.goggle.basin_spoutput": "Output Faucet:",
   "cwuc.goggle.hose_pulley.cant_infinite": "This fluid doesn’t support bottomless supply!",
   "cwuc.goggle.hose_pulley.lower_hose": "Sufficient fluid filled. Lower the hose for infinite extraction.",
+  "cwuc.cjetcompat.detail.press": "The cooldown has been removed by Create: Wheels Upon Chairs",
 
   "cwuc.config.common.qol.title": "Quality of Life",
   "cwuc.config.common.deployer_instant_output": "Instant Deployer Output",
