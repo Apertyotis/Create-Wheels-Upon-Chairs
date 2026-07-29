@@ -98,7 +98,7 @@ public abstract class BasinBlockEntityMixin {
         } else {
             // 根据原方法语义，绝不应该传入其他类型的 handler
             throw new IllegalArgumentException(
-                "[Create: Whale Upon Clouds] Handler type contract violated: expected SmartFluidTankBehaviour.InternalFluidHandler, got "
+                "[Create: Wheels Upon Chairs] Handler type contract violated: expected SmartFluidTankBehaviour.InternalFluidHandler, got "
                     + targetTank.getClass().getName()
             );
         }
