@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 public class CWUCMixinPlugin implements IMixinConfigPlugin {
-    private static final String PATH = "net.apertyotis.createwhaleuponclouds.mixin";
+    private static final String PATH = "net.apertyotis.createwheelsuponchairs.mixin";
     private static Set<String> blacklist;
 
     private void init() {

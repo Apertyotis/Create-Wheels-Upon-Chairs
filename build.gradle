@@ -122,6 +122,7 @@ dependencies {
     implementation("com.tterrag.registrate:Registrate:${registrate_version}")
 
     implementation("curse.maven:createaddition-439890:8188476")
+    compileOnly("curse.maven:create-just-enough-time-1508862:8052215")
 
     runtimeOnly("curse.maven:jade-324717:7545219")
 }

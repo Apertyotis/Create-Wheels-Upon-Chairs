@@ -55,6 +55,7 @@
     "create.trains.NavigationMixin",
     "create.trains.SignalEdgeGroupMixin",
     "create.trains.TrainMixin",
+    "createjustenoughtime.PressingCategoryMixin",
     "minecraft.block.BlockBehaviourMixin",
     "minecraft.player.GameTypeMixin",
     "minecraft.player.PlayerMixin"
