@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-@Mixin(BeltDeployerCallbacks.class)
+@Mixin(value = BeltDeployerCallbacks.class, remap = false)
 public abstract class BeltDeployerCallbacksMixin {
     @Inject(
         method = "whenItemHeld",
