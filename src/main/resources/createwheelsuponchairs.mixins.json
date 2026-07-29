@@ -55,7 +55,6 @@
     "create.trains.NavigationMixin",
     "create.trains.SignalEdgeGroupMixin",
     "create.trains.TrainMixin",
-    "createjustenoughtime.PressingCategoryMixin",
     "minecraft.block.BlockBehaviourMixin",
     "minecraft.player.GameTypeMixin",
     "minecraft.player.PlayerMixin"
@@ -66,6 +65,7 @@
     "create.foundation.blockEntity.ScrollValueRendererMixin",
     "create.kinetics.belt.BeltRendererMixin",
     "create.kinetics.belt.BeltVisualMixin",
+    "createjustenoughtime.PressingCategoryMixin",
     "minecraft.player.LocalPlayerMixin"
   ],
   "injectors": {
