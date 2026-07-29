@@ -139,7 +139,8 @@ public class AllConfig {
                 .comment("Fix an issue where trains never release their reserved signal segment, causing a deadlock.")
                 .define("train_fix", true);
             LOGISTICS_FIX = builder
-                .comment("Backported the fix from Create PR #9649 and #9793.")
+                .comment("Backported the fix from Create PR #9649 and #9793;")
+                .comment("Fix Create Issue #8600.")
                 .define("logistics_fix", true);
             FIX_9729 = builder
                 .comment("Backported the fix from Create PR #9729")

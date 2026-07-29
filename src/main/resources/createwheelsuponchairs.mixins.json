@@ -51,6 +51,7 @@
     "create.logistics.FactoryPanelBehaviourMixin",
     "create.logistics.ItemVaultBlockEntityMixin",
     "create.logistics.LogisticallyLinkedBehaviourMixin",
+    "create.logistics.LogisticsManagerMixin",
     "create.processing.basin.BasinBlockEntityMixin",
     "create.processing.basin.BasinOperatingBlockEntityMixin",
     "create.processing.basin.BasinRecipeMixin",

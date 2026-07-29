@@ -8,6 +8,7 @@ import com.simibubi.create.content.logistics.factoryBoard.FactoryPanelBehaviour;
 import com.simibubi.create.content.logistics.factoryBoard.FactoryPanelBlockEntity;
 import com.simibubi.create.content.logistics.packagerLink.LogisticsManager;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
+import net.apertyotis.createwheelsuponchairs.foundation.CrossNetworkData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -52,5 +53,31 @@ public abstract class FactoryPanelBehaviourMixin {
         if (!AllConfig.logistics_fix)
             return original.call(instance);
         return unloadedLinkCountOld.get();
+    }
+
+    // 修复工厂仪表跨网络请求写入错误包裹分段数据的问题
+    @Inject(
+        method = "tickRequests",
+        at = @At(
+            value = "INVOKE",
+            target = "Ljava/util/Map;entrySet()Ljava/util/Set;",
+            ordinal = 1
+        )
+    )
+    private void initCrossNetworkData(CallbackInfo ci) {
+        if (AllConfig.logistics_fix)
+            CrossNetworkData.INSTANCE = new CrossNetworkData();
+    }
+
+    @Inject(
+        method = "tickRequests",
+        at = @At(
+            value = "INVOKE",
+            target = "Ljava/util/List;iterator()Ljava/util/Iterator;",
+            ordinal = 0
+        )
+    )
+    private void clearCrossNetworkData(CallbackInfo ci) {
+        CrossNetworkData.INSTANCE = null;
     }
 }
