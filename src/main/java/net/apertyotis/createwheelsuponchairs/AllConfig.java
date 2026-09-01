@@ -33,6 +33,7 @@ public class AllConfig {
         public final ModConfigSpec.BooleanValue FAST_LOGISTICS;
         public final ModConfigSpec.BooleanValue BASIN_FAUCET_VIEW;
         public final ModConfigSpec.BooleanValue BELT_PROCESSING_TWEAK;
+        public final ModConfigSpec.BooleanValue EASY_FILTERING;
 
         public final ModConfigSpec.BooleanValue HOSE_PULLEY_FIX;
         public final ModConfigSpec.BooleanValue MILLSTONE_FIX;
@@ -90,6 +91,9 @@ public class AllConfig {
                 .comment("Slightly reduce logistics latency and performance cost for belt processing in certain cases;")
                 .comment("Allow presses to output immediately after processing, speeding up pressing recipes by 1 tick.")
                 .define("belt_processing_tweak", true);
+            EASY_FILTERING = builder
+                .comment("Holding with a wrench on a filtering box will open the toolbox-like JEI bookmark overlay.")
+                .define("easy_filtering", true);
             builder.pop();
 
             builder.comment("Bugfix").push("bugfix");
@@ -169,6 +173,7 @@ public class AllConfig {
     public static boolean fast_logistics;
     public static boolean basin_faucet_view;
     public static boolean belt_processing_tweak;
+    public static boolean easy_filtering;
 
     public static boolean hose_pulley_fix;
     public static boolean millstone_fix;
@@ -197,6 +202,7 @@ public class AllConfig {
         fast_logistics = COMMON.FAST_LOGISTICS.get();
         basin_faucet_view = COMMON.BASIN_FAUCET_VIEW.get();
         belt_processing_tweak = COMMON.BELT_PROCESSING_TWEAK.get();
+        easy_filtering = COMMON.EASY_FILTERING.get();
 
         hose_pulley_fix = COMMON.HOSE_PULLEY_FIX.get();
         millstone_fix = COMMON.MILLSTONE_FIX.get();

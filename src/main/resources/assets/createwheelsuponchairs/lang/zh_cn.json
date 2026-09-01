@@ -1,11 +1,10 @@
 {
   "cwuc.info.hachimi_disabled": "服务器未启用\"蜂蜜强力胶\"选项.",
-  "cwuc.info.train.occupied": "预定的信号区间被意外抢占，已释放互斥锁",
-  "cwuc.info.train.intrude": "闯入其他列车预定的信号区间",
   "cwuc.goggle.basin_spoutput": "自动输出：",
   "cwuc.goggle.hose_pulley.cant_infinite": "这种流体不能无限供应!",
   "cwuc.goggle.hose_pulley.lower_hose": "液体已足量, 下降软管到底部可无限抽取",
   "cwuc.cjetcompat.detail.press": "工作间隔已被Create: Wheels Upon Chairs移除",
+  "cwuc.easy_filter.hold_to_open": "扳手长按：使用JEI书签过滤",
 
   "cwuc.config.common.qol.title": "优化",
   "cwuc.config.common.deployer_instant_output": "机械手立即输出",
@@ -36,6 +35,8 @@
   "cwuc.config.common.belt_processing_tweak.1": "修复机械手/冲压机如果某次加工产物为空时，会直接放行剩余未处理原料的问题；",
   "cwuc.config.common.belt_processing_tweak.2": "略微减少某些情况下传送带加工的物流延迟和性能消耗；",
   "cwuc.config.common.belt_processing_tweak.3": "允许冲压机立即输出产物（而不用等机头抬至最高点），避免冲压配方的工作延迟。",
+  "cwuc.config.common.easy_filtering": "轻松过滤",
+  "cwuc.config.common.easy_filtering.1": "对过滤槽扳手长按右键可以打开一个类工具箱的JEI书签界面。",
 
   "cwuc.config.common.bugfix.title": "修复",
   "cwuc.config.bugfix.hose_pulley_fix": "软管滑轮修复",

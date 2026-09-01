@@ -1,5 +1,6 @@
 package net.apertyotis.createwheelsuponchairs;
 
+import net.apertyotis.createwheelsuponchairs.content.filtering.EasyFilteringPacket;
 import net.apertyotis.createwheelsuponchairs.content.hachimiGlue.HachimiGlueModificationPacket;
 import net.createmod.catnip.net.base.BasePacketPayload;
 import net.createmod.catnip.net.base.CatnipPacketRegistry;
@@ -14,7 +15,8 @@ import static net.apertyotis.createwheelsuponchairs.CreateWheelsUponChairs.MOD_I
 
 public enum AllPackets implements BasePacketPayload.PacketTypeProvider {
 
-    MODIFY_GLUE(HachimiGlueModificationPacket.class, HachimiGlueModificationPacket.STREAM_CODEC);
+    MODIFY_GLUE(HachimiGlueModificationPacket.class, HachimiGlueModificationPacket.STREAM_CODEC),
+    EASY_FILTERING(EasyFilteringPacket.class, EasyFilteringPacket.STREAM_CODEC);
 
     private final CatnipPacketRegistry.PacketType<?> type;
 

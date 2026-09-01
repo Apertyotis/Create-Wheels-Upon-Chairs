@@ -32,6 +32,7 @@ public class ConfigScreen {
         qol.addEntry(booleanEntry(entryBuilder, COMMON.FAST_LOGISTICS));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.BASIN_FAUCET_VIEW));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.BELT_PROCESSING_TWEAK));
+        qol.addEntry(booleanEntry(entryBuilder, COMMON.EASY_FILTERING));
 
         ConfigCategory bugfix = builder.getOrCreateCategory(Component.translatable("cwuc.config.common.bugfix.title"));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.HOSE_PULLEY_FIX));
