@@ -65,6 +65,7 @@
   "cwuc.config.common.belt_processing_tweak.3": "允许冲压机立即输出产物（而不用等机头抬至最高点），避免冲压配方的工作延迟。",
   "cwuc.config.common.easy_filtering": "轻松过滤",
   "cwuc.config.common.easy_filtering.1": "对过滤槽扳手长按右键可以打开一个类工具箱的JEI书签界面。",
+  "cwuc.config.common.hose_pulley_sound_cooldown": "软管滑轮音效冷却",
 
   "cwuc.config.common.bugfix.title": "修复",
   "cwuc.config.bugfix.psi_fix": "移动存储接口修复",
