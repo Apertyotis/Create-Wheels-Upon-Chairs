@@ -13,7 +13,8 @@ public enum Mods {
     CreateAndesiteAbound(),
     CreateAddition( "ModularAccumulatorBlockEntityMixin"),
     Design_Decor("LargeBoilerMixin", "RailingBlockMixin"),
-    CreateJustEnoughTime("PressingCategoryMixin");
+    CreateJustEnoughTime("PressingCategoryMixin"),
+    CreateLazyTick();
 
     private final String id;
     private final String[] mixins;

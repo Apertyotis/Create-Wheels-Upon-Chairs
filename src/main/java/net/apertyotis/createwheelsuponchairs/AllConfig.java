@@ -43,6 +43,9 @@ public class AllConfig {
         public final ForgeConfigSpec.IntValue TOOLBELT_HOLD_DELAY;
         public final ForgeConfigSpec.IntValue TOOLBELT_ANIMATION_TICKS;
         public final ForgeConfigSpec.BooleanValue QUICK_UNEQUIP_ITEMS;
+        public final ForgeConfigSpec.IntValue PUMP_SPEED_MULTIPLIER;
+        public final ForgeConfigSpec.BooleanValue HYPER_FLUID_PROPAGATION;
+        public final ForgeConfigSpec.BooleanValue FLUID_NOT_COLLIDE;
 
         public final ForgeConfigSpec.BooleanValue PSI_FIX;
         public final ForgeConfigSpec.BooleanValue BACKTANK_FIX;
@@ -89,7 +92,7 @@ public class AllConfig {
                 .define("hachimi_glue", true);
             SMART_FLUID_PIPE = builder
                 .comment("Allow smart fluid pipes and valve pipes to work without being directly attached to a tank.")
-                .comment("And slightly optimize the performance.")
+                .comment("And significantly optimize the performance.")
                 .define("smart_fluid_pipe", true);
             EASY_BELT = builder
                 .comment("Allow belts to operate without requiring a power source.")
@@ -130,6 +133,18 @@ public class AllConfig {
             QUICK_UNEQUIP_ITEMS = builder
                 .comment("Short-press the toolbelt hotkey to quickly unequip items without opening the toolbox.")
                 .define("quick_unequip_items", true);
+            PUMP_SPEED_MULTIPLIER = builder
+                .defineInRange("pump_speed_multiplier", 8, 1, 64);
+            HYPER_FLUID_PROPAGATION = builder
+                .comment("Increase fluid propagation speed to 16 blocks/tick.")
+                .comment("Significantly reduce the performance impact of unnecessary open ends in pipe networks.")
+                .define("hyper_fluid_propagation", true);
+            FLUID_NOT_COLLIDE = builder
+                .comment("Prevents different fluids collide in the same pipe.")
+                .comment("Instead, fluids will queue and wait for the path ahead to become available.")
+                .comment("However Improper pipe layouts may cause deadlocks.")
+                .comment("(Requires Hyper Fluid Propagation to be enabled)")
+                .define("fluid_not_collide", false);
             builder.pop();
 
             builder.comment("Bugfix").push("bugfix");
@@ -220,6 +235,9 @@ public class AllConfig {
     public static int toolbelt_hold_delay;
     public static int toolbelt_animation_ticks;
     public static boolean quick_unequip_items;
+    public static int pump_speed_multiplier;
+    public static boolean hyper_fluid_propagation;
+    public static boolean fluid_not_collide;
 
     public static boolean psi_fix;
     public static boolean backtank_fix;
@@ -256,6 +274,9 @@ public class AllConfig {
         toolbelt_hold_delay = COMMON.TOOLBELT_HOLD_DELAY.get();
         toolbelt_animation_ticks = COMMON.TOOLBELT_ANIMATION_TICKS.get();
         quick_unequip_items = COMMON.QUICK_UNEQUIP_ITEMS.get();
+        pump_speed_multiplier = COMMON.PUMP_SPEED_MULTIPLIER.get();
+        hyper_fluid_propagation = COMMON.HYPER_FLUID_PROPAGATION.get();
+        fluid_not_collide = COMMON.FLUID_NOT_COLLIDE.get();
 
         psi_fix = COMMON.PSI_FIX.get();
         backtank_fix = COMMON.BACKTANK_FIX.get();
