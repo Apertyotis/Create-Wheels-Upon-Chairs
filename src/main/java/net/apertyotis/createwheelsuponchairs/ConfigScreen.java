@@ -38,6 +38,7 @@ public class ConfigScreen {
         qol.addEntry(intEntry(entryBuilder, COMMON.TOOLBELT_HOLD_DELAY, 0, 100));
         qol.addEntry(intEntry(entryBuilder, COMMON.TOOLBELT_ANIMATION_TICKS, 0, 100));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.QUICK_UNEQUIP_ITEMS));
+        qol.addEntry(booleanEntry(entryBuilder, COMMON.CLIPBOARD_CLONEABLE_SWITCH));
 
         ConfigCategory bugfix = builder.getOrCreateCategory(Component.translatable("cwuc.config.common.bugfix.title"));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.HOSE_PULLEY_FIX));
