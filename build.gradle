@@ -121,6 +121,7 @@ dependencies {
 
     implementation fg.deobf("curse.maven:createaddition-439890:7208610")
     implementation fg.deobf("curse.maven:create-just-enough-time-1508862:8052209")
+    implementation fg.deobf("curse.maven:create-lazytick-1409401:8647333")
 
     runtimeOnly fg.deobf("curse.maven:jade-324717:6855440")
 

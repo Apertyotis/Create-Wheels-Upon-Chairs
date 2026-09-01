@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.simibubi.create.content.fluids.*;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
+import net.createmod.catnip.animation.LerpedFloat;
 import net.createmod.catnip.math.BlockFace;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,6 +18,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -32,6 +34,15 @@ public abstract class PipeConnectionMixin {
 
     @Shadow
     Optional<FlowSource> previousSource;
+
+    @Shadow
+    Optional<FluidNetwork> network;
+
+    @Shadow
+    public abstract boolean determineSource(Level world, BlockPos pos);
+
+    @Shadow
+    protected abstract boolean tryStartingNewFlow(boolean inbound, FluidStack providedFluid);
 
     @WrapOperation(
         method = "manageFlows",
@@ -102,5 +113,66 @@ public abstract class PipeConnectionMixin {
             };
         }
         return original.call(world, location, sourceSupplier);
+    }
+
+    @Inject(method = "manageFlows", at = @At("HEAD"), cancellable = true)
+    private void betterManageFlows(
+        Level world, BlockPos pos, FluidStack ignored,
+        Predicate<FluidStack> filter, CallbackInfoReturnable<Boolean> cir
+    ) {
+        if (!AllConfig.hyper_fluid_propagation)
+            return;
+        PipeConnection connection = (PipeConnection)(Object) this;
+
+        // 仅区块卸载时会无效化原流体网络
+        if (source.isEmpty() && !determineSource(world, pos)) {
+            network = Optional.empty();
+            cir.setReturnValue(false);
+            return;
+        }
+
+        // 源液体流变化不再抛弃原流体网络，需要流体网络批量处理液流
+        boolean changed = false;
+        FlowSource flowSource = source.get();
+        if (!connection.hasFlow()) {
+            changed = tryStartingNewFlow(true, flowSource.provideFluid(filter));
+        } else {
+            PipeConnection.Flow flow = this.flow.get();
+            IFluidHandler handler = flowSource.provideHandler().resolve().orElse(null);
+            FluidStack extracted = handler == null ? FluidStack.EMPTY :
+                handler.drain(flow.fluid, IFluidHandler.FluidAction.SIMULATE);
+            if (extracted.isEmpty() || !filter.test(extracted)) {
+                this.flow = Optional.empty();
+                changed = true;
+            }
+        }
+
+        if (network.isEmpty()) {
+            // 不再传入 flowSource::provideHandler，flowSource 可能来自已失效的旧 source
+            network = Optional.of(new FluidNetwork(world, new BlockFace(pos, connection.side), () -> {
+                if (source.isPresent()) {
+                    return source.get().provideHandler();
+                } else {
+                    return LazyOptional.empty();
+                }
+            }));
+        }
+        network.get().tick();
+
+        cir.setReturnValue(changed);
+    }
+
+    // 动画速度覆盖
+    @WrapOperation(
+        method = "tickFlowProgress",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/createmod/catnip/animation/LerpedFloat;setValue(D)V"
+        )
+    )
+    private void immediateFlow(LerpedFloat instance, double value, Operation<Void> original) {
+        if (AllConfig.hyper_fluid_propagation)
+            value = 1;
+        original.call(instance, value);
     }
 }

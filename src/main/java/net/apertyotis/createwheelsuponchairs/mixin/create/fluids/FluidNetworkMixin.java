@@ -7,20 +7,71 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Cancellable;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.simibubi.create.content.fluids.FluidNetwork;
+import com.simibubi.create.content.fluids.*;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
+import net.apertyotis.createwheelsuponchairs.compat.Mods;
+import net.apertyotis.createwheelsuponchairs.compat.lazytick.LazyTickConfig;
+import net.apertyotis.createwheelsuponchairs.foundation.PipelineHelper;
+import net.createmod.catnip.data.Pair;
+import net.createmod.catnip.math.BlockFace;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Mixin(value = FluidNetwork.class, remap = false)
 public abstract class FluidNetworkMixin {
     @Shadow
     FluidStack fluid;
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    @Shadow
+    protected abstract boolean isPresent(BlockFace location);
+
+    @Shadow
+    BlockFace start;
+
+    @Shadow
+    @Nullable
+    protected abstract PipeConnection get(BlockFace location);
+
+    @Shadow
+    Level world;
+
+    @Shadow
+    public abstract void reset();
+
+    @Shadow
+    List<BlockFace> queued;
+
+    @Shadow
+    int transferSpeed;
+
+    @Shadow
+    Set<Pair<BlockFace, PipeConnection>> frontier;
+
+    @Shadow
+    @Nullable
+    protected abstract FluidTransportBehaviour getFluidTransfer(BlockPos pos);
+
+    @Shadow
+    List<Pair<BlockFace, LazyOptional<IFluidHandler>>> targets;
+
+    @Shadow
+    Set<BlockPos> visited;
 
     /**
      * 阻止管道抽取 0mB 液体<br>
@@ -79,5 +130,159 @@ public abstract class FluidNetworkMixin {
             return 0;
         else
             return original.call(instance);
+    }
+
+    @WrapOperation(
+        method = "tick",
+        at = @At(
+            value = "FIELD",
+            target = "Lcom/simibubi/create/content/fluids/FluidNetwork;transferSpeed:I",
+            opcode = Opcodes.PUTFIELD
+        )
+    )
+    private void multiplyPumpSpeed(FluidNetwork instance, int value, Operation<Void> original) {
+        original.call(instance, value * AllConfig.pump_speed_multiplier);
+    }
+
+    // 重写网络液流动画维护逻辑，不再是每 gt 每个管道各自遍历每个开口
+    // 而是在网络建立、网络重置时完成
+    @SuppressWarnings("SameReturnValue")
+    @Definition(id = "cycle", local = @Local(type = int.class, name = "cycle"))
+    @Expression("cycle < ?")
+    @ModifyExpressionValue(method = "tick", at = @At("MIXINEXTRAS:EXPRESSION"))
+    private boolean betterFluidNetwork(boolean original, @Cancellable CallbackInfo ci) {
+        if (!AllConfig.hyper_fluid_propagation)
+            return original;
+        if (!isPresent(start)) {
+            ci.cancel();
+            return false;
+        }
+        PipeConnection first = get(start);
+        if (first == null) {
+            ci.cancel();
+            return false;
+        }
+        first.tickFlowProgress(world, start.getPos());
+        FluidStack newFluid = first.getProvidedFluid();
+        if (fluid.isEmpty()) {
+            fluid = newFluid;
+        } else if (!fluid.isFluidEqual(newFluid)) {
+            reset();
+            fluid = newFluid;
+        }
+        if (fluid.isEmpty()) {
+            ci.cancel();
+            return false;
+        }
+
+        // 遍历网络结构
+        for (int cycle = 0; cycle < 16; cycle++) {
+            boolean shouldContinue = false;
+            for (var iterator = queued.iterator(); iterator.hasNext();) {
+                BlockFace blockFace = iterator.next();
+                if (!isPresent(blockFace))
+                    continue;
+                FluidTransportBehaviour behaviour = getFluidTransfer(blockFace.getPos());
+                PipeConnection connection = behaviour == null ? null : behaviour.getConnection(blockFace.getFace());
+                if (connection != null) {
+                    if (blockFace.equals(start)) {
+                        int multi = Mods.CreateLazyTick.runIfInstalled(() ->
+                            LazyTickConfig::getFluidDelayMax).orElse(1);
+                        transferSpeed = (int) Math.max(1, connection.getPressure().get(true) / 2f) *
+                            AllConfig.pump_speed_multiplier * multi;
+                    } else if (!connection.hasFlow()) {
+                        if (!behaviour.canPullFluidFrom(fluid,
+                            behaviour.blockEntity.getBlockState(),
+                            blockFace.getFace())
+                        ) {
+                            iterator.remove();
+                            continue;
+                        }
+                        ((PipeConnectionAccessor) connection).invokeTryStartingNewFlow(true, fluid);
+                        connection.tickFlowProgress(world, blockFace.getPos());
+                    }
+                    frontier.add(Pair.of(blockFace, connection));
+                }
+                iterator.remove();
+            }
+
+            for (var iterator = frontier.iterator(); iterator.hasNext();) {
+                Pair<BlockFace, PipeConnection> pair = iterator.next();
+                BlockFace blockFace = pair.getFirst();
+                PipeConnection connection = pair.getSecond();
+
+                FluidTransportBehaviour behaviour = getFluidTransfer(blockFace.getPos());
+                if (behaviour == null) {
+                    iterator.remove();
+                    continue;
+                }
+                boolean collision = false;
+                List<PipeConnection> next = new ArrayList<>(5);
+                for (PipeConnection adjacent: behaviour.interfaces.values()) {
+                    if (adjacent == connection || adjacent.comparePressure() <= 0)
+                        continue;
+
+                    Optional<PipeConnection.Flow> flow = ((PipeConnectionAccessor) adjacent).getFlow();
+                    if (flow.isPresent() && !flow.get().fluid.isFluidEqual(fluid)) {
+                        if (!AllConfig.fluid_not_collide) {
+                            FluidReactions.handlePipeFlowCollision(world, blockFace.getPos(), flow.get().fluid, fluid);
+                            ci.cancel();
+                            return false;
+                        } else {
+                            collision = true;
+                            break;
+                        }
+                    }
+                    next.add(adjacent);
+                }
+                if (collision)
+                    continue;
+
+                boolean isLoaded = true;
+                boolean changed = false;
+                for (PipeConnection adjacent: next) {
+                    if (!adjacent.hasFlow()) {
+                        ((PipeConnectionAccessor) adjacent).invokeTryStartingNewFlow(false, fluid);
+                        adjacent.tickFlowProgress(world, blockFace.getPos());
+                        changed = true;
+                    }
+
+                    // Give pipe end a chance to init connections
+                    Optional<FlowSource> adjacentSource = ((PipeConnectionAccessor) adjacent).getSource();
+                    if (adjacentSource.isEmpty()) {
+                        if (adjacent.determineSource(world, blockFace.getPos())) {
+                            adjacentSource = ((PipeConnectionAccessor) adjacent).getSource();
+                        } else {
+                            isLoaded = false;
+                            continue;
+                        }
+                    }
+
+                    BlockFace adjacentLocation = new BlockFace(blockFace.getPos(), adjacent.side);
+                    // noinspection OptionalGetWithoutIsPresent
+                    if (adjacentSource.get().isEndpoint()) {
+                        targets.add(Pair.of(adjacentLocation, adjacentSource.get().provideHandler()));
+                    } else if (visited.add(adjacentLocation.getConnectedPos())) {
+                        queued.add(adjacentLocation.getOpposite());
+                        shouldContinue = true;
+                    }
+                }
+                if (changed)
+                    behaviour.blockEntity.notifyUpdate();
+                if (isLoaded)
+                    iterator.remove();
+            }
+            if (!shouldContinue)
+                break;
+        }
+        return false;
+    }
+
+    // 重建网络时清除前方液流
+    @Inject(method = "reset", at = @At("HEAD"))
+    private void beforeReset(CallbackInfo ci) {
+        if (!AllConfig.hyper_fluid_propagation || targets.isEmpty())
+            return;
+        PipelineHelper.resetFrontPipeline(world, start, fluid);
     }
 }
