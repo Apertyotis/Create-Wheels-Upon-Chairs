@@ -37,6 +37,7 @@
   "cwuc.config.common.belt_processing_tweak.3": "Allow presses to output immediately after processing, speeding up pressing recipes by 1 tick.",
   "cwuc.config.common.easy_filtering": "Easy Filtering",
   "cwuc.config.common.easy_filtering.1": "Holding with a wrench on a filtering box will open the toolbox-like JEI bookmark overlay.",
+  "cwuc.config.common.hose_pulley_sound_cooldown": "Hose Pulley Sound Cooldown",
 
   "cwuc.config.common.bugfix.title": "Bugfix",
   "cwuc.config.bugfix.hose_pulley_fix": "Hose Pulley Fix",

@@ -34,6 +34,7 @@ public class AllConfig {
         public final ModConfigSpec.BooleanValue BASIN_FAUCET_VIEW;
         public final ModConfigSpec.BooleanValue BELT_PROCESSING_TWEAK;
         public final ModConfigSpec.BooleanValue EASY_FILTERING;
+        public final ModConfigSpec.IntValue HOSE_PULLEY_SOUND_COOLDOWN;
 
         public final ModConfigSpec.BooleanValue HOSE_PULLEY_FIX;
         public final ModConfigSpec.BooleanValue MILLSTONE_FIX;
@@ -94,6 +95,8 @@ public class AllConfig {
             EASY_FILTERING = builder
                 .comment("Holding with a wrench on a filtering box will open the toolbox-like JEI bookmark overlay.")
                 .define("easy_filtering", true);
+            HOSE_PULLEY_SOUND_COOLDOWN = builder
+                .defineInRange("hose_pulley_sound_cooldown", 10, 0, Integer.MAX_VALUE);
             builder.pop();
 
             builder.comment("Bugfix").push("bugfix");
@@ -174,6 +177,7 @@ public class AllConfig {
     public static boolean basin_faucet_view;
     public static boolean belt_processing_tweak;
     public static boolean easy_filtering;
+    public static int hose_pulley_sound_cooldown;
 
     public static boolean hose_pulley_fix;
     public static boolean millstone_fix;
@@ -203,6 +207,7 @@ public class AllConfig {
         basin_faucet_view = COMMON.BASIN_FAUCET_VIEW.get();
         belt_processing_tweak = COMMON.BELT_PROCESSING_TWEAK.get();
         easy_filtering = COMMON.EASY_FILTERING.get();
+        hose_pulley_sound_cooldown = COMMON.HOSE_PULLEY_SOUND_COOLDOWN.get();
 
         hose_pulley_fix = COMMON.HOSE_PULLEY_FIX.get();
         millstone_fix = COMMON.MILLSTONE_FIX.get();
