@@ -1,7 +1,7 @@
 package net.apertyotis.createwheelsuponchairs.content.belt;
 
 public interface BeltBlockEntityEx {
-    float caa$getTargetSpeed();
+    float caa$getKineticSpeed();
 
     void caa$setTargetSpeed(int value);
 }

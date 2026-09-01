@@ -2,6 +2,7 @@ package net.apertyotis.createwheelsuponchairs.mixin.create.kinetics.belt;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.belt.BeltBlockEntity;
 import com.simibubi.create.content.kinetics.belt.transport.BeltInventory;
@@ -11,6 +12,7 @@ import net.apertyotis.createwheelsuponchairs.AllConfig;
 import net.apertyotis.createwheelsuponchairs.content.belt.BeltBlockEntityEx;
 import net.apertyotis.createwheelsuponchairs.content.belt.BeltScrollValueBehaviour;
 import net.apertyotis.createwheelsuponchairs.content.belt.BeltValueBoxTransform;
+import net.apertyotis.createwheelsuponchairs.mixin.create.kinetics.base.KineticBlockEntityAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -24,7 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 @Mixin(value = BeltBlockEntity.class, remap = false)
-public class BeltBlockEntityMixin extends KineticBlockEntity implements BeltBlockEntityEx {
+public abstract class BeltBlockEntityMixin extends KineticBlockEntity implements BeltBlockEntityEx {
     @Unique
     public boolean caa$markDirty;
 
@@ -73,79 +75,58 @@ public class BeltBlockEntityMixin extends KineticBlockEntity implements BeltBloc
     }
 
     @Override
-    public float caa$getTargetSpeed() {
+    public float getSpeed() {
         int value = caa$targetSpeed == null ? 0 : caa$targetSpeed.getValue();
         return value == 0 ? getSpeed() : value;
+    }
+
+    @Override
+    public void updateFromNetwork(float maxStress, float currentStress, int networkSize) {
+        networkDirty = false;
+        this.capacity = maxStress;
+        this.stress = currentStress;
+        ((KineticBlockEntityAccessor) this).setNetworkSize(networkSize);
+        boolean overStressed = maxStress < currentStress && IRotate.StressImpact.isEnabled();
+        setChanged();
+
+        if (overStressed != this.overStressed) {
+            float prevSpeed = super.getSpeed();
+            this.overStressed = overStressed;
+            onSpeedChanged(prevSpeed);
+            sendData();
+        }
+    }
+
+    @Override
+    public void onSpeedChanged(float previousSpeed) {
+        float kineticSpeed = super.getSpeed();
+        boolean fromOrToZero = (previousSpeed == 0) != (kineticSpeed == 0);
+        boolean directionSwap = !fromOrToZero && Math.signum(previousSpeed) != Math.signum(kineticSpeed);
+        if (fromOrToZero || directionSwap)
+            ((KineticBlockEntityAccessor) this).setFlickerTally(getFlickerScore() + 5);
+        setChanged();
+    }
+
+    @Override
+    public void removeSource() {
+        float prevSpeed = super.getSpeed();
+
+        speed = 0;
+        source = null;
+        setNetwork(null);
+        sequenceContext = null;
+
+        onSpeedChanged(prevSpeed);
+    }
+
+    @Override
+    public float caa$getKineticSpeed() {
+        return super.getSpeed();
     }
 
     @Override
     public void caa$setTargetSpeed(int value) {
         if (caa$targetSpeed != null)
             caa$targetSpeed.value = value;
-    }
-
-    @WrapOperation(
-        method = "tick",
-        at = @At(
-            value = "INVOKE",
-            target = "Lcom/simibubi/create/content/kinetics/belt/BeltBlockEntity;getSpeed()F"
-        )
-    )
-    private float redirectGetSpeed1(BeltBlockEntity instance, Operation<Float> original) {
-        if (!AllConfig.easy_belt)
-            return original.call(instance);
-        return caa$getTargetSpeed();
-    }
-
-    @WrapOperation(
-        method = "getBeltMovementSpeed",
-        at = @At(
-            value = "INVOKE",
-            target = "Lcom/simibubi/create/content/kinetics/belt/BeltBlockEntity;getSpeed()F"
-        )
-    )
-    private float redirectGetSpeed2(BeltBlockEntity instance, Operation<Float> original) {
-        if (!AllConfig.easy_belt)
-            return original.call(instance);
-        return caa$getTargetSpeed();
-    }
-
-    @WrapOperation(
-        method = "getMovementDirection(ZZ)Lnet/minecraft/core/Vec3i;",
-        at = @At(
-            value = "INVOKE",
-            target = "Lcom/simibubi/create/content/kinetics/belt/BeltBlockEntity;getSpeed()F"
-        )
-    )
-    private float redirectGetSpeed3(BeltBlockEntity instance, Operation<Float> original) {
-        if (!AllConfig.easy_belt)
-            return original.call(instance);
-        return caa$getTargetSpeed();
-    }
-
-    @WrapOperation(
-        method = "canInsertFrom",
-        at = @At(
-            value = "INVOKE",
-            target = "Lcom/simibubi/create/content/kinetics/belt/BeltBlockEntity;getSpeed()F"
-        )
-    )
-    private float redirectGetSpeed4(BeltBlockEntity instance, Operation<Float> original) {
-        if (!AllConfig.easy_belt)
-            return original.call(instance);
-        return caa$getTargetSpeed();
-    }
-
-    @WrapOperation(
-        method = "isOccupied",
-        at = @At(
-            value = "INVOKE",
-            target = "Lcom/simibubi/create/content/kinetics/belt/BeltBlockEntity;getSpeed()F"
-        )
-    )
-    private float redirectGetSpeed5(BeltBlockEntity instance, Operation<Float> original) {
-        if (!AllConfig.easy_belt)
-            return original.call(instance);
-        return caa$getTargetSpeed();
     }
 }
