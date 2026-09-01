@@ -72,6 +72,7 @@
     "createaddition.ModularAccumulatorBlockEntityMixin",
     "design_decor.LargeBoilerMixin",
     "design_decor.RailingBlockMixin",
+    "jei.BookmarkOverlayAccessor",
     "minecraft.block.BlockBehaviourMixin",
     "minecraft.player.GameTypeMixin",
     "minecraft.player.PlayerMixin"
