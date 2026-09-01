@@ -8,14 +8,21 @@ import com.simibubi.create.content.fluids.hosePulley.HosePulleyFluidHandler;
 import com.simibubi.create.content.fluids.transfer.FluidDrainingBehaviour;
 import com.simibubi.create.content.fluids.transfer.FluidFillingBehaviour;
 import com.simibubi.create.foundation.item.TooltipHelper;
+import com.simibubi.create.infrastructure.config.AllConfigs;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
 import net.apertyotis.createwheelsuponchairs.CreateWheelsUponChairs;
 import net.createmod.catnip.lang.FontHelper;
 import net.createmod.catnip.lang.LangBuilder;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -78,10 +85,27 @@ public abstract class HosePulleyBlockEntityMixin {
     ) {
         if (!AllConfig.hose_pulley_fix)
             return original.call(instance);
-        FluidStack fluid = handler.getFluidInTank(0);
-        if (fluid.isEmpty()) {
+
+        if (!caa$drainerInfinite && !caa$fillerInfinite)
             return false;
-        } else if (!((FluidManipulationBehaviourAccessor) drainer).invokeCanDrainInfinitely(fluid.getFluid())) {
+        Level level = instance.getLevel();
+        if (level == null)
+            return false;
+        // 软管滑轮流体能力实现较为特别，需要另外获取液体种类
+        BlockPos pos = ((HosePulleyFluidHandlerAccessor) handler).getRootPosGetter().get();
+        BlockState blockState = level.getBlockState(pos);
+        Fluid fluid;
+        if (blockState.hasProperty(BlockStateProperties.WATERLOGGED) && blockState.getValue(BlockStateProperties.WATERLOGGED)) {
+            fluid = Fluids.WATER;
+        } else if (blockState.getBlock() instanceof LiquidBlock liquidBlock) {
+            fluid = liquidBlock.getFluid();
+        } else {
+            fluid = blockState.getFluidState().getType();
+        }
+
+        if (fluid == Fluids.EMPTY) {
+            return false;
+        } else if (!AllConfigs.server().fluids.bottomlessFluidMode.get().test(fluid)) {
             Component hint = Component.translatable("cwuc.goggle.hose_pulley.cant_infinite")
                 .withStyle(ChatFormatting.RED);
             for (Component line: TooltipHelper.cutTextComponent(hint, FontHelper.Palette.RED)) {
