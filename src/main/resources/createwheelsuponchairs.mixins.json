@@ -59,6 +59,7 @@
     "create.processing.basin.BasinOperatingBlockEntityMixin",
     "create.processing.basin.BasinRecipeMixin",
     "create.processing.sequenced.SequencedAssemblyRecipeMixin",
+    "create.redstone.thresholdSwitch.ThresholdSwitchBlockEntityMixin",
     "create.trains.CarriageMixin",
     "create.trains.GlobalStationMixin",
     "create.trains.NavigationMixin",

@@ -34,6 +34,8 @@ public class CWUCMixinPlugin implements IMixinConfigPlugin {
                 config.load();
                 if (!config.getOrElse("common.fast_contraption_storage", true))
                     blacklist.add("%s.%s.%s".formatted(PATH, "create", "api.MountedItemStorageWrapperMixin"));
+                if (!config.getOrElse("common.clipboard_cloneable_switch", true))
+                    blacklist.add("%s.%s.%s".formatted(PATH, "create", "redstone.thresholdSwitch.ThresholdSwitchBlockEntityMixin"));
             }
         }
     }

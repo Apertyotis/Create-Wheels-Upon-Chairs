@@ -41,6 +41,7 @@ public class AllConfig {
         public final ForgeConfigSpec.IntValue TOOLBELT_HOLD_DELAY;
         public final ForgeConfigSpec.IntValue TOOLBELT_ANIMATION_TICKS;
         public final ForgeConfigSpec.BooleanValue QUICK_UNEQUIP_ITEMS;
+        public final ForgeConfigSpec.BooleanValue CLIPBOARD_CLONEABLE_SWITCH;
 
         public final ForgeConfigSpec.BooleanValue PSI_FIX;
         public final ForgeConfigSpec.BooleanValue HOSE_PULLEY_FIX;
@@ -122,6 +123,10 @@ public class AllConfig {
             QUICK_UNEQUIP_ITEMS = builder
                 .comment("Short-press the toolbelt hotkey to quickly unequip items without opening the toolbox.")
                 .define("quick_unequip_items", true);
+            CLIPBOARD_CLONEABLE_SWITCH = builder
+                .comment("Make threshold switch cloneable. (Need restart)")
+                .comment("(Vanilla appears to copy it too, but it actually only copies the Filter Slot.)")
+                .define("clipboard_cloneable_switch", true);
             builder.pop();
 
             builder.comment("Bugfix").push("bugfix");
