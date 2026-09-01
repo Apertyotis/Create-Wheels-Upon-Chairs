@@ -77,7 +77,7 @@ public abstract class BeltBlockEntityMixin extends KineticBlockEntity implements
     @Override
     public float getSpeed() {
         int value = caa$targetSpeed == null ? 0 : caa$targetSpeed.getValue();
-        return value == 0 ? getSpeed() : value;
+        return value == 0 ? super.getSpeed() : value;
     }
 
     @Override
