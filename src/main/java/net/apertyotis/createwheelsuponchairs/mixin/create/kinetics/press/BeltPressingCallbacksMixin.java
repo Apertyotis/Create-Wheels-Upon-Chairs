@@ -96,10 +96,13 @@ public abstract class BeltPressingCallbacksMixin {
             opcode = Opcodes.GETFIELD
         )
     )
-    private static boolean startProcessing(PressingBehaviour instance, Operation<Boolean> original) {
-        boolean running = original.call(instance);
-        if (!running && AllConfig.belt_processing_tweak) {
-            instance.start(PressingBehaviour.Mode.BELT);
+    private static boolean startProcessing(
+        PressingBehaviour behaviour, Operation<Boolean> original,
+        @Local(argsOnly = true) TransportedItemStack transported
+    ) {
+        boolean running = original.call(behaviour);
+        if (!running && behaviour.specifics.tryProcessOnBelt(transported, null, true)) {
+            behaviour.start(PressingBehaviour.Mode.BELT);
             running = true;
         }
         return running;
