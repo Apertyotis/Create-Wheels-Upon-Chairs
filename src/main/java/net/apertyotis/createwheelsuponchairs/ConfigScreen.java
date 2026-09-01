@@ -4,6 +4,7 @@ import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import me.shedaniel.clothconfig2.gui.entries.BooleanListEntry;
+import me.shedaniel.clothconfig2.gui.entries.IntegerListEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
@@ -35,6 +36,7 @@ public class ConfigScreen {
         qol.addEntry(booleanEntry(entryBuilder, COMMON.BASIN_FAUCET_VIEW));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.BELT_PROCESSING_TWEAK));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.EASY_FILTERING));
+        qol.addEntry(intEntry(entryBuilder, COMMON.HOSE_PULLEY_SOUND_COOLDOWN, 0, Integer.MAX_VALUE));
 
         ConfigCategory bugfix = builder.getOrCreateCategory(Component.translatable("cwuc.config.common.bugfix.title"));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.PSI_FIX));
@@ -62,18 +64,38 @@ public class ConfigScreen {
         return builder.build();
     }
 
-    private static BooleanListEntry booleanEntry(ConfigEntryBuilder entryBuilder, ForgeConfigSpec.BooleanValue entry) {
-        StringBuilder sb = new StringBuilder("cwuc.config");
-        for (String path: entry.getPath()) {
-            sb.append('.');
-            sb.append(path);
-        }
-        String key = sb.toString();
+    private static BooleanListEntry booleanEntry(
+        ConfigEntryBuilder entryBuilder, ForgeConfigSpec.BooleanValue entry
+    ) {
+        String key = getI18NKey(entry);
         return entryBuilder.startBooleanToggle(Component.translatable(key), entry.get())
             .setTooltipSupplier(tooltipFactory(key))
             .setDefaultValue(entry.getDefault())
             .setSaveConsumer(entry::set)
             .build();
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private static IntegerListEntry intEntry(
+        ConfigEntryBuilder entryBuilder, ForgeConfigSpec.IntValue entry, int min, int max
+    ) {
+        String key = getI18NKey(entry);
+        return entryBuilder.startIntField(Component.translatable(key), entry.get())
+            .setMin(min)
+            .setMax(max)
+            .setTooltipSupplier(tooltipFactory(key))
+            .setDefaultValue(entry.getDefault())
+            .setSaveConsumer(entry::set)
+            .build();
+    }
+
+    private static String getI18NKey(ForgeConfigSpec.ConfigValue<?> entry) {
+        StringBuilder sb = new StringBuilder("caa.config");
+        for (String path: entry.getPath()) {
+            sb.append('.');
+            sb.append(path);
+        }
+        return sb.toString();
     }
 
     private static Supplier<Optional<Component[]>> tooltipFactory(String key) {
