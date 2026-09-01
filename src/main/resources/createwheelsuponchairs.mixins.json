@@ -79,6 +79,9 @@
     "create.kinetics.belt.BeltRendererMixin",
     "create.redstone.thresholdSwitch.ThresholdSwitchScreenMixin",
     "createjustenoughtime.PressingCategoryMixin",
+    "jei.RecipeSlotAccessor",
+    "jei.RecipeSlotMixin",
+    "jei.SequencedAssemblyCategoryMixin",
     "minecraft.player.LocalPlayerMixin",
     "renderer.FluidRendererMixin"
   ],

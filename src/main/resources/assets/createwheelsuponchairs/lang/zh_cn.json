@@ -22,6 +22,7 @@
   "cwuc.gui.threshold.range_max": "（最大 %s）",
   "cwuc.gui.threshold.upper_threshold": "……大于等于：",
   "cwuc.cjetcompat.detail.press": "工作间隔已被Create: Wheels Upon Chairs移除",
+  "cwuc.jei.scroll_to_cycle": "滑动滚轮切换产物显示，按住[Shift]暂停",
 
   "cwuc.config.common.qol.title": "优化",
   "cwuc.config.common.deployer_instant_output": "机械手立即输出",
