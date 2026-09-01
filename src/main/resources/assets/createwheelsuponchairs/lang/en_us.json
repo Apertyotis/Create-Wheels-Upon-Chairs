@@ -46,7 +46,7 @@
   "cwuc.config.common.hachimi_glue.1": "Make super glue as convenient as honey glue from Aeronautic.",
   "cwuc.config.common.smart_fluid_pipe": "Smart Fluid Pipe",
   "cwuc.config.common.smart_fluid_pipe.1": "Allow smart fluid pipes and valve pipes to work without being directly attached to a tank.",
-  "cwuc.config.common.smart_fluid_pipe.2": "And slightly optimize the performance.",
+  "cwuc.config.common.smart_fluid_pipe.2": "And significantly optimize the performance.",
   "cwuc.config.common.easy_belt": "Easy Belt",
   "cwuc.config.common.easy_belt.1": "Allow belts to operate without requiring a power source.",
   "cwuc.config.common.fast_contraption_storage": "Fast Contraption Storage",
