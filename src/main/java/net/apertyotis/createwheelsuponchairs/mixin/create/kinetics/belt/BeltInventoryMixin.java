@@ -4,11 +4,9 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Cancellable;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.simibubi.create.content.kinetics.belt.BeltBlockEntity;
 import com.simibubi.create.content.kinetics.belt.transport.BeltInventory;
 import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
-import net.apertyotis.createwheelsuponchairs.content.belt.BeltBlockEntityEx;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import org.spongepowered.asm.mixin.Final;
@@ -165,19 +163,5 @@ public abstract class BeltInventoryMixin {
             items.removeAll(toRemove);
             toRemove.clear();
         }
-    }
-
-    // 轮椅传送带
-    @WrapOperation(
-        method = "tick",
-        at = @At(
-            value = "INVOKE",
-            target = "Lcom/simibubi/create/content/kinetics/belt/BeltBlockEntity;getSpeed()F"
-        )
-    )
-    private float redirectGetSpeed(BeltBlockEntity instance, Operation<Float> original) {
-        if (!AllConfig.easy_belt)
-            return original.call(instance);
-        return ((BeltBlockEntityEx) instance).caa$getTargetSpeed();
     }
 }
