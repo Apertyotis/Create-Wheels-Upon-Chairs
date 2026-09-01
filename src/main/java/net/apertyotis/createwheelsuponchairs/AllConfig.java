@@ -35,6 +35,9 @@ public class AllConfig {
         public final ModConfigSpec.BooleanValue BELT_PROCESSING_TWEAK;
         public final ModConfigSpec.BooleanValue EASY_FILTERING;
         public final ModConfigSpec.IntValue HOSE_PULLEY_SOUND_COOLDOWN;
+        public final ModConfigSpec.IntValue TOOLBELT_HOLD_DELAY;
+        public final ModConfigSpec.IntValue TOOLBELT_ANIMATION_TICKS;
+        public final ModConfigSpec.BooleanValue QUICK_UNEQUIP_ITEMS;
 
         public final ModConfigSpec.BooleanValue HOSE_PULLEY_FIX;
         public final ModConfigSpec.BooleanValue MILLSTONE_FIX;
@@ -97,6 +100,17 @@ public class AllConfig {
                 .define("easy_filtering", true);
             HOSE_PULLEY_SOUND_COOLDOWN = builder
                 .defineInRange("hose_pulley_sound_cooldown", 10, 0, Integer.MAX_VALUE);
+            TOOLBELT_HOLD_DELAY = builder
+                .comment("Ticks the toolbelt hotkey must be held before activating.")
+                .comment("By the way, this key is blocked while holding a schematic.")
+                .defineInRange("toolbelt_hold_delay", 3, 0, 100);
+            TOOLBELT_ANIMATION_TICKS = builder
+                .comment("Duration of the Toolbelt opening animation.")
+                .comment("Set to 0 to open instantly. (Vanilla: 10)")
+                .defineInRange("toolbelt_animation_ticks", 2, 0, 100);
+            QUICK_UNEQUIP_ITEMS = builder
+                .comment("Short-press the toolbelt hotkey to quickly unequip items without opening the toolbox.")
+                .define("quick_unequip_items", true);
             builder.pop();
 
             builder.comment("Bugfix").push("bugfix");
@@ -178,6 +192,9 @@ public class AllConfig {
     public static boolean belt_processing_tweak;
     public static boolean easy_filtering;
     public static int hose_pulley_sound_cooldown;
+    public static int toolbelt_hold_delay;
+    public static int toolbelt_animation_ticks;
+    public static boolean quick_unequip_items;
 
     public static boolean hose_pulley_fix;
     public static boolean millstone_fix;
@@ -208,6 +225,9 @@ public class AllConfig {
         belt_processing_tweak = COMMON.BELT_PROCESSING_TWEAK.get();
         easy_filtering = COMMON.EASY_FILTERING.get();
         hose_pulley_sound_cooldown = COMMON.HOSE_PULLEY_SOUND_COOLDOWN.get();
+        toolbelt_hold_delay = COMMON.TOOLBELT_HOLD_DELAY.get();
+        toolbelt_animation_ticks = COMMON.TOOLBELT_ANIMATION_TICKS.get();
+        quick_unequip_items = COMMON.QUICK_UNEQUIP_ITEMS.get();
 
         hose_pulley_fix = COMMON.HOSE_PULLEY_FIX.get();
         millstone_fix = COMMON.MILLSTONE_FIX.get();

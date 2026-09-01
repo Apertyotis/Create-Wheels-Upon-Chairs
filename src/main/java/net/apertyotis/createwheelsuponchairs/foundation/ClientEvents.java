@@ -2,6 +2,7 @@ package net.apertyotis.createwheelsuponchairs.foundation;
 
 import net.apertyotis.createwheelsuponchairs.content.filtering.EasyFilteringHandlerClient;
 import net.apertyotis.createwheelsuponchairs.content.hachimiGlue.HachimiGlueHandler;
+import net.apertyotis.createwheelsuponchairs.content.toolbox.BetterToolboxHandlerClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -23,6 +24,18 @@ public class ClientEvents {
 
         HachimiGlueHandler.HACHIMI_GLUE_HANDLER.tick();
         EasyFilteringHandlerClient.EASY_FILTERING_HANDLER_CLIENT.tick();
+        BetterToolboxHandlerClient.BETTER_TOOLBOX_HANDLER_CLIENT.tick();
+    }
+
+    @SubscribeEvent
+    public static void onMouseInput(InputEvent.MouseButton.Pre event) {
+        if (Minecraft.getInstance().screen != null)
+            return;
+
+        int button = event.getButton();
+        boolean pressed = event.getAction() != 0;
+
+        BetterToolboxHandlerClient.BETTER_TOOLBOX_HANDLER_CLIENT.onMouseInput(button, pressed);
     }
 
     @SubscribeEvent
