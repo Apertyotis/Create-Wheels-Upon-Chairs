@@ -76,8 +76,10 @@
   "client": [
     "create.contraption.glue.SuperGlueSelectionHandlerAccessor",
     "create.contraption.glue.SuperGlueSelectionHandlerMixin",
+    "create.equipment.RadialToolboxMenuMixin",
     "create.foundation.blockEntity.FilteringRendererMixin",
     "create.foundation.blockEntity.ScrollValueRendererMixin",
+    "create.foundation.events.InputEventsMixin",
     "create.kinetics.belt.BeltInstanceMixin",
     "create.kinetics.belt.BeltRendererMixin",
     "create.redstone.thresholdSwitch.ThresholdSwitchScreenMixin",
