@@ -98,7 +98,7 @@ public class ConfigScreen {
     }
 
     private static String getI18NKey(ForgeConfigSpec.ConfigValue<?> entry) {
-        StringBuilder sb = new StringBuilder("caa.config");
+        StringBuilder sb = new StringBuilder("cwuc.config");
         for (String path: entry.getPath()) {
             sb.append('.');
             sb.append(path);
