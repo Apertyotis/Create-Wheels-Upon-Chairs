@@ -87,10 +87,6 @@
     "create.kinetics.base.KineticBlockEntityRendererMixin",
     "create.redstone.thresholdSwitch.ThresholdSwitchScreenMixin",
     "createjustenoughtime.PressingCategoryMixin",
-    "jei.BookmarkOverlayAccessor",
-    "jei.RecipeSlotAccessor",
-    "jei.RecipeSlotMixin",
-    "jei.SequencedAssemblyCategoryMixin",
     "minecraft.player.LocalPlayerMixin",
     "renderer.FluidRendererMixin"
   ],

@@ -22,8 +22,6 @@
   "cwuc.gui.threshold.range_max": "(max. %s)",
   "cwuc.gui.threshold.upper_threshold": "...at or above:",
   "cwuc.cjetcompat.detail.press": "The cooldown has been removed by Create: Wheels Upon Chairs",
-  "cwuc.jei.scroll_to_cycle": "Scroll to cycle shown output. Hold [Shift] to pause",
-  "cwuc.easy_filter.hold_to_open": "Hold with a wrench: JEI Bookmark Overlay",
 
   "cwuc.config.common.qol.title": "Quality of Life",
   "cwuc.config.common.deployer_instant_output": "Instant Deployer Output",
