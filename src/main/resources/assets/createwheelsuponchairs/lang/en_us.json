@@ -1,7 +1,5 @@
 {
   "cwuc.info.hachimi_disabled": "The \"Hachimi Glue\" option is disabled on this server.",
-  "cwuc.info.train.occupied": "Detected an unexpected occupation of a reserved signal segment. The reservation lock has been released.",
-  "cwuc.info.train.intrude": "Intruded a reserved signal segment.",
   "cwuc.goggle.basin_spoutput": "Output Faucet:",
   "cwuc.goggle.hose_pulley.cant_infinite": "This fluid doesn’t support bottomless supply!",
   "cwuc.goggle.hose_pulley.lower_hose": "Sufficient fluid filled. Lower the hose for infinite extraction.",

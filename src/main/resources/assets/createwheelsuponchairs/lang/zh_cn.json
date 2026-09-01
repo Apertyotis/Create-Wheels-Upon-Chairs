@@ -1,7 +1,5 @@
 {
   "cwuc.info.hachimi_disabled": "服务器未启用\"蜂蜜强力胶\"选项.",
-  "cwuc.info.train.occupied": "预定的信号区间被意外抢占，已释放互斥锁",
-  "cwuc.info.train.intrude": "闯入其他列车预定的信号区间",
   "cwuc.goggle.basin_spoutput": "自动输出：",
   "cwuc.goggle.hose_pulley.cant_infinite": "这种流体不能无限供应!",
   "cwuc.goggle.hose_pulley.lower_hose": "液体已足量, 下降软管到底部可无限抽取",
