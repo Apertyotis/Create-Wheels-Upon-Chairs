@@ -20,6 +20,7 @@
     "create.fluids.hosePulley.FluidManipulationBehaviourAccessor",
     "create.fluids.hosePulley.FluidManipulationBehaviourMixin",
     "create.fluids.hosePulley.HosePulleyBlockEntityMixin",
+    "create.fluids.hosePulley.HosePulleyFluidHandlerAccessor",
     "create.fluids.hosePulley.HosePulleyFluidHandlerMixin",
     "create.fluids.pumps.PumpBlockEntityMixin",
     "create.fluids.spout.SpoutBlockEntityMixin",
