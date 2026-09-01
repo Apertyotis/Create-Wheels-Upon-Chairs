@@ -63,7 +63,6 @@
     "create.trains.CarriageMixin",
     "create.trains.GlobalStationMixin",
     "create.trains.NavigationMixin",
-    "create.trains.SignalEdgeGroupMixin",
     "create.trains.TrainMixin",
     "createaddition.ModularAccumulatorBlockEntityMixin",
     "design_decor.LargeBoilerMixin",
