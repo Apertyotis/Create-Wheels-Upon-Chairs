@@ -25,6 +25,7 @@
     "create.fluids.pumps.PumpBlockEntityMixin",
     "create.fluids.spout.SpoutBlockEntityMixin",
     "create.fluids.tank.FluidTankBlockEntityMixin",
+    "create.foundation.blockEntity.FilteringBehaviourAccessor",
     "create.foundation.fluid.CombinedTankWrapperAccessor",
     "create.foundation.fluid.CombinedTankWrapperMixin",
     "create.foundation.inventory.InvManipulationBehaviourMixin",
@@ -55,7 +56,6 @@
     "create.processing.basin.BasinBlockEntityMixin",
     "create.processing.basin.BasinOperatingBlockEntityMixin",
     "create.processing.basin.BasinRecipeMixin",
-    "create.processing.basin.FilteringBehaviourAccessor",
     "create.processing.sequenced.SequencedAssemblyRecipeMixin",
     "create.trains.CarriageMixin",
     "create.trains.GlobalStationMixin",
@@ -68,10 +68,12 @@
   "client": [
     "create.contraption.glue.SuperGlueSelectionHandlerAccessor",
     "create.contraption.glue.SuperGlueSelectionHandlerMixin",
+    "create.foundation.blockEntity.FilteringRendererMixin",
     "create.foundation.blockEntity.ScrollValueRendererMixin",
     "create.kinetics.belt.BeltRendererMixin",
     "create.kinetics.belt.BeltVisualMixin",
     "createjustenoughtime.PressingCategoryMixin",
+    "jei.BookmarkOverlayAccessor",
     "minecraft.player.LocalPlayerMixin"
   ],
   "injectors": {

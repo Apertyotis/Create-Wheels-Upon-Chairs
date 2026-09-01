@@ -1,6 +1,7 @@
 package net.apertyotis.createwheelsuponchairs;
 
 import com.simibubi.create.foundation.networking.SimplePacketBase;
+import net.apertyotis.createwheelsuponchairs.content.filtering.EasyFilteringPacket;
 import net.apertyotis.createwheelsuponchairs.content.hachimiGlue.HachimiGlueModificationPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -17,7 +18,8 @@ import static net.minecraftforge.network.NetworkDirection.PLAY_TO_SERVER;
 
 public enum AllPackets {
 
-    MODIFY_GLUE(HachimiGlueModificationPacket.class, HachimiGlueModificationPacket::new, PLAY_TO_SERVER);
+    MODIFY_GLUE(HachimiGlueModificationPacket.class, HachimiGlueModificationPacket::new, PLAY_TO_SERVER),
+    EASY_FILTERING(EasyFilteringPacket.class, EasyFilteringPacket::new, PLAY_TO_SERVER);
 
     @SuppressWarnings("removal")
     public static final ResourceLocation CHANNEL_NAME = new ResourceLocation(CreateWheelsUponChairs.MOD_ID, "main");

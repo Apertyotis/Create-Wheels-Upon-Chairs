@@ -1,5 +1,6 @@
 package net.apertyotis.createwheelsuponchairs.foundation;
 
+import net.apertyotis.createwheelsuponchairs.content.filtering.EasyFilteringHandlerClient;
 import net.apertyotis.createwheelsuponchairs.content.hachimiGlue.HachimiGlueHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
@@ -23,6 +24,7 @@ public class ClientEvents {
             return;
 
         HachimiGlueHandler.HACHIMI_GLUE_HANDLER.tick();
+        EasyFilteringHandlerClient.EASY_FILTERING_HANDLER_CLIENT.tick();
     }
 
     @SubscribeEvent

@@ -1,4 +1,4 @@
-package net.apertyotis.createwheelsuponchairs.mixin.create.processing.basin;
+package net.apertyotis.createwheelsuponchairs.mixin.create.foundation.blockEntity;
 
 import com.simibubi.create.content.logistics.filter.FilterItemStack;
 import com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringBehaviour;
