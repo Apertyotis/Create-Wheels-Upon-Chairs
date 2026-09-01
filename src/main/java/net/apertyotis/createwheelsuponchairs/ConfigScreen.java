@@ -29,6 +29,9 @@ public class ConfigScreen {
         qol.addEntry(booleanEntry(entryBuilder, COMMON.BETTER_PSI_ON_CARRIAGE));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.HACHIMI_GLUE));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.SMART_FLUID_PIPE));
+        qol.addEntry(intEntry(entryBuilder, COMMON.PUMP_SPEED_MULTIPLIER, 1, 64));
+        qol.addEntry(booleanEntry(entryBuilder, COMMON.HYPER_FLUID_PROPAGATION));
+        qol.addEntry(booleanEntry(entryBuilder, COMMON.FLUID_NOT_COLLIDE));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.EASY_BELT));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.FAST_LOGISTICS));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.BASIN_FAUCET_VIEW));

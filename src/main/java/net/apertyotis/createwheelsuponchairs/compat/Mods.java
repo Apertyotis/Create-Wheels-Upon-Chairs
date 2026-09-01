@@ -11,7 +11,8 @@ import java.util.function.Supplier;
 
 public enum Mods {
     CreateAddition(),
-    CreateJustEnoughTime("PressingCategoryMixin");
+    CreateJustEnoughTime("PressingCategoryMixin"),
+    CreateLazyTick();
 
     private final String id;
     private final String[] mixins;
