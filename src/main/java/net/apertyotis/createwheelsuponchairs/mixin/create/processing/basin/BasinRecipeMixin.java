@@ -6,6 +6,7 @@ import com.simibubi.create.content.processing.basin.BasinRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringBehaviour;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
+import net.apertyotis.createwheelsuponchairs.mixin.create.foundation.blockEntity.FilteringBehaviourAccessor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraftforge.fluids.FluidStack;
