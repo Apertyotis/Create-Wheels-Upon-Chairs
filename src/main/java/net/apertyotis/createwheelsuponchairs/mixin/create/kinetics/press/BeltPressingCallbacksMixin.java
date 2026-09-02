@@ -101,7 +101,9 @@ public abstract class BeltPressingCallbacksMixin {
         @Local(argsOnly = true) TransportedItemStack transported
     ) {
         boolean running = original.call(behaviour);
-        if (!running && behaviour.specifics.tryProcessOnBelt(transported, null, true)) {
+        if (AllConfig.belt_processing_tweak && !running &&
+            behaviour.specifics.tryProcessOnBelt(transported, null, true)
+        ) {
             behaviour.start(PressingBehaviour.Mode.BELT);
             running = true;
         }
