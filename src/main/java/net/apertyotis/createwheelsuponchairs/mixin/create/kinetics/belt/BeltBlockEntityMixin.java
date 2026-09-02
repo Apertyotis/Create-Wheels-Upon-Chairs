@@ -28,6 +28,9 @@ import java.util.List;
 @Mixin(value = BeltBlockEntity.class, remap = false)
 public abstract class BeltBlockEntityMixin extends KineticBlockEntity implements BeltBlockEntityEx {
     @Unique
+    private int caa$stopWhenChanged = 0;
+
+    @Unique
     public boolean caa$markDirty;
 
     @Unique
@@ -55,6 +58,8 @@ public abstract class BeltBlockEntityMixin extends KineticBlockEntity implements
         )
     )
     private void beltInventoryTickWrapper(BeltInventory instance, Operation<Void> original) {
+        if (caa$stopWhenChanged > 0)
+            caa$stopWhenChanged--;
         caa$markDirty = false;
         original.call(instance);
         if (caa$markDirty && AllConfig.belt_fix) {
@@ -76,12 +81,16 @@ public abstract class BeltBlockEntityMixin extends KineticBlockEntity implements
 
     @Override
     public float getSpeed() {
-        int value = caa$targetSpeed == null ? 0 : caa$targetSpeed.getValue();
+        int value = caa$stopWhenChanged != 0 || caa$targetSpeed == null || !AllConfig.easy_belt ? 0 :
+            caa$targetSpeed.getValue();
         return value == 0 ? super.getSpeed() : value;
     }
 
     @Override
     public void updateFromNetwork(float maxStress, float currentStress, int networkSize) {
+        // 传送带应力网络变化时，可能说明上方加工机器也受影响
+        // 普通机器在变化期间会暂停，因此传送带也应该暂停而避免放行加工物品
+        caa$stopWhenChanged = 2;
         networkDirty = false;
         this.capacity = maxStress;
         this.stress = currentStress;
@@ -109,6 +118,7 @@ public abstract class BeltBlockEntityMixin extends KineticBlockEntity implements
 
     @Override
     public void removeSource() {
+        caa$stopWhenChanged = 2;
         float prevSpeed = super.getSpeed();
 
         speed = 0;
