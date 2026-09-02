@@ -9,6 +9,8 @@ import com.simibubi.create.content.fluids.FluidTransportBehaviour;
 import com.simibubi.create.content.fluids.PipeConnection;
 import com.simibubi.create.content.fluids.pipes.FluidPipeBlockEntity;
 import com.simibubi.create.content.fluids.pipes.StraightPipeBlockEntity;
+import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import net.apertyotis.createwheelsuponchairs.AllConfig;
 import net.apertyotis.createwheelsuponchairs.foundation.FluidTransportBehaviourEx;
 import net.minecraft.core.BlockPos;
@@ -16,7 +18,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,7 +31,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Mixin(value = FluidTransportBehaviour.class, remap = false)
-public abstract class FluidTransportBehaviourMixin implements FluidTransportBehaviourEx {
+public abstract class FluidTransportBehaviourMixin extends BlockEntityBehaviour implements FluidTransportBehaviourEx {
     @Unique
     private BlockPos caa$filterPos;
 
@@ -43,11 +44,14 @@ public abstract class FluidTransportBehaviourMixin implements FluidTransportBeha
     @Unique
     private boolean caa$noSource = false;
 
+    public FluidTransportBehaviourMixin(SmartBlockEntity be) {
+        super(be);
+    }
+
     @Unique
     @Override
     public void caa$attachFilterPos(BlockPos pos) {
-        BlockEntity be = ((FluidTransportBehaviour)(Object) this).blockEntity;
-        if (be instanceof FluidPipeBlockEntity || be instanceof StraightPipeBlockEntity) {
+        if (blockEntity instanceof FluidPipeBlockEntity || blockEntity instanceof StraightPipeBlockEntity) {
             if (caa$attached) {
                 if (caa$filterPos != null && !caa$filterPos.equals(pos))
                     caa$filterPos = null;
@@ -84,8 +88,7 @@ public abstract class FluidTransportBehaviourMixin implements FluidTransportBeha
     ) {
         if (!AllConfig.smart_fluid_pipe)
             return;
-        BlockEntity be = ((FluidTransportBehaviour)(Object) this).blockEntity;
-        Level level = be.getLevel();
+        Level level = blockEntity.getLevel();
         if (cir.getReturnValue() && caa$filterPos != null && level != null) {
             FluidTransportBehaviour pipeBehaviour = FluidPropagator.getPipe(level, caa$filterPos);
             if (pipeBehaviour != null)
@@ -110,10 +113,10 @@ public abstract class FluidTransportBehaviourMixin implements FluidTransportBeha
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
     private void updateWhenBorderChunkReload(CallbackInfo ci) {
         if (caa$needUpdate) {
-            BlockEntity be = ((FluidTransportBehaviour)(Object) this).blockEntity;
-            if (be.getLevel() == null)
+            if (blockEntity.getLevel() == null)
                 return;
-            FluidPropagator.propagateChangedPipe(be.getLevel(), be.getBlockPos(), be.getBlockState());
+            FluidPropagator.propagateChangedPipe(
+                blockEntity.getLevel(), blockEntity.getBlockPos(), blockEntity.getBlockState());
             caa$needUpdate = false;
             ci.cancel();
         }
@@ -170,5 +173,15 @@ public abstract class FluidTransportBehaviourMixin implements FluidTransportBeha
             ((PipeConnectionAccessor) connection).setFlow(Optional.empty());
         }
         caa$noSource = false;
+    }
+
+    @Override
+    public void unload() {
+        super.unload();
+        if (AllConfig.hyper_fluid_propagation && !caa$noSource) {
+            for (PipeConnection connection: ((FluidTransportBehaviour)(Object) this).interfaces.values()) {
+                connection.resetNetwork();
+            }
+        }
     }
 }
