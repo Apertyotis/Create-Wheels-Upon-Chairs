@@ -86,26 +86,24 @@ public class RadialMenu extends AbstractSimiScreen {
             ms.pushPose();
             ms.translate(-80 + offset, 0, 0);
             AllGuiTextures.TOOLBELT_SLOT.render(graphics, -12, -12);
-            ms.translate(-0.5, 0.5, 0);
-            AllIcons.I_MTD_LEFT.render(graphics, -9, -9);
-            ms.translate(0.5, -0.5, 0);
             if (hoveredX > -100 && hoveredX < -60 && hoveredY > -20 && hoveredY < 20) {
                 hoveredSlot = LEFT;
                 AllGuiTextures.TOOLBELT_SLOT_HIGHLIGHT.render(graphics, -13, -13);
             }
+            ms.translate(-0.5, 0.5, 0);
+            AllIcons.I_MTD_LEFT.render(graphics, -9, -9);
             ms.popPose();
         }
         if (page + 1 < Math.ceil(items.size() / 8f)) {
             ms.pushPose();
             ms.translate(80 - offset, 0, 0);
             AllGuiTextures.TOOLBELT_SLOT.render(graphics, -12, -12);
-            ms.translate(-0.5, 0.5, 0);
-            AllIcons.I_MTD_RIGHT.render(graphics, -9, -9);
-            ms.translate(0.5, -0.5, 0);
             if (hoveredX > 60 && hoveredX < 100 && hoveredY > -20 && hoveredY < 20) {
                 hoveredSlot = RIGHT;
                 AllGuiTextures.TOOLBELT_SLOT_HIGHLIGHT.render(graphics, -13, -13);
             }
+            ms.translate(-0.5, 0.5, 0);
+            AllIcons.I_MTD_RIGHT.render(graphics, -9, -9);
             ms.popPose();
         }
 
