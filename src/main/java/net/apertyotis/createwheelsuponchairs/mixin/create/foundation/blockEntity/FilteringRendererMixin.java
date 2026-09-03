@@ -2,7 +2,10 @@ package net.apertyotis.createwheelsuponchairs.mixin.create.foundation.blockEntit
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.simibubi.create.content.logistics.factoryBoard.FactoryPanelBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueSettingsClient;
+import com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -21,9 +24,11 @@ public abstract class FilteringRendererMixin {
         )
     )
     private static void addEasyFilteringTooltip(
-        ValueSettingsClient instance, List<MutableComponent> tip, Operation<Void> original
-    ) {
-        tip.add(Component.translatable("cwuc.easy_filter.hold_to_open"));
+        ValueSettingsClient instance, List<MutableComponent> tip, Operation<Void> original,
+        @Local(name = "behaviour") FilteringBehaviour behaviour
+        ) {
+        if (!(behaviour instanceof FactoryPanelBehaviour))
+            tip.add(Component.translatable("cwuc.easy_filter.hold_to_open"));
         original.call(instance, tip);
     }
 }
