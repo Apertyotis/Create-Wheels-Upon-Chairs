@@ -8,7 +8,7 @@ import net.apertyotis.createwheelsuponchairs.content.belt.BeltBlockEntityEx;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(value = RotatingInstance.class, remap = false)
+@Mixin(RotatingInstance.class)
 public abstract class RotatingInstanceMixin {
     @WrapOperation(
         method = "setup(Lcom/simibubi/create/content/kinetics/base/KineticBlockEntity;)Lcom/simibubi/create/content/kinetics/base/RotatingInstance;",

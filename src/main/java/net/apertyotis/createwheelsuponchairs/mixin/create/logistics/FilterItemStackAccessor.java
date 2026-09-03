@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(value = FilterItemStack.class, remap = false)
+@Mixin(FilterItemStack.class)
 public interface FilterItemStackAccessor {
     @Accessor("filterFluidStack")
     FluidStack getFilterFluidStack();

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 import java.util.Optional;
 
 @SuppressWarnings("UnusedReturnValue")
-@Mixin(value = PipeConnection.class, remap = false)
+@Mixin(PipeConnection.class)
 public interface PipeConnectionAccessor {
     @Accessor("source")
     Optional<FlowSource> getSource();

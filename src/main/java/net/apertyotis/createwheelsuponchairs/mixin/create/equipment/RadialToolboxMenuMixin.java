@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = RadialToolboxMenu.class, remap = false)
+@Mixin(RadialToolboxMenu.class)
 public abstract class RadialToolboxMenuMixin {
     @Expression("? / 10.0")
     @ModifyExpressionValue(method = "renderWindow", at = @At("MIXINEXTRAS:EXPRESSION"))
@@ -26,8 +26,7 @@ public abstract class RadialToolboxMenuMixin {
         at = @At(
             value = "INVOKE",
             target = "Lcom/simibubi/create/content/equipment/toolbox/RadialToolboxMenu;onClose()V"
-        ),
-        remap = true
+        )
     )
     private void onKeyReleased(int code, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
         BetterToolboxHandlerClient handler = BetterToolboxHandlerClient.BETTER_TOOLBOX_HANDLER_CLIENT;

@@ -5,7 +5,7 @@ import net.createmod.catnip.math.BlockFace;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(value = FlowSource.class, remap = false)
+@Mixin(FlowSource.class)
 public interface FlowSourceAccessor {
     @Accessor("location")
     BlockFace getLocation();

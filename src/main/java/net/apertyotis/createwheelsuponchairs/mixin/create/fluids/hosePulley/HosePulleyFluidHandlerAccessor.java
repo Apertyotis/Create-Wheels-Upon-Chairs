@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.function.Supplier;
 
-@Mixin(value = HosePulleyFluidHandler.class, remap = false)
+@Mixin(HosePulleyFluidHandler.class)
 public interface HosePulleyFluidHandlerAccessor {
     @Accessor("rootPosGetter")
     Supplier<BlockPos> getRootPosGetter();

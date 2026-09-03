@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = FluidManipulationBehaviour.class, remap = false)
+@Mixin(FluidManipulationBehaviour.class)
 public abstract class FluidManipulationBehaviourMixin extends BlockEntityBehaviour {
     @Unique
     private int caa$effectCooldown;

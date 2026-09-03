@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
-@Mixin(value = ThresholdSwitchBlockEntity.class, remap = false)
+@Mixin(ThresholdSwitchBlockEntity.class)
 public abstract class ThresholdSwitchBlockEntityMixin implements ClipboardCloneable {
     @Shadow
     private InvManipulationBehaviour observedInventory;

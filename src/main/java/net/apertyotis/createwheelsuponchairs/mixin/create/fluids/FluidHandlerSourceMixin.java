@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.Predicate;
 
-@Mixin(value = FlowSource.FluidHandler.class, remap = false)
+@Mixin(FlowSource.FluidHandler.class)
 public abstract class FluidHandlerSourceMixin extends FlowSource {
 
     @Unique

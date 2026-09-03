@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.List;
 
-@Mixin(value = FilteringRenderer.class, remap = false)
+@Mixin(FilteringRenderer.class)
 public abstract class FilteringRendererMixin {
     @WrapOperation(
         method = "tick",

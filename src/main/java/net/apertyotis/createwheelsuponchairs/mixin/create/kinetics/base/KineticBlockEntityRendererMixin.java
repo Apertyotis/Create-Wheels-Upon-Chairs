@@ -8,7 +8,7 @@ import net.apertyotis.createwheelsuponchairs.content.belt.BeltBlockEntityEx;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(value = KineticBlockEntityRenderer.class, remap = false)
+@Mixin(KineticBlockEntityRenderer.class)
 public abstract class KineticBlockEntityRendererMixin {
     @WrapOperation(
         method = "getAngleForBe",

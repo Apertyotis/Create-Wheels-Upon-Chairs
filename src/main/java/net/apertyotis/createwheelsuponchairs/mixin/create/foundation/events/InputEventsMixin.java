@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import java.util.Comparator;
 import java.util.List;
 
-@Mixin(value = InputEvents.class, remap = false)
+@Mixin(InputEvents.class)
 public abstract class InputEventsMixin {
     @WrapOperation(
         method = "onKeyInput",

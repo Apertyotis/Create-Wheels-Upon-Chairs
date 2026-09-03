@@ -9,7 +9,7 @@ import net.apertyotis.createwheelsuponchairs.content.belt.BeltBlockEntityEx;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(value = RotationPropagator.class, remap = false)
+@Mixin(RotationPropagator.class)
 public abstract class RotationPropagatorMixin {
     @WrapOperation(
         method = "propagateNewSource",
