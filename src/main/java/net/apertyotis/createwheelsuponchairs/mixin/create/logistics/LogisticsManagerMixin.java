@@ -78,7 +78,8 @@ public abstract class LogisticsManagerMixin {
         method = "findPackagersForRequest",
         at = @At(
             value = "INVOKE",
-            target = "Ljava/util/List;add(Ljava/lang/Object;)Z"
+            target = "Ljava/util/List;add(Ljava/lang/Object;)Z",
+            ordinal = 4
         )
     )
     private static void fixMetadata4(CallbackInfoReturnable<Multimap<PackagerBlockEntity, PackagingRequest>> cir) {
