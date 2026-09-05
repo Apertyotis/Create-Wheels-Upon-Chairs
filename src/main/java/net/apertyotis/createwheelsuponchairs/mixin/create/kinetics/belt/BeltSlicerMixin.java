@@ -5,7 +5,9 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.simibubi.create.content.kinetics.belt.BeltBlockEntity;
 import com.simibubi.create.content.kinetics.belt.BeltSlicer;
+import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollValueBehaviour;
 import net.apertyotis.createwheelsuponchairs.content.belt.BeltBlockEntityEx;
+import net.apertyotis.createwheelsuponchairs.content.belt.BeltScrollValueBehaviour;
 import net.minecraft.world.item.DyeColor;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,7 +30,10 @@ public abstract class BeltSlicerMixin {
         @Local(name = "controllerBE") BeltBlockEntity controllerBE
     ) {
         original.call(instance, value);
-        float targetSpeed = controllerBE.getSpeed();
-        ((BeltBlockEntityEx) instance).caa$setTargetSpeed((int) targetSpeed);
+        ScrollValueBehaviour behaviour = controllerBE.getBehaviour(ScrollValueBehaviour.TYPE);
+        if (behaviour instanceof BeltScrollValueBehaviour) {
+            float targetSpeed = behaviour.getValue();
+            ((BeltBlockEntityEx) instance).caa$setTargetSpeed((int) targetSpeed);
+        }
     }
 }
