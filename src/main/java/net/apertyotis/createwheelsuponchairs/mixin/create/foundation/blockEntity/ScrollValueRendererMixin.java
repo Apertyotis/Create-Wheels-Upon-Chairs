@@ -10,11 +10,11 @@ import net.apertyotis.createwheelsuponchairs.content.belt.BeltScrollValueBehavio
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(ScrollValueRenderer.class)
+@Mixin(value = ScrollValueRenderer.class, priority = 2000)
 public abstract class ScrollValueRendererMixin {
     @Definition(id = "ctrlDown", method = "Lcom/simibubi/create/AllKeys;ctrlDown()Z")
     @Expression("ctrlDown()")
-    @ModifyExpressionValue(method = "tick", at = @At("MIXINEXTRAS:EXPRESSION"))
+    @ModifyExpressionValue(method = "tick", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 0))
     private static boolean ctrlDownForBelt(boolean original, @Local(name = "behaviour") ScrollValueBehaviour behaviour) {
         return original || behaviour instanceof BeltScrollValueBehaviour;
     }
