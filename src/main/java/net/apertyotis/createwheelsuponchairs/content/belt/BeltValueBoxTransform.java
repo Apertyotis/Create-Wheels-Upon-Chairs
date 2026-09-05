@@ -8,6 +8,7 @@ import com.simibubi.create.content.kinetics.belt.BeltSlope;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import net.createmod.catnip.math.AngleHelper;
 import net.createmod.catnip.math.VecHelper;
+import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,7 +19,10 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import org.apache.commons.lang3.mutable.Mutable;
+import org.apache.commons.lang3.mutable.MutableObject;
 
 public class BeltValueBoxTransform extends ValueBoxTransform.Sided {
 
@@ -70,7 +74,7 @@ public class BeltValueBoxTransform extends ValueBoxTransform.Sided {
             switch (slope) {
                 case HORIZONTAL -> {
                     TransformStack.of(ms).rotateYDegrees(180).rotateXDegrees(90);
-                    Player player = Minecraft.getInstance().player;
+                    Player player = getLocalPlayerSafe();
                     if (player != null) {
                         float zRot = switch (player.getDirection()) {
                             case SOUTH -> 180;
@@ -113,7 +117,7 @@ public class BeltValueBoxTransform extends ValueBoxTransform.Sided {
                 case HORIZONTAL, UPWARD, DOWNWARD -> {
                     if (direction == Direction.UP)
                         return true;
-                    else if (Minecraft.getInstance().hitResult instanceof BlockHitResult hit) {
+                    else if (getHitResultSafe() instanceof BlockHitResult hit) {
                         return hit.getLocation().y - hit.getBlockPos().getY() >= 10 / 16f;
                     } else {
                         return false;
@@ -133,5 +137,19 @@ public class BeltValueBoxTransform extends ValueBoxTransform.Sided {
     @Override
     protected Vec3 getSouthLocation() {
         return Vec3.ZERO;
+    }
+
+    private static Player getLocalPlayerSafe() {
+        Mutable<Player> localPlayer = new MutableObject<>();
+        CatnipServices.PLATFORM.executeOnClientOnly(() -> () ->
+            localPlayer.setValue(Minecraft.getInstance().player));
+        return localPlayer.getValue();
+    }
+
+    private static HitResult getHitResultSafe() {
+        Mutable<HitResult> hitResult = new MutableObject<>();
+        CatnipServices.PLATFORM.executeOnClientOnly(() -> () ->
+            hitResult.setValue(Minecraft.getInstance().hitResult));
+        return hitResult.getValue();
     }
 }
