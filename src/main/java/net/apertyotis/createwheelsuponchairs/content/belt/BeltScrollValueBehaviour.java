@@ -22,7 +22,6 @@ import net.neoforged.api.distmarker.OnlyIn;
 import java.util.List;
 
 public class BeltScrollValueBehaviour extends BulkScrollValueBehaviour {
-
     public BeltScrollValueBehaviour(Component label, SmartBlockEntity sbe, ValueBoxTransform slot) {
         super(label, sbe, slot, be -> {
             Level level = be.getLevel();
