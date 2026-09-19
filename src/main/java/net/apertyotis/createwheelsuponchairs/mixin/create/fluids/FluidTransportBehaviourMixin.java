@@ -2,6 +2,8 @@ package net.apertyotis.createwheelsuponchairs.mixin.create.fluids;
 
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Cancellable;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.simibubi.create.content.fluids.FlowSource;
 import com.simibubi.create.content.fluids.FluidPropagator;
@@ -121,18 +123,18 @@ public abstract class FluidTransportBehaviourMixin implements FluidTransportBeha
 
     @Definition(id = "onServer", local = @Local(type = boolean.class, name = "onServer"))
     @Expression("onServer")
-    @Inject(method = "tick", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 1), cancellable = true)
-    private void tickConnections(CallbackInfo ci) {
+    @ModifyExpressionValue(method = "tick", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 1))
+    private boolean tickConnections(boolean original, @Cancellable CallbackInfo ci) {
         if (!AllConfig.hyper_fluid_propagation)
-            return;
+            return original;
         ci.cancel();
-        if (caa$noSource)
-            return;
+        if (!original || caa$noSource)
+            return original;
         // 只 tick 网络源，液流动画传播逻辑移动到流体网络遍历时完成
         FluidTransportBehaviour behaviour = (FluidTransportBehaviour)(Object) this;
         Level world = behaviour.getWorld();
         if (world == null)
-            return;
+            return original;
         Collection<PipeConnection> connections = behaviour.interfaces.values();
         boolean changed = false;
         // 缓存管道是否位于源的信息
@@ -159,6 +161,7 @@ public abstract class FluidTransportBehaviourMixin implements FluidTransportBeha
         caa$noSource = noSource;
         if (changed)
             behaviour.blockEntity.notifyUpdate();
+        return original;
     }
 
     // 网络变化同时清空液流
