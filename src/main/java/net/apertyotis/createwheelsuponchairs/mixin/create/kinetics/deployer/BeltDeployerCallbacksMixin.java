@@ -32,7 +32,8 @@ public abstract class BeltDeployerCallbacksMixin {
         TransportedItemStack s, TransportedItemStackHandlerBehaviour i, DeployerBlockEntity blockEntity,
         CallbackInfoReturnable<BeltProcessingBehaviour.ProcessingResult> cir
     ) {
-        if (s.stack.isEmpty() && AllConfig.belt_processing_tweak)
+        // 置物台加工后，transported 变量不再是置物台主物品的最新引用，不应处理
+        if (s.stack.isEmpty() && AllConfig.belt_processing_tweak && i.blockEntity instanceof BeltBlockEntity)
             cir.setReturnValue(BeltProcessingBehaviour.ProcessingResult.REMOVE);
     }
 

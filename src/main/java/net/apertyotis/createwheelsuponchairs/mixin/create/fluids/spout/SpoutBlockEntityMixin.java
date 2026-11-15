@@ -60,7 +60,9 @@ public abstract class SpoutBlockEntityMixin {
         TransportedItemStack transported, TransportedItemStackHandlerBehaviour handler,
         CallbackInfoReturnable<BeltProcessingBehaviour.ProcessingResult> cir
     ) {
-        if (AllConfig.belt_processing_tweak && transported.stack.isEmpty())
+        // 置物台加工后，transported 变量不再是置物台主物品的最新引用，不应处理
+        if (AllConfig.belt_processing_tweak && transported.stack.isEmpty() &&
+            handler.blockEntity instanceof BeltBlockEntity)
             cir.setReturnValue(BeltProcessingBehaviour.ProcessingResult.REMOVE);
     }
 }
