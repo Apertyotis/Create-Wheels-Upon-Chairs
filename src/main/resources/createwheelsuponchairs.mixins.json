@@ -61,6 +61,8 @@
     "create.processing.basin.BasinBlockEntityMixin",
     "create.processing.basin.BasinOperatingBlockEntityMixin",
     "create.processing.basin.BasinRecipeMixin",
+    "create.processing.burner.BlazeBurnerBlockEntityMixin",
+    "create.processing.burner.BlazeBurnerBlockMixin",
     "create.processing.sequenced.SequencedAssemblyRecipeMixin",
     "create.redstone.thresholdSwitch.ConfigureThresholdSwitchPacketMixin",
     "create.redstone.thresholdSwitch.SophisticatedStorageMixin",

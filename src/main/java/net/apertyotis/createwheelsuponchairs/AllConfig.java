@@ -46,6 +46,7 @@ public class AllConfig {
         public final ForgeConfigSpec.IntValue PUMP_SPEED_MULTIPLIER;
         public final ForgeConfigSpec.BooleanValue HYPER_FLUID_PROPAGATION;
         public final ForgeConfigSpec.BooleanValue FLUID_NOT_COLLIDE;
+        public final ForgeConfigSpec.BooleanValue VOID_BURNING;
 
         public final ForgeConfigSpec.BooleanValue PSI_FIX;
         public final ForgeConfigSpec.BooleanValue BACKTANK_FIX;
@@ -145,6 +146,9 @@ public class AllConfig {
                 .comment("However Improper pipe layouts may cause deadlocks.")
                 .comment("(Requires Hyper Fluid Propagation to be enabled)")
                 .define("fluid_not_collide", false);
+            VOID_BURNING = builder
+                .comment("Blaze Burner will use the Void as fuel.")
+                .define("void_burning", true);
             builder.pop();
 
             builder.comment("Bugfix").push("bugfix");
@@ -238,6 +242,7 @@ public class AllConfig {
     public static int pump_speed_multiplier;
     public static boolean hyper_fluid_propagation;
     public static boolean fluid_not_collide;
+    public static boolean void_burning;
 
     public static boolean psi_fix;
     public static boolean backtank_fix;
@@ -277,6 +282,7 @@ public class AllConfig {
         pump_speed_multiplier = COMMON.PUMP_SPEED_MULTIPLIER.get();
         hyper_fluid_propagation = COMMON.HYPER_FLUID_PROPAGATION.get();
         fluid_not_collide = COMMON.FLUID_NOT_COLLIDE.get();
+        void_burning = COMMON.VOID_BURNING.get();
 
         psi_fix = COMMON.PSI_FIX.get();
         backtank_fix = COMMON.BACKTANK_FIX.get();
