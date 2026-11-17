@@ -42,6 +42,7 @@ public class AllConfig {
         public final ModConfigSpec.IntValue PUMP_SPEED_MULTIPLIER;
         public final ModConfigSpec.BooleanValue HYPER_FLUID_PROPAGATION;
         public final ModConfigSpec.BooleanValue FLUID_NOT_COLLIDE;
+        public final ModConfigSpec.BooleanValue VOID_BURNING;
 
         public final ModConfigSpec.BooleanValue HOSE_PULLEY_FIX;
         public final ModConfigSpec.BooleanValue MILLSTONE_FIX;
@@ -131,6 +132,9 @@ public class AllConfig {
                 .comment("However Improper pipe layouts may cause deadlocks.")
                 .comment("(Requires Hyper Fluid Propagation to be enabled)")
                 .define("fluid_not_collide", false);
+            VOID_BURNING = builder
+                .comment("Blaze Burner will use the Void as fuel.")
+                .define("void_burning", true);
             builder.pop();
 
             builder.comment("Bugfix").push("bugfix");
@@ -218,6 +222,7 @@ public class AllConfig {
     public static int pump_speed_multiplier;
     public static boolean hyper_fluid_propagation;
     public static boolean fluid_not_collide;
+    public static boolean void_burning;
 
     public static boolean hose_pulley_fix;
     public static boolean millstone_fix;
@@ -254,6 +259,7 @@ public class AllConfig {
         pump_speed_multiplier = COMMON.PUMP_SPEED_MULTIPLIER.get();
         hyper_fluid_propagation = COMMON.HYPER_FLUID_PROPAGATION.get();
         fluid_not_collide = COMMON.FLUID_NOT_COLLIDE.get();
+        void_burning = COMMON.VOID_BURNING.get();
 
         hose_pulley_fix = COMMON.HOSE_PULLEY_FIX.get();
         millstone_fix = COMMON.MILLSTONE_FIX.get();

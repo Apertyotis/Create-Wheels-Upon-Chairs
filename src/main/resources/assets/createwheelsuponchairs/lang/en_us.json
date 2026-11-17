@@ -58,6 +58,8 @@
   "cwuc.config.common.fluid_not_collide.2": "Instead, fluids will queue and wait for the path ahead to become available.",
   "cwuc.config.common.fluid_not_collide.3": "However Improper pipe layouts may cause deadlocks.",
   "cwuc.config.common.fluid_not_collide.4": "(Requires Hyper Fluid Propagation to be enabled)",
+  "cwuc.config.common.void_burning": "Void Burning",
+  "cwuc.config.common.void_burning.1": "Blaze Burner will use the Void as fuel.",
 
   "cwuc.config.common.bugfix.title": "Bugfix",
   "cwuc.config.bugfix.hose_pulley_fix": "Hose Pulley Fix",

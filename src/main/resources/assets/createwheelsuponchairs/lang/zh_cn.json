@@ -58,6 +58,8 @@
   "cwuc.config.common.fluid_not_collide.2": "注意，不存在类似火车信号机和全局导航系统的机制。",
   "cwuc.config.common.fluid_not_collide.3": "因此不恰当的管道布局仍会导致死锁。",
   "cwuc.config.common.fluid_not_collide.4": "（需要启用超流体网络）",
+  "cwuc.config.common.void_burning": "虚空燃料",
+  "cwuc.config.common.void_burning.1": "烈焰人燃烧室可以利用虚空作为燃料。",
 
   "cwuc.config.common.bugfix.title": "修复",
   "cwuc.config.bugfix.hose_pulley_fix": "软管滑轮修复",
