@@ -47,6 +47,8 @@ public class AllConfig {
         public final ForgeConfigSpec.BooleanValue HYPER_FLUID_PROPAGATION;
         public final ForgeConfigSpec.BooleanValue FLUID_NOT_COLLIDE;
         public final ForgeConfigSpec.BooleanValue VOID_BURNING;
+        public final ForgeConfigSpec.IntValue FAN_PASSIVE_GENERATION;
+        public final ForgeConfigSpec.IntValue FAN_ACTIVE_GENERATION;
 
         public final ForgeConfigSpec.BooleanValue PSI_FIX;
         public final ForgeConfigSpec.BooleanValue BACKTANK_FIX;
@@ -149,6 +151,12 @@ public class AllConfig {
             VOID_BURNING = builder
                 .comment("Blaze Burner will use the Void as fuel.")
                 .define("void_burning", true);
+            FAN_PASSIVE_GENERATION = builder
+                .comment("A downward Encased Fan upon any Boiler Heater will provide stress capacity.")
+                .defineInRange("fan_passive_generation", 2048, 0, Integer.MAX_VALUE);
+            FAN_ACTIVE_GENERATION = builder
+                .comment("A downward Encased Fan upon any Boiler Heater will provide stress capacity.")
+                .defineInRange("fan_active_generation", 2048, 0, Integer.MAX_VALUE);
             builder.pop();
 
             builder.comment("Bugfix").push("bugfix");
@@ -243,6 +251,8 @@ public class AllConfig {
     public static boolean hyper_fluid_propagation;
     public static boolean fluid_not_collide;
     public static boolean void_burning;
+    public static int fan_passive_generation;
+    public static int fan_active_generation;
 
     public static boolean psi_fix;
     public static boolean backtank_fix;
@@ -283,6 +293,8 @@ public class AllConfig {
         hyper_fluid_propagation = COMMON.HYPER_FLUID_PROPAGATION.get();
         fluid_not_collide = COMMON.FLUID_NOT_COLLIDE.get();
         void_burning = COMMON.VOID_BURNING.get();
+        fan_passive_generation = COMMON.FAN_PASSIVE_GENERATION.get();
+        fan_active_generation = COMMON.FAN_ACTIVE_GENERATION.get();
 
         psi_fix = COMMON.PSI_FIX.get();
         backtank_fix = COMMON.BACKTANK_FIX.get();

@@ -84,6 +84,10 @@
   "cwuc.config.common.fluid_not_collide.4": "(Requires Hyper Fluid Propagation to be enabled)",
   "cwuc.config.common.void_burning": "Void Burning",
   "cwuc.config.common.void_burning.1": "Blaze Burner will use the Void as fuel.",
+  "cwuc.config.common.fan_passive_generation": "Fan Passive Generation",
+  "cwuc.config.common.fan_passive_generation.1": "A downward Encased Fan upon any Boiler Heater will provide stress capacity.",
+  "cwuc.config.common.fan_active_generation": "Fan Active Generation",
+  "cwuc.config.common.fan_active_generation.1": "A downward Encased Fan upon any Boiler Heater will provide stress capacity.",
 
   "cwuc.config.common.bugfix.title": "Bugfix",
   "cwuc.config.bugfix.psi_fix": "PSI Fix",

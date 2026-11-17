@@ -84,6 +84,10 @@
   "cwuc.config.common.fluid_not_collide.4": "（需要启用超流体网络）",
   "cwuc.config.common.void_burning": "虚空燃料",
   "cwuc.config.common.void_burning.1": "烈焰人燃烧室可以利用虚空作为燃料。",
+  "cwuc.config.common.fan_passive_generation": "鼓风机被动加热应力",
+  "cwuc.config.common.fan_passive_generation.1": "位于锅炉热源上方的朝下鼓风机可以产生应力。",
+  "cwuc.config.common.fan_active_generation": "鼓风机主动加热应力",
+  "cwuc.config.common.fan_active_generation.1": "位于锅炉热源上方的朝下鼓风机可以产生应力。",
 
   "cwuc.config.common.bugfix.title": "修复",
   "cwuc.config.bugfix.psi_fix": "移动存储接口修复",

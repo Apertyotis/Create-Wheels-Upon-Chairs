@@ -53,6 +53,8 @@
     "create.kinetics.belt.BeltTunnelInteractionHandlerMixin",
     "create.kinetics.deployer.BeltDeployerCallbacksMixin",
     "create.kinetics.deployer.DeployerBlockEntityMixin",
+    "create.kinetics.fan.AirCurrentMixin",
+    "create.kinetics.fan.EncasedFanBlockEntityMixin",
     "create.kinetics.press.BeltPressingCallbacksMixin",
     "create.logistics.ChuteBlockEntityMixin",
     "create.logistics.DepotBehaviourMixin",
