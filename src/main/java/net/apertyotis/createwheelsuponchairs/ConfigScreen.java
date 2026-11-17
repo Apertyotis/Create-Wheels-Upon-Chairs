@@ -43,6 +43,8 @@ public class ConfigScreen {
         qol.addEntry(booleanEntry(entryBuilder, COMMON.QUICK_UNEQUIP_ITEMS));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.CLIPBOARD_CLONEABLE_SWITCH));
         qol.addEntry(booleanEntry(entryBuilder, COMMON.VOID_BURNING));
+        qol.addEntry(intEntry(entryBuilder, COMMON.FAN_PASSIVE_GENERATION, 0, Integer.MAX_VALUE));
+        qol.addEntry(intEntry(entryBuilder, COMMON.FAN_ACTIVE_GENERATION, 0, Integer.MAX_VALUE));
 
         ConfigCategory bugfix = builder.getOrCreateCategory(Component.translatable("cwuc.config.common.bugfix.title"));
         bugfix.addEntry(booleanEntry(entryBuilder, COMMON.HOSE_PULLEY_FIX));
